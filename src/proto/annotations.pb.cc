@@ -39,24 +39,24 @@ static constexpr ::google::protobuf::Message* const* file_default_instances = nu
 
 const char descriptor_table_protodef_annotations_2eproto[] =
   "\n\021annotations.proto\022\ngoogle.api\032\nhttp.pr"
-  "oto\032\020descriptor.proto:E\n\004http\022\036.google.p"
-  "rotobuf.MethodOptions\030\260\312\274\" \001(\0132\024.google."
-  "api.HttpRuleBn\n\016com.google.apiB\020Annotati"
-  "onsProtoP\001ZAgoogle.golang.org/genproto/g"
-  "oogleapis/api/annotations;annotations\242\002\004"
-  "GAPIb\006proto3"
+  "oto\032 google/protobuf/descriptor.proto:E\n"
+  "\004http\022\036.google.protobuf.MethodOptions\030\260\312"
+  "\274\" \001(\0132\024.google.api.HttpRuleBn\n\016com.goog"
+  "le.apiB\020AnnotationsProtoP\001ZAgoogle.golan"
+  "g.org/genproto/googleapis/api/annotation"
+  "s;annotations\242\002\004GAPIb\006proto3"
   ;
 ::google::protobuf::internal::DescriptorTable descriptor_table_annotations_2eproto = {
   false, InitDefaults_annotations_2eproto, 
   descriptor_table_protodef_annotations_2eproto,
-  "annotations.proto", &assign_descriptors_table_annotations_2eproto, 252,
+  "annotations.proto", &assign_descriptors_table_annotations_2eproto, 268,
 };
 
 void AddDescriptors_annotations_2eproto() {
   static constexpr ::google::protobuf::internal::InitFunc deps[2] =
   {
     ::AddDescriptors_http_2eproto,
-    ::AddDescriptors_descriptor_2eproto,
+    ::AddDescriptors_google_2fprotobuf_2fdescriptor_2eproto,
   };
  ::google::protobuf::internal::AddDescriptors(&descriptor_table_annotations_2eproto, deps, 2);
 }

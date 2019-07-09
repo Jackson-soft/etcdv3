@@ -3,8 +3,8 @@
 #include <memory>
 #include <string_view>
 
-#include "../proto/etcdserver.pb.h"
-#include "../proto/rpc.grpc.pb.h"
+#include "proto/etcdserver.pb.h"
+#include "proto/rpc.grpc.pb.h"
 #include "Operation.hpp"
 
 class KVClient
