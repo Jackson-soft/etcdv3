@@ -20,10 +20,20 @@
 #include <grpcpp/impl/codegen/stub_options.h>
 #include <grpcpp/impl/codegen/sync_stream.h>
 
-namespace grpc {
-class CompletionQueue;
+namespace grpc_impl {
 class Channel;
+class CompletionQueue;
 class ServerCompletionQueue;
+}  // namespace grpc_impl
+
+namespace grpc {
+namespace experimental {
+template <typename RequestT, typename ResponseT>
+class MessageAllocator;
+}  // namespace experimental
+}  // namespace grpc_impl
+
+namespace grpc {
 class ServerContext;
 }  // namespace grpc
 
@@ -91,23 +101,38 @@ class KV final {
       virtual ~experimental_async_interface() {}
       // Range gets the keys in the range from the key-value store.
       virtual void Range(::grpc::ClientContext* context, const ::etcdserverpb::RangeRequest* request, ::etcdserverpb::RangeResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void Range(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::RangeResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void Range(::grpc::ClientContext* context, const ::etcdserverpb::RangeRequest* request, ::etcdserverpb::RangeResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void Range(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::RangeResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       // Put puts the given key into the key-value store.
       // A put request increments the revision of the key-value store
       // and generates one event in the event history.
       virtual void Put(::grpc::ClientContext* context, const ::etcdserverpb::PutRequest* request, ::etcdserverpb::PutResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void Put(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::PutResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void Put(::grpc::ClientContext* context, const ::etcdserverpb::PutRequest* request, ::etcdserverpb::PutResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void Put(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::PutResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       // DeleteRange deletes the given range from the key-value store.
       // A delete request increments the revision of the key-value store
       // and generates a delete event in the event history for every deleted key.
       virtual void DeleteRange(::grpc::ClientContext* context, const ::etcdserverpb::DeleteRangeRequest* request, ::etcdserverpb::DeleteRangeResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void DeleteRange(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::DeleteRangeResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void DeleteRange(::grpc::ClientContext* context, const ::etcdserverpb::DeleteRangeRequest* request, ::etcdserverpb::DeleteRangeResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void DeleteRange(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::DeleteRangeResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       // Txn processes multiple requests in a single transaction.
       // A txn request increments the revision of the key-value store
       // and generates events with the same revision for every completed request.
       // It is not allowed to modify the same key several times within one txn.
       virtual void Txn(::grpc::ClientContext* context, const ::etcdserverpb::TxnRequest* request, ::etcdserverpb::TxnResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void Txn(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::TxnResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void Txn(::grpc::ClientContext* context, const ::etcdserverpb::TxnRequest* request, ::etcdserverpb::TxnResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void Txn(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::TxnResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       // Compact compacts the event history in the etcd key-value store. The key-value
       // store should be periodically compacted or the event history will continue to grow
       // indefinitely.
       virtual void Compact(::grpc::ClientContext* context, const ::etcdserverpb::CompactionRequest* request, ::etcdserverpb::CompactionResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void Compact(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::CompactionResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void Compact(::grpc::ClientContext* context, const ::etcdserverpb::CompactionRequest* request, ::etcdserverpb::CompactionResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void Compact(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::CompactionResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
     };
     virtual class experimental_async_interface* experimental_async() { return nullptr; }
   private:
@@ -164,10 +189,25 @@ class KV final {
       public StubInterface::experimental_async_interface {
      public:
       void Range(::grpc::ClientContext* context, const ::etcdserverpb::RangeRequest* request, ::etcdserverpb::RangeResponse* response, std::function<void(::grpc::Status)>) override;
+      void Range(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::RangeResponse* response, std::function<void(::grpc::Status)>) override;
+      void Range(::grpc::ClientContext* context, const ::etcdserverpb::RangeRequest* request, ::etcdserverpb::RangeResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void Range(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::RangeResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       void Put(::grpc::ClientContext* context, const ::etcdserverpb::PutRequest* request, ::etcdserverpb::PutResponse* response, std::function<void(::grpc::Status)>) override;
+      void Put(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::PutResponse* response, std::function<void(::grpc::Status)>) override;
+      void Put(::grpc::ClientContext* context, const ::etcdserverpb::PutRequest* request, ::etcdserverpb::PutResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void Put(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::PutResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       void DeleteRange(::grpc::ClientContext* context, const ::etcdserverpb::DeleteRangeRequest* request, ::etcdserverpb::DeleteRangeResponse* response, std::function<void(::grpc::Status)>) override;
+      void DeleteRange(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::DeleteRangeResponse* response, std::function<void(::grpc::Status)>) override;
+      void DeleteRange(::grpc::ClientContext* context, const ::etcdserverpb::DeleteRangeRequest* request, ::etcdserverpb::DeleteRangeResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void DeleteRange(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::DeleteRangeResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       void Txn(::grpc::ClientContext* context, const ::etcdserverpb::TxnRequest* request, ::etcdserverpb::TxnResponse* response, std::function<void(::grpc::Status)>) override;
+      void Txn(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::TxnResponse* response, std::function<void(::grpc::Status)>) override;
+      void Txn(::grpc::ClientContext* context, const ::etcdserverpb::TxnRequest* request, ::etcdserverpb::TxnResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void Txn(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::TxnResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       void Compact(::grpc::ClientContext* context, const ::etcdserverpb::CompactionRequest* request, ::etcdserverpb::CompactionResponse* response, std::function<void(::grpc::Status)>) override;
+      void Compact(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::CompactionResponse* response, std::function<void(::grpc::Status)>) override;
+      void Compact(::grpc::ClientContext* context, const ::etcdserverpb::CompactionRequest* request, ::etcdserverpb::CompactionResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void Compact(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::CompactionResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
       explicit experimental_async(Stub* stub): stub_(stub) { }
@@ -337,6 +377,12 @@ class KV final {
                    return this->Range(context, request, response, controller);
                  }));
     }
+    void SetMessageAllocatorFor_Range(
+        ::grpc::experimental::MessageAllocator< ::etcdserverpb::RangeRequest, ::etcdserverpb::RangeResponse>* allocator) {
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::RangeRequest, ::etcdserverpb::RangeResponse>*>(
+          ::grpc::Service::experimental().GetHandler(0))
+              ->SetMessageAllocator(allocator);
+    }
     ~ExperimentalWithCallbackMethod_Range() override {
       BaseClassMustBeDerivedFromService(this);
     }
@@ -361,6 +407,12 @@ class KV final {
                  ::grpc::experimental::ServerCallbackRpcController* controller) {
                    return this->Put(context, request, response, controller);
                  }));
+    }
+    void SetMessageAllocatorFor_Put(
+        ::grpc::experimental::MessageAllocator< ::etcdserverpb::PutRequest, ::etcdserverpb::PutResponse>* allocator) {
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::PutRequest, ::etcdserverpb::PutResponse>*>(
+          ::grpc::Service::experimental().GetHandler(1))
+              ->SetMessageAllocator(allocator);
     }
     ~ExperimentalWithCallbackMethod_Put() override {
       BaseClassMustBeDerivedFromService(this);
@@ -387,6 +439,12 @@ class KV final {
                    return this->DeleteRange(context, request, response, controller);
                  }));
     }
+    void SetMessageAllocatorFor_DeleteRange(
+        ::grpc::experimental::MessageAllocator< ::etcdserverpb::DeleteRangeRequest, ::etcdserverpb::DeleteRangeResponse>* allocator) {
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::DeleteRangeRequest, ::etcdserverpb::DeleteRangeResponse>*>(
+          ::grpc::Service::experimental().GetHandler(2))
+              ->SetMessageAllocator(allocator);
+    }
     ~ExperimentalWithCallbackMethod_DeleteRange() override {
       BaseClassMustBeDerivedFromService(this);
     }
@@ -412,6 +470,12 @@ class KV final {
                    return this->Txn(context, request, response, controller);
                  }));
     }
+    void SetMessageAllocatorFor_Txn(
+        ::grpc::experimental::MessageAllocator< ::etcdserverpb::TxnRequest, ::etcdserverpb::TxnResponse>* allocator) {
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::TxnRequest, ::etcdserverpb::TxnResponse>*>(
+          ::grpc::Service::experimental().GetHandler(3))
+              ->SetMessageAllocator(allocator);
+    }
     ~ExperimentalWithCallbackMethod_Txn() override {
       BaseClassMustBeDerivedFromService(this);
     }
@@ -436,6 +500,12 @@ class KV final {
                  ::grpc::experimental::ServerCallbackRpcController* controller) {
                    return this->Compact(context, request, response, controller);
                  }));
+    }
+    void SetMessageAllocatorFor_Compact(
+        ::grpc::experimental::MessageAllocator< ::etcdserverpb::CompactionRequest, ::etcdserverpb::CompactionResponse>* allocator) {
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::CompactionRequest, ::etcdserverpb::CompactionResponse>*>(
+          ::grpc::Service::experimental().GetHandler(4))
+              ->SetMessageAllocator(allocator);
     }
     ~ExperimentalWithCallbackMethod_Compact() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1114,15 +1184,27 @@ class Lease final {
       // within a given time to live period. All keys attached to the lease will be expired and
       // deleted if the lease expires. Each expired key generates a delete event in the event history.
       virtual void LeaseGrant(::grpc::ClientContext* context, const ::etcdserverpb::LeaseGrantRequest* request, ::etcdserverpb::LeaseGrantResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void LeaseGrant(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::LeaseGrantResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void LeaseGrant(::grpc::ClientContext* context, const ::etcdserverpb::LeaseGrantRequest* request, ::etcdserverpb::LeaseGrantResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void LeaseGrant(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::LeaseGrantResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       // LeaseRevoke revokes a lease. All keys attached to the lease will expire and be deleted.
       virtual void LeaseRevoke(::grpc::ClientContext* context, const ::etcdserverpb::LeaseRevokeRequest* request, ::etcdserverpb::LeaseRevokeResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void LeaseRevoke(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::LeaseRevokeResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void LeaseRevoke(::grpc::ClientContext* context, const ::etcdserverpb::LeaseRevokeRequest* request, ::etcdserverpb::LeaseRevokeResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void LeaseRevoke(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::LeaseRevokeResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       // LeaseKeepAlive keeps the lease alive by streaming keep alive requests from the client
       // to the server and streaming keep alive responses from the server to the client.
       virtual void LeaseKeepAlive(::grpc::ClientContext* context, ::grpc::experimental::ClientBidiReactor< ::etcdserverpb::LeaseKeepAliveRequest,::etcdserverpb::LeaseKeepAliveResponse>* reactor) = 0;
       // LeaseTimeToLive retrieves lease information.
       virtual void LeaseTimeToLive(::grpc::ClientContext* context, const ::etcdserverpb::LeaseTimeToLiveRequest* request, ::etcdserverpb::LeaseTimeToLiveResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void LeaseTimeToLive(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::LeaseTimeToLiveResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void LeaseTimeToLive(::grpc::ClientContext* context, const ::etcdserverpb::LeaseTimeToLiveRequest* request, ::etcdserverpb::LeaseTimeToLiveResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void LeaseTimeToLive(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::LeaseTimeToLiveResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       // LeaseLeases lists all existing leases.
       virtual void LeaseLeases(::grpc::ClientContext* context, const ::etcdserverpb::LeaseLeasesRequest* request, ::etcdserverpb::LeaseLeasesResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void LeaseLeases(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::LeaseLeasesResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void LeaseLeases(::grpc::ClientContext* context, const ::etcdserverpb::LeaseLeasesRequest* request, ::etcdserverpb::LeaseLeasesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void LeaseLeases(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::LeaseLeasesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
     };
     virtual class experimental_async_interface* experimental_async() { return nullptr; }
   private:
@@ -1182,10 +1264,22 @@ class Lease final {
       public StubInterface::experimental_async_interface {
      public:
       void LeaseGrant(::grpc::ClientContext* context, const ::etcdserverpb::LeaseGrantRequest* request, ::etcdserverpb::LeaseGrantResponse* response, std::function<void(::grpc::Status)>) override;
+      void LeaseGrant(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::LeaseGrantResponse* response, std::function<void(::grpc::Status)>) override;
+      void LeaseGrant(::grpc::ClientContext* context, const ::etcdserverpb::LeaseGrantRequest* request, ::etcdserverpb::LeaseGrantResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void LeaseGrant(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::LeaseGrantResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       void LeaseRevoke(::grpc::ClientContext* context, const ::etcdserverpb::LeaseRevokeRequest* request, ::etcdserverpb::LeaseRevokeResponse* response, std::function<void(::grpc::Status)>) override;
+      void LeaseRevoke(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::LeaseRevokeResponse* response, std::function<void(::grpc::Status)>) override;
+      void LeaseRevoke(::grpc::ClientContext* context, const ::etcdserverpb::LeaseRevokeRequest* request, ::etcdserverpb::LeaseRevokeResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void LeaseRevoke(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::LeaseRevokeResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       void LeaseKeepAlive(::grpc::ClientContext* context, ::grpc::experimental::ClientBidiReactor< ::etcdserverpb::LeaseKeepAliveRequest,::etcdserverpb::LeaseKeepAliveResponse>* reactor) override;
       void LeaseTimeToLive(::grpc::ClientContext* context, const ::etcdserverpb::LeaseTimeToLiveRequest* request, ::etcdserverpb::LeaseTimeToLiveResponse* response, std::function<void(::grpc::Status)>) override;
+      void LeaseTimeToLive(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::LeaseTimeToLiveResponse* response, std::function<void(::grpc::Status)>) override;
+      void LeaseTimeToLive(::grpc::ClientContext* context, const ::etcdserverpb::LeaseTimeToLiveRequest* request, ::etcdserverpb::LeaseTimeToLiveResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void LeaseTimeToLive(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::LeaseTimeToLiveResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       void LeaseLeases(::grpc::ClientContext* context, const ::etcdserverpb::LeaseLeasesRequest* request, ::etcdserverpb::LeaseLeasesResponse* response, std::function<void(::grpc::Status)>) override;
+      void LeaseLeases(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::LeaseLeasesResponse* response, std::function<void(::grpc::Status)>) override;
+      void LeaseLeases(::grpc::ClientContext* context, const ::etcdserverpb::LeaseLeasesRequest* request, ::etcdserverpb::LeaseLeasesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void LeaseLeases(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::LeaseLeasesResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
       explicit experimental_async(Stub* stub): stub_(stub) { }
@@ -1350,6 +1444,12 @@ class Lease final {
                    return this->LeaseGrant(context, request, response, controller);
                  }));
     }
+    void SetMessageAllocatorFor_LeaseGrant(
+        ::grpc::experimental::MessageAllocator< ::etcdserverpb::LeaseGrantRequest, ::etcdserverpb::LeaseGrantResponse>* allocator) {
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::LeaseGrantRequest, ::etcdserverpb::LeaseGrantResponse>*>(
+          ::grpc::Service::experimental().GetHandler(0))
+              ->SetMessageAllocator(allocator);
+    }
     ~ExperimentalWithCallbackMethod_LeaseGrant() override {
       BaseClassMustBeDerivedFromService(this);
     }
@@ -1374,6 +1474,12 @@ class Lease final {
                  ::grpc::experimental::ServerCallbackRpcController* controller) {
                    return this->LeaseRevoke(context, request, response, controller);
                  }));
+    }
+    void SetMessageAllocatorFor_LeaseRevoke(
+        ::grpc::experimental::MessageAllocator< ::etcdserverpb::LeaseRevokeRequest, ::etcdserverpb::LeaseRevokeResponse>* allocator) {
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::LeaseRevokeRequest, ::etcdserverpb::LeaseRevokeResponse>*>(
+          ::grpc::Service::experimental().GetHandler(1))
+              ->SetMessageAllocator(allocator);
     }
     ~ExperimentalWithCallbackMethod_LeaseRevoke() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1422,6 +1528,12 @@ class Lease final {
                    return this->LeaseTimeToLive(context, request, response, controller);
                  }));
     }
+    void SetMessageAllocatorFor_LeaseTimeToLive(
+        ::grpc::experimental::MessageAllocator< ::etcdserverpb::LeaseTimeToLiveRequest, ::etcdserverpb::LeaseTimeToLiveResponse>* allocator) {
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::LeaseTimeToLiveRequest, ::etcdserverpb::LeaseTimeToLiveResponse>*>(
+          ::grpc::Service::experimental().GetHandler(3))
+              ->SetMessageAllocator(allocator);
+    }
     ~ExperimentalWithCallbackMethod_LeaseTimeToLive() override {
       BaseClassMustBeDerivedFromService(this);
     }
@@ -1446,6 +1558,12 @@ class Lease final {
                  ::grpc::experimental::ServerCallbackRpcController* controller) {
                    return this->LeaseLeases(context, request, response, controller);
                  }));
+    }
+    void SetMessageAllocatorFor_LeaseLeases(
+        ::grpc::experimental::MessageAllocator< ::etcdserverpb::LeaseLeasesRequest, ::etcdserverpb::LeaseLeasesResponse>* allocator) {
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::LeaseLeasesRequest, ::etcdserverpb::LeaseLeasesResponse>*>(
+          ::grpc::Service::experimental().GetHandler(4))
+              ->SetMessageAllocator(allocator);
     }
     ~ExperimentalWithCallbackMethod_LeaseLeases() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1895,12 +2013,24 @@ class Cluster final {
       virtual ~experimental_async_interface() {}
       // MemberAdd adds a member into the cluster.
       virtual void MemberAdd(::grpc::ClientContext* context, const ::etcdserverpb::MemberAddRequest* request, ::etcdserverpb::MemberAddResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void MemberAdd(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::MemberAddResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void MemberAdd(::grpc::ClientContext* context, const ::etcdserverpb::MemberAddRequest* request, ::etcdserverpb::MemberAddResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void MemberAdd(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::MemberAddResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       // MemberRemove removes an existing member from the cluster.
       virtual void MemberRemove(::grpc::ClientContext* context, const ::etcdserverpb::MemberRemoveRequest* request, ::etcdserverpb::MemberRemoveResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void MemberRemove(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::MemberRemoveResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void MemberRemove(::grpc::ClientContext* context, const ::etcdserverpb::MemberRemoveRequest* request, ::etcdserverpb::MemberRemoveResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void MemberRemove(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::MemberRemoveResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       // MemberUpdate updates the member configuration.
       virtual void MemberUpdate(::grpc::ClientContext* context, const ::etcdserverpb::MemberUpdateRequest* request, ::etcdserverpb::MemberUpdateResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void MemberUpdate(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::MemberUpdateResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void MemberUpdate(::grpc::ClientContext* context, const ::etcdserverpb::MemberUpdateRequest* request, ::etcdserverpb::MemberUpdateResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void MemberUpdate(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::MemberUpdateResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       // MemberList lists all the members in the cluster.
       virtual void MemberList(::grpc::ClientContext* context, const ::etcdserverpb::MemberListRequest* request, ::etcdserverpb::MemberListResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void MemberList(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::MemberListResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void MemberList(::grpc::ClientContext* context, const ::etcdserverpb::MemberListRequest* request, ::etcdserverpb::MemberListResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void MemberList(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::MemberListResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
     };
     virtual class experimental_async_interface* experimental_async() { return nullptr; }
   private:
@@ -1948,9 +2078,21 @@ class Cluster final {
       public StubInterface::experimental_async_interface {
      public:
       void MemberAdd(::grpc::ClientContext* context, const ::etcdserverpb::MemberAddRequest* request, ::etcdserverpb::MemberAddResponse* response, std::function<void(::grpc::Status)>) override;
+      void MemberAdd(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::MemberAddResponse* response, std::function<void(::grpc::Status)>) override;
+      void MemberAdd(::grpc::ClientContext* context, const ::etcdserverpb::MemberAddRequest* request, ::etcdserverpb::MemberAddResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void MemberAdd(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::MemberAddResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       void MemberRemove(::grpc::ClientContext* context, const ::etcdserverpb::MemberRemoveRequest* request, ::etcdserverpb::MemberRemoveResponse* response, std::function<void(::grpc::Status)>) override;
+      void MemberRemove(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::MemberRemoveResponse* response, std::function<void(::grpc::Status)>) override;
+      void MemberRemove(::grpc::ClientContext* context, const ::etcdserverpb::MemberRemoveRequest* request, ::etcdserverpb::MemberRemoveResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void MemberRemove(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::MemberRemoveResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       void MemberUpdate(::grpc::ClientContext* context, const ::etcdserverpb::MemberUpdateRequest* request, ::etcdserverpb::MemberUpdateResponse* response, std::function<void(::grpc::Status)>) override;
+      void MemberUpdate(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::MemberUpdateResponse* response, std::function<void(::grpc::Status)>) override;
+      void MemberUpdate(::grpc::ClientContext* context, const ::etcdserverpb::MemberUpdateRequest* request, ::etcdserverpb::MemberUpdateResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void MemberUpdate(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::MemberUpdateResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       void MemberList(::grpc::ClientContext* context, const ::etcdserverpb::MemberListRequest* request, ::etcdserverpb::MemberListResponse* response, std::function<void(::grpc::Status)>) override;
+      void MemberList(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::MemberListResponse* response, std::function<void(::grpc::Status)>) override;
+      void MemberList(::grpc::ClientContext* context, const ::etcdserverpb::MemberListRequest* request, ::etcdserverpb::MemberListResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void MemberList(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::MemberListResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
       explicit experimental_async(Stub* stub): stub_(stub) { }
@@ -2086,6 +2228,12 @@ class Cluster final {
                    return this->MemberAdd(context, request, response, controller);
                  }));
     }
+    void SetMessageAllocatorFor_MemberAdd(
+        ::grpc::experimental::MessageAllocator< ::etcdserverpb::MemberAddRequest, ::etcdserverpb::MemberAddResponse>* allocator) {
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::MemberAddRequest, ::etcdserverpb::MemberAddResponse>*>(
+          ::grpc::Service::experimental().GetHandler(0))
+              ->SetMessageAllocator(allocator);
+    }
     ~ExperimentalWithCallbackMethod_MemberAdd() override {
       BaseClassMustBeDerivedFromService(this);
     }
@@ -2110,6 +2258,12 @@ class Cluster final {
                  ::grpc::experimental::ServerCallbackRpcController* controller) {
                    return this->MemberRemove(context, request, response, controller);
                  }));
+    }
+    void SetMessageAllocatorFor_MemberRemove(
+        ::grpc::experimental::MessageAllocator< ::etcdserverpb::MemberRemoveRequest, ::etcdserverpb::MemberRemoveResponse>* allocator) {
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::MemberRemoveRequest, ::etcdserverpb::MemberRemoveResponse>*>(
+          ::grpc::Service::experimental().GetHandler(1))
+              ->SetMessageAllocator(allocator);
     }
     ~ExperimentalWithCallbackMethod_MemberRemove() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2136,6 +2290,12 @@ class Cluster final {
                    return this->MemberUpdate(context, request, response, controller);
                  }));
     }
+    void SetMessageAllocatorFor_MemberUpdate(
+        ::grpc::experimental::MessageAllocator< ::etcdserverpb::MemberUpdateRequest, ::etcdserverpb::MemberUpdateResponse>* allocator) {
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::MemberUpdateRequest, ::etcdserverpb::MemberUpdateResponse>*>(
+          ::grpc::Service::experimental().GetHandler(2))
+              ->SetMessageAllocator(allocator);
+    }
     ~ExperimentalWithCallbackMethod_MemberUpdate() override {
       BaseClassMustBeDerivedFromService(this);
     }
@@ -2160,6 +2320,12 @@ class Cluster final {
                  ::grpc::experimental::ServerCallbackRpcController* controller) {
                    return this->MemberList(context, request, response, controller);
                  }));
+    }
+    void SetMessageAllocatorFor_MemberList(
+        ::grpc::experimental::MessageAllocator< ::etcdserverpb::MemberListRequest, ::etcdserverpb::MemberListResponse>* allocator) {
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::MemberListRequest, ::etcdserverpb::MemberListResponse>*>(
+          ::grpc::Service::experimental().GetHandler(3))
+              ->SetMessageAllocator(allocator);
     }
     ~ExperimentalWithCallbackMethod_MemberList() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2578,20 +2744,38 @@ class Maintenance final {
       virtual ~experimental_async_interface() {}
       // Alarm activates, deactivates, and queries alarms regarding cluster health.
       virtual void Alarm(::grpc::ClientContext* context, const ::etcdserverpb::AlarmRequest* request, ::etcdserverpb::AlarmResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void Alarm(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AlarmResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void Alarm(::grpc::ClientContext* context, const ::etcdserverpb::AlarmRequest* request, ::etcdserverpb::AlarmResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void Alarm(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AlarmResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       // Status gets the status of the member.
       virtual void Status(::grpc::ClientContext* context, const ::etcdserverpb::StatusRequest* request, ::etcdserverpb::StatusResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void Status(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::StatusResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void Status(::grpc::ClientContext* context, const ::etcdserverpb::StatusRequest* request, ::etcdserverpb::StatusResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void Status(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::StatusResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       // Defragment defragments a member's backend database to recover storage space.
       virtual void Defragment(::grpc::ClientContext* context, const ::etcdserverpb::DefragmentRequest* request, ::etcdserverpb::DefragmentResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void Defragment(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::DefragmentResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void Defragment(::grpc::ClientContext* context, const ::etcdserverpb::DefragmentRequest* request, ::etcdserverpb::DefragmentResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void Defragment(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::DefragmentResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       // Hash computes the hash of the KV's backend.
       // This is designed for testing; do not use this in production when there
       // are ongoing transactions.
       virtual void Hash(::grpc::ClientContext* context, const ::etcdserverpb::HashRequest* request, ::etcdserverpb::HashResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void Hash(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::HashResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void Hash(::grpc::ClientContext* context, const ::etcdserverpb::HashRequest* request, ::etcdserverpb::HashResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void Hash(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::HashResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       // HashKV computes the hash of all MVCC keys up to a given revision.
       virtual void HashKV(::grpc::ClientContext* context, const ::etcdserverpb::HashKVRequest* request, ::etcdserverpb::HashKVResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void HashKV(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::HashKVResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void HashKV(::grpc::ClientContext* context, const ::etcdserverpb::HashKVRequest* request, ::etcdserverpb::HashKVResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void HashKV(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::HashKVResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       // Snapshot sends a snapshot of the entire backend from a member over a stream to a client.
       virtual void Snapshot(::grpc::ClientContext* context, ::etcdserverpb::SnapshotRequest* request, ::grpc::experimental::ClientReadReactor< ::etcdserverpb::SnapshotResponse>* reactor) = 0;
       // MoveLeader requests current leader node to transfer its leadership to transferee.
       virtual void MoveLeader(::grpc::ClientContext* context, const ::etcdserverpb::MoveLeaderRequest* request, ::etcdserverpb::MoveLeaderResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void MoveLeader(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::MoveLeaderResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void MoveLeader(::grpc::ClientContext* context, const ::etcdserverpb::MoveLeaderRequest* request, ::etcdserverpb::MoveLeaderResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void MoveLeader(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::MoveLeaderResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
     };
     virtual class experimental_async_interface* experimental_async() { return nullptr; }
   private:
@@ -2669,12 +2853,30 @@ class Maintenance final {
       public StubInterface::experimental_async_interface {
      public:
       void Alarm(::grpc::ClientContext* context, const ::etcdserverpb::AlarmRequest* request, ::etcdserverpb::AlarmResponse* response, std::function<void(::grpc::Status)>) override;
+      void Alarm(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AlarmResponse* response, std::function<void(::grpc::Status)>) override;
+      void Alarm(::grpc::ClientContext* context, const ::etcdserverpb::AlarmRequest* request, ::etcdserverpb::AlarmResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void Alarm(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AlarmResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       void Status(::grpc::ClientContext* context, const ::etcdserverpb::StatusRequest* request, ::etcdserverpb::StatusResponse* response, std::function<void(::grpc::Status)>) override;
+      void Status(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::StatusResponse* response, std::function<void(::grpc::Status)>) override;
+      void Status(::grpc::ClientContext* context, const ::etcdserverpb::StatusRequest* request, ::etcdserverpb::StatusResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void Status(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::StatusResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       void Defragment(::grpc::ClientContext* context, const ::etcdserverpb::DefragmentRequest* request, ::etcdserverpb::DefragmentResponse* response, std::function<void(::grpc::Status)>) override;
+      void Defragment(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::DefragmentResponse* response, std::function<void(::grpc::Status)>) override;
+      void Defragment(::grpc::ClientContext* context, const ::etcdserverpb::DefragmentRequest* request, ::etcdserverpb::DefragmentResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void Defragment(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::DefragmentResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       void Hash(::grpc::ClientContext* context, const ::etcdserverpb::HashRequest* request, ::etcdserverpb::HashResponse* response, std::function<void(::grpc::Status)>) override;
+      void Hash(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::HashResponse* response, std::function<void(::grpc::Status)>) override;
+      void Hash(::grpc::ClientContext* context, const ::etcdserverpb::HashRequest* request, ::etcdserverpb::HashResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void Hash(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::HashResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       void HashKV(::grpc::ClientContext* context, const ::etcdserverpb::HashKVRequest* request, ::etcdserverpb::HashKVResponse* response, std::function<void(::grpc::Status)>) override;
+      void HashKV(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::HashKVResponse* response, std::function<void(::grpc::Status)>) override;
+      void HashKV(::grpc::ClientContext* context, const ::etcdserverpb::HashKVRequest* request, ::etcdserverpb::HashKVResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void HashKV(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::HashKVResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       void Snapshot(::grpc::ClientContext* context, ::etcdserverpb::SnapshotRequest* request, ::grpc::experimental::ClientReadReactor< ::etcdserverpb::SnapshotResponse>* reactor) override;
       void MoveLeader(::grpc::ClientContext* context, const ::etcdserverpb::MoveLeaderRequest* request, ::etcdserverpb::MoveLeaderResponse* response, std::function<void(::grpc::Status)>) override;
+      void MoveLeader(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::MoveLeaderResponse* response, std::function<void(::grpc::Status)>) override;
+      void MoveLeader(::grpc::ClientContext* context, const ::etcdserverpb::MoveLeaderRequest* request, ::etcdserverpb::MoveLeaderResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void MoveLeader(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::MoveLeaderResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
       explicit experimental_async(Stub* stub): stub_(stub) { }
@@ -2888,6 +3090,12 @@ class Maintenance final {
                    return this->Alarm(context, request, response, controller);
                  }));
     }
+    void SetMessageAllocatorFor_Alarm(
+        ::grpc::experimental::MessageAllocator< ::etcdserverpb::AlarmRequest, ::etcdserverpb::AlarmResponse>* allocator) {
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AlarmRequest, ::etcdserverpb::AlarmResponse>*>(
+          ::grpc::Service::experimental().GetHandler(0))
+              ->SetMessageAllocator(allocator);
+    }
     ~ExperimentalWithCallbackMethod_Alarm() override {
       BaseClassMustBeDerivedFromService(this);
     }
@@ -2912,6 +3120,12 @@ class Maintenance final {
                  ::grpc::experimental::ServerCallbackRpcController* controller) {
                    return this->Status(context, request, response, controller);
                  }));
+    }
+    void SetMessageAllocatorFor_Status(
+        ::grpc::experimental::MessageAllocator< ::etcdserverpb::StatusRequest, ::etcdserverpb::StatusResponse>* allocator) {
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::StatusRequest, ::etcdserverpb::StatusResponse>*>(
+          ::grpc::Service::experimental().GetHandler(1))
+              ->SetMessageAllocator(allocator);
     }
     ~ExperimentalWithCallbackMethod_Status() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2938,6 +3152,12 @@ class Maintenance final {
                    return this->Defragment(context, request, response, controller);
                  }));
     }
+    void SetMessageAllocatorFor_Defragment(
+        ::grpc::experimental::MessageAllocator< ::etcdserverpb::DefragmentRequest, ::etcdserverpb::DefragmentResponse>* allocator) {
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::DefragmentRequest, ::etcdserverpb::DefragmentResponse>*>(
+          ::grpc::Service::experimental().GetHandler(2))
+              ->SetMessageAllocator(allocator);
+    }
     ~ExperimentalWithCallbackMethod_Defragment() override {
       BaseClassMustBeDerivedFromService(this);
     }
@@ -2963,6 +3183,12 @@ class Maintenance final {
                    return this->Hash(context, request, response, controller);
                  }));
     }
+    void SetMessageAllocatorFor_Hash(
+        ::grpc::experimental::MessageAllocator< ::etcdserverpb::HashRequest, ::etcdserverpb::HashResponse>* allocator) {
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::HashRequest, ::etcdserverpb::HashResponse>*>(
+          ::grpc::Service::experimental().GetHandler(3))
+              ->SetMessageAllocator(allocator);
+    }
     ~ExperimentalWithCallbackMethod_Hash() override {
       BaseClassMustBeDerivedFromService(this);
     }
@@ -2987,6 +3213,12 @@ class Maintenance final {
                  ::grpc::experimental::ServerCallbackRpcController* controller) {
                    return this->HashKV(context, request, response, controller);
                  }));
+    }
+    void SetMessageAllocatorFor_HashKV(
+        ::grpc::experimental::MessageAllocator< ::etcdserverpb::HashKVRequest, ::etcdserverpb::HashKVResponse>* allocator) {
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::HashKVRequest, ::etcdserverpb::HashKVResponse>*>(
+          ::grpc::Service::experimental().GetHandler(4))
+              ->SetMessageAllocator(allocator);
     }
     ~ExperimentalWithCallbackMethod_HashKV() override {
       BaseClassMustBeDerivedFromService(this);
@@ -3034,6 +3266,12 @@ class Maintenance final {
                  ::grpc::experimental::ServerCallbackRpcController* controller) {
                    return this->MoveLeader(context, request, response, controller);
                  }));
+    }
+    void SetMessageAllocatorFor_MoveLeader(
+        ::grpc::experimental::MessageAllocator< ::etcdserverpb::MoveLeaderRequest, ::etcdserverpb::MoveLeaderResponse>* allocator) {
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::MoveLeaderRequest, ::etcdserverpb::MoveLeaderResponse>*>(
+          ::grpc::Service::experimental().GetHandler(6))
+              ->SetMessageAllocator(allocator);
     }
     ~ExperimentalWithCallbackMethod_MoveLeader() override {
       BaseClassMustBeDerivedFromService(this);
@@ -3763,36 +4001,84 @@ class Auth final {
       virtual ~experimental_async_interface() {}
       // AuthEnable enables authentication.
       virtual void AuthEnable(::grpc::ClientContext* context, const ::etcdserverpb::AuthEnableRequest* request, ::etcdserverpb::AuthEnableResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void AuthEnable(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthEnableResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void AuthEnable(::grpc::ClientContext* context, const ::etcdserverpb::AuthEnableRequest* request, ::etcdserverpb::AuthEnableResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void AuthEnable(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthEnableResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       // AuthDisable disables authentication.
       virtual void AuthDisable(::grpc::ClientContext* context, const ::etcdserverpb::AuthDisableRequest* request, ::etcdserverpb::AuthDisableResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void AuthDisable(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthDisableResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void AuthDisable(::grpc::ClientContext* context, const ::etcdserverpb::AuthDisableRequest* request, ::etcdserverpb::AuthDisableResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void AuthDisable(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthDisableResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       // Authenticate processes an authenticate request.
       virtual void Authenticate(::grpc::ClientContext* context, const ::etcdserverpb::AuthenticateRequest* request, ::etcdserverpb::AuthenticateResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void Authenticate(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthenticateResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void Authenticate(::grpc::ClientContext* context, const ::etcdserverpb::AuthenticateRequest* request, ::etcdserverpb::AuthenticateResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void Authenticate(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthenticateResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       // UserAdd adds a new user.
       virtual void UserAdd(::grpc::ClientContext* context, const ::etcdserverpb::AuthUserAddRequest* request, ::etcdserverpb::AuthUserAddResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void UserAdd(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthUserAddResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void UserAdd(::grpc::ClientContext* context, const ::etcdserverpb::AuthUserAddRequest* request, ::etcdserverpb::AuthUserAddResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void UserAdd(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthUserAddResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       // UserGet gets detailed user information.
       virtual void UserGet(::grpc::ClientContext* context, const ::etcdserverpb::AuthUserGetRequest* request, ::etcdserverpb::AuthUserGetResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void UserGet(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthUserGetResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void UserGet(::grpc::ClientContext* context, const ::etcdserverpb::AuthUserGetRequest* request, ::etcdserverpb::AuthUserGetResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void UserGet(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthUserGetResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       // UserList gets a list of all users.
       virtual void UserList(::grpc::ClientContext* context, const ::etcdserverpb::AuthUserListRequest* request, ::etcdserverpb::AuthUserListResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void UserList(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthUserListResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void UserList(::grpc::ClientContext* context, const ::etcdserverpb::AuthUserListRequest* request, ::etcdserverpb::AuthUserListResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void UserList(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthUserListResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       // UserDelete deletes a specified user.
       virtual void UserDelete(::grpc::ClientContext* context, const ::etcdserverpb::AuthUserDeleteRequest* request, ::etcdserverpb::AuthUserDeleteResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void UserDelete(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthUserDeleteResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void UserDelete(::grpc::ClientContext* context, const ::etcdserverpb::AuthUserDeleteRequest* request, ::etcdserverpb::AuthUserDeleteResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void UserDelete(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthUserDeleteResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       // UserChangePassword changes the password of a specified user.
       virtual void UserChangePassword(::grpc::ClientContext* context, const ::etcdserverpb::AuthUserChangePasswordRequest* request, ::etcdserverpb::AuthUserChangePasswordResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void UserChangePassword(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthUserChangePasswordResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void UserChangePassword(::grpc::ClientContext* context, const ::etcdserverpb::AuthUserChangePasswordRequest* request, ::etcdserverpb::AuthUserChangePasswordResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void UserChangePassword(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthUserChangePasswordResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       // UserGrant grants a role to a specified user.
       virtual void UserGrantRole(::grpc::ClientContext* context, const ::etcdserverpb::AuthUserGrantRoleRequest* request, ::etcdserverpb::AuthUserGrantRoleResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void UserGrantRole(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthUserGrantRoleResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void UserGrantRole(::grpc::ClientContext* context, const ::etcdserverpb::AuthUserGrantRoleRequest* request, ::etcdserverpb::AuthUserGrantRoleResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void UserGrantRole(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthUserGrantRoleResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       // UserRevokeRole revokes a role of specified user.
       virtual void UserRevokeRole(::grpc::ClientContext* context, const ::etcdserverpb::AuthUserRevokeRoleRequest* request, ::etcdserverpb::AuthUserRevokeRoleResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void UserRevokeRole(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthUserRevokeRoleResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void UserRevokeRole(::grpc::ClientContext* context, const ::etcdserverpb::AuthUserRevokeRoleRequest* request, ::etcdserverpb::AuthUserRevokeRoleResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void UserRevokeRole(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthUserRevokeRoleResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       // RoleAdd adds a new role.
       virtual void RoleAdd(::grpc::ClientContext* context, const ::etcdserverpb::AuthRoleAddRequest* request, ::etcdserverpb::AuthRoleAddResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void RoleAdd(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthRoleAddResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void RoleAdd(::grpc::ClientContext* context, const ::etcdserverpb::AuthRoleAddRequest* request, ::etcdserverpb::AuthRoleAddResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void RoleAdd(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthRoleAddResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       // RoleGet gets detailed role information.
       virtual void RoleGet(::grpc::ClientContext* context, const ::etcdserverpb::AuthRoleGetRequest* request, ::etcdserverpb::AuthRoleGetResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void RoleGet(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthRoleGetResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void RoleGet(::grpc::ClientContext* context, const ::etcdserverpb::AuthRoleGetRequest* request, ::etcdserverpb::AuthRoleGetResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void RoleGet(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthRoleGetResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       // RoleList gets lists of all roles.
       virtual void RoleList(::grpc::ClientContext* context, const ::etcdserverpb::AuthRoleListRequest* request, ::etcdserverpb::AuthRoleListResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void RoleList(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthRoleListResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void RoleList(::grpc::ClientContext* context, const ::etcdserverpb::AuthRoleListRequest* request, ::etcdserverpb::AuthRoleListResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void RoleList(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthRoleListResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       // RoleDelete deletes a specified role.
       virtual void RoleDelete(::grpc::ClientContext* context, const ::etcdserverpb::AuthRoleDeleteRequest* request, ::etcdserverpb::AuthRoleDeleteResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void RoleDelete(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthRoleDeleteResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void RoleDelete(::grpc::ClientContext* context, const ::etcdserverpb::AuthRoleDeleteRequest* request, ::etcdserverpb::AuthRoleDeleteResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void RoleDelete(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthRoleDeleteResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       // RoleGrantPermission grants a permission of a specified key or range to a specified role.
       virtual void RoleGrantPermission(::grpc::ClientContext* context, const ::etcdserverpb::AuthRoleGrantPermissionRequest* request, ::etcdserverpb::AuthRoleGrantPermissionResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void RoleGrantPermission(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthRoleGrantPermissionResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void RoleGrantPermission(::grpc::ClientContext* context, const ::etcdserverpb::AuthRoleGrantPermissionRequest* request, ::etcdserverpb::AuthRoleGrantPermissionResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void RoleGrantPermission(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthRoleGrantPermissionResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
       // RoleRevokePermission revokes a key or range permission of a specified role.
       virtual void RoleRevokePermission(::grpc::ClientContext* context, const ::etcdserverpb::AuthRoleRevokePermissionRequest* request, ::etcdserverpb::AuthRoleRevokePermissionResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void RoleRevokePermission(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthRoleRevokePermissionResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void RoleRevokePermission(::grpc::ClientContext* context, const ::etcdserverpb::AuthRoleRevokePermissionRequest* request, ::etcdserverpb::AuthRoleRevokePermissionResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
+      virtual void RoleRevokePermission(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthRoleRevokePermissionResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) = 0;
     };
     virtual class experimental_async_interface* experimental_async() { return nullptr; }
   private:
@@ -3948,21 +4234,69 @@ class Auth final {
       public StubInterface::experimental_async_interface {
      public:
       void AuthEnable(::grpc::ClientContext* context, const ::etcdserverpb::AuthEnableRequest* request, ::etcdserverpb::AuthEnableResponse* response, std::function<void(::grpc::Status)>) override;
+      void AuthEnable(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthEnableResponse* response, std::function<void(::grpc::Status)>) override;
+      void AuthEnable(::grpc::ClientContext* context, const ::etcdserverpb::AuthEnableRequest* request, ::etcdserverpb::AuthEnableResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void AuthEnable(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthEnableResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       void AuthDisable(::grpc::ClientContext* context, const ::etcdserverpb::AuthDisableRequest* request, ::etcdserverpb::AuthDisableResponse* response, std::function<void(::grpc::Status)>) override;
+      void AuthDisable(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthDisableResponse* response, std::function<void(::grpc::Status)>) override;
+      void AuthDisable(::grpc::ClientContext* context, const ::etcdserverpb::AuthDisableRequest* request, ::etcdserverpb::AuthDisableResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void AuthDisable(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthDisableResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       void Authenticate(::grpc::ClientContext* context, const ::etcdserverpb::AuthenticateRequest* request, ::etcdserverpb::AuthenticateResponse* response, std::function<void(::grpc::Status)>) override;
+      void Authenticate(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthenticateResponse* response, std::function<void(::grpc::Status)>) override;
+      void Authenticate(::grpc::ClientContext* context, const ::etcdserverpb::AuthenticateRequest* request, ::etcdserverpb::AuthenticateResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void Authenticate(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthenticateResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       void UserAdd(::grpc::ClientContext* context, const ::etcdserverpb::AuthUserAddRequest* request, ::etcdserverpb::AuthUserAddResponse* response, std::function<void(::grpc::Status)>) override;
+      void UserAdd(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthUserAddResponse* response, std::function<void(::grpc::Status)>) override;
+      void UserAdd(::grpc::ClientContext* context, const ::etcdserverpb::AuthUserAddRequest* request, ::etcdserverpb::AuthUserAddResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void UserAdd(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthUserAddResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       void UserGet(::grpc::ClientContext* context, const ::etcdserverpb::AuthUserGetRequest* request, ::etcdserverpb::AuthUserGetResponse* response, std::function<void(::grpc::Status)>) override;
+      void UserGet(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthUserGetResponse* response, std::function<void(::grpc::Status)>) override;
+      void UserGet(::grpc::ClientContext* context, const ::etcdserverpb::AuthUserGetRequest* request, ::etcdserverpb::AuthUserGetResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void UserGet(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthUserGetResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       void UserList(::grpc::ClientContext* context, const ::etcdserverpb::AuthUserListRequest* request, ::etcdserverpb::AuthUserListResponse* response, std::function<void(::grpc::Status)>) override;
+      void UserList(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthUserListResponse* response, std::function<void(::grpc::Status)>) override;
+      void UserList(::grpc::ClientContext* context, const ::etcdserverpb::AuthUserListRequest* request, ::etcdserverpb::AuthUserListResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void UserList(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthUserListResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       void UserDelete(::grpc::ClientContext* context, const ::etcdserverpb::AuthUserDeleteRequest* request, ::etcdserverpb::AuthUserDeleteResponse* response, std::function<void(::grpc::Status)>) override;
+      void UserDelete(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthUserDeleteResponse* response, std::function<void(::grpc::Status)>) override;
+      void UserDelete(::grpc::ClientContext* context, const ::etcdserverpb::AuthUserDeleteRequest* request, ::etcdserverpb::AuthUserDeleteResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void UserDelete(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthUserDeleteResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       void UserChangePassword(::grpc::ClientContext* context, const ::etcdserverpb::AuthUserChangePasswordRequest* request, ::etcdserverpb::AuthUserChangePasswordResponse* response, std::function<void(::grpc::Status)>) override;
+      void UserChangePassword(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthUserChangePasswordResponse* response, std::function<void(::grpc::Status)>) override;
+      void UserChangePassword(::grpc::ClientContext* context, const ::etcdserverpb::AuthUserChangePasswordRequest* request, ::etcdserverpb::AuthUserChangePasswordResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void UserChangePassword(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthUserChangePasswordResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       void UserGrantRole(::grpc::ClientContext* context, const ::etcdserverpb::AuthUserGrantRoleRequest* request, ::etcdserverpb::AuthUserGrantRoleResponse* response, std::function<void(::grpc::Status)>) override;
+      void UserGrantRole(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthUserGrantRoleResponse* response, std::function<void(::grpc::Status)>) override;
+      void UserGrantRole(::grpc::ClientContext* context, const ::etcdserverpb::AuthUserGrantRoleRequest* request, ::etcdserverpb::AuthUserGrantRoleResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void UserGrantRole(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthUserGrantRoleResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       void UserRevokeRole(::grpc::ClientContext* context, const ::etcdserverpb::AuthUserRevokeRoleRequest* request, ::etcdserverpb::AuthUserRevokeRoleResponse* response, std::function<void(::grpc::Status)>) override;
+      void UserRevokeRole(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthUserRevokeRoleResponse* response, std::function<void(::grpc::Status)>) override;
+      void UserRevokeRole(::grpc::ClientContext* context, const ::etcdserverpb::AuthUserRevokeRoleRequest* request, ::etcdserverpb::AuthUserRevokeRoleResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void UserRevokeRole(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthUserRevokeRoleResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       void RoleAdd(::grpc::ClientContext* context, const ::etcdserverpb::AuthRoleAddRequest* request, ::etcdserverpb::AuthRoleAddResponse* response, std::function<void(::grpc::Status)>) override;
+      void RoleAdd(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthRoleAddResponse* response, std::function<void(::grpc::Status)>) override;
+      void RoleAdd(::grpc::ClientContext* context, const ::etcdserverpb::AuthRoleAddRequest* request, ::etcdserverpb::AuthRoleAddResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void RoleAdd(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthRoleAddResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       void RoleGet(::grpc::ClientContext* context, const ::etcdserverpb::AuthRoleGetRequest* request, ::etcdserverpb::AuthRoleGetResponse* response, std::function<void(::grpc::Status)>) override;
+      void RoleGet(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthRoleGetResponse* response, std::function<void(::grpc::Status)>) override;
+      void RoleGet(::grpc::ClientContext* context, const ::etcdserverpb::AuthRoleGetRequest* request, ::etcdserverpb::AuthRoleGetResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void RoleGet(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthRoleGetResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       void RoleList(::grpc::ClientContext* context, const ::etcdserverpb::AuthRoleListRequest* request, ::etcdserverpb::AuthRoleListResponse* response, std::function<void(::grpc::Status)>) override;
+      void RoleList(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthRoleListResponse* response, std::function<void(::grpc::Status)>) override;
+      void RoleList(::grpc::ClientContext* context, const ::etcdserverpb::AuthRoleListRequest* request, ::etcdserverpb::AuthRoleListResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void RoleList(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthRoleListResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       void RoleDelete(::grpc::ClientContext* context, const ::etcdserverpb::AuthRoleDeleteRequest* request, ::etcdserverpb::AuthRoleDeleteResponse* response, std::function<void(::grpc::Status)>) override;
+      void RoleDelete(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthRoleDeleteResponse* response, std::function<void(::grpc::Status)>) override;
+      void RoleDelete(::grpc::ClientContext* context, const ::etcdserverpb::AuthRoleDeleteRequest* request, ::etcdserverpb::AuthRoleDeleteResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void RoleDelete(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthRoleDeleteResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       void RoleGrantPermission(::grpc::ClientContext* context, const ::etcdserverpb::AuthRoleGrantPermissionRequest* request, ::etcdserverpb::AuthRoleGrantPermissionResponse* response, std::function<void(::grpc::Status)>) override;
+      void RoleGrantPermission(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthRoleGrantPermissionResponse* response, std::function<void(::grpc::Status)>) override;
+      void RoleGrantPermission(::grpc::ClientContext* context, const ::etcdserverpb::AuthRoleGrantPermissionRequest* request, ::etcdserverpb::AuthRoleGrantPermissionResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void RoleGrantPermission(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthRoleGrantPermissionResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
       void RoleRevokePermission(::grpc::ClientContext* context, const ::etcdserverpb::AuthRoleRevokePermissionRequest* request, ::etcdserverpb::AuthRoleRevokePermissionResponse* response, std::function<void(::grpc::Status)>) override;
+      void RoleRevokePermission(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthRoleRevokePermissionResponse* response, std::function<void(::grpc::Status)>) override;
+      void RoleRevokePermission(::grpc::ClientContext* context, const ::etcdserverpb::AuthRoleRevokePermissionRequest* request, ::etcdserverpb::AuthRoleRevokePermissionResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
+      void RoleRevokePermission(::grpc::ClientContext* context, const ::grpc::ByteBuffer* request, ::etcdserverpb::AuthRoleRevokePermissionResponse* response, ::grpc::experimental::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
       explicit experimental_async(Stub* stub): stub_(stub) { }
@@ -4398,6 +4732,12 @@ class Auth final {
                    return this->AuthEnable(context, request, response, controller);
                  }));
     }
+    void SetMessageAllocatorFor_AuthEnable(
+        ::grpc::experimental::MessageAllocator< ::etcdserverpb::AuthEnableRequest, ::etcdserverpb::AuthEnableResponse>* allocator) {
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthEnableRequest, ::etcdserverpb::AuthEnableResponse>*>(
+          ::grpc::Service::experimental().GetHandler(0))
+              ->SetMessageAllocator(allocator);
+    }
     ~ExperimentalWithCallbackMethod_AuthEnable() override {
       BaseClassMustBeDerivedFromService(this);
     }
@@ -4422,6 +4762,12 @@ class Auth final {
                  ::grpc::experimental::ServerCallbackRpcController* controller) {
                    return this->AuthDisable(context, request, response, controller);
                  }));
+    }
+    void SetMessageAllocatorFor_AuthDisable(
+        ::grpc::experimental::MessageAllocator< ::etcdserverpb::AuthDisableRequest, ::etcdserverpb::AuthDisableResponse>* allocator) {
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthDisableRequest, ::etcdserverpb::AuthDisableResponse>*>(
+          ::grpc::Service::experimental().GetHandler(1))
+              ->SetMessageAllocator(allocator);
     }
     ~ExperimentalWithCallbackMethod_AuthDisable() override {
       BaseClassMustBeDerivedFromService(this);
@@ -4448,6 +4794,12 @@ class Auth final {
                    return this->Authenticate(context, request, response, controller);
                  }));
     }
+    void SetMessageAllocatorFor_Authenticate(
+        ::grpc::experimental::MessageAllocator< ::etcdserverpb::AuthenticateRequest, ::etcdserverpb::AuthenticateResponse>* allocator) {
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthenticateRequest, ::etcdserverpb::AuthenticateResponse>*>(
+          ::grpc::Service::experimental().GetHandler(2))
+              ->SetMessageAllocator(allocator);
+    }
     ~ExperimentalWithCallbackMethod_Authenticate() override {
       BaseClassMustBeDerivedFromService(this);
     }
@@ -4472,6 +4824,12 @@ class Auth final {
                  ::grpc::experimental::ServerCallbackRpcController* controller) {
                    return this->UserAdd(context, request, response, controller);
                  }));
+    }
+    void SetMessageAllocatorFor_UserAdd(
+        ::grpc::experimental::MessageAllocator< ::etcdserverpb::AuthUserAddRequest, ::etcdserverpb::AuthUserAddResponse>* allocator) {
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthUserAddRequest, ::etcdserverpb::AuthUserAddResponse>*>(
+          ::grpc::Service::experimental().GetHandler(3))
+              ->SetMessageAllocator(allocator);
     }
     ~ExperimentalWithCallbackMethod_UserAdd() override {
       BaseClassMustBeDerivedFromService(this);
@@ -4498,6 +4856,12 @@ class Auth final {
                    return this->UserGet(context, request, response, controller);
                  }));
     }
+    void SetMessageAllocatorFor_UserGet(
+        ::grpc::experimental::MessageAllocator< ::etcdserverpb::AuthUserGetRequest, ::etcdserverpb::AuthUserGetResponse>* allocator) {
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthUserGetRequest, ::etcdserverpb::AuthUserGetResponse>*>(
+          ::grpc::Service::experimental().GetHandler(4))
+              ->SetMessageAllocator(allocator);
+    }
     ~ExperimentalWithCallbackMethod_UserGet() override {
       BaseClassMustBeDerivedFromService(this);
     }
@@ -4522,6 +4886,12 @@ class Auth final {
                  ::grpc::experimental::ServerCallbackRpcController* controller) {
                    return this->UserList(context, request, response, controller);
                  }));
+    }
+    void SetMessageAllocatorFor_UserList(
+        ::grpc::experimental::MessageAllocator< ::etcdserverpb::AuthUserListRequest, ::etcdserverpb::AuthUserListResponse>* allocator) {
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthUserListRequest, ::etcdserverpb::AuthUserListResponse>*>(
+          ::grpc::Service::experimental().GetHandler(5))
+              ->SetMessageAllocator(allocator);
     }
     ~ExperimentalWithCallbackMethod_UserList() override {
       BaseClassMustBeDerivedFromService(this);
@@ -4548,6 +4918,12 @@ class Auth final {
                    return this->UserDelete(context, request, response, controller);
                  }));
     }
+    void SetMessageAllocatorFor_UserDelete(
+        ::grpc::experimental::MessageAllocator< ::etcdserverpb::AuthUserDeleteRequest, ::etcdserverpb::AuthUserDeleteResponse>* allocator) {
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthUserDeleteRequest, ::etcdserverpb::AuthUserDeleteResponse>*>(
+          ::grpc::Service::experimental().GetHandler(6))
+              ->SetMessageAllocator(allocator);
+    }
     ~ExperimentalWithCallbackMethod_UserDelete() override {
       BaseClassMustBeDerivedFromService(this);
     }
@@ -4572,6 +4948,12 @@ class Auth final {
                  ::grpc::experimental::ServerCallbackRpcController* controller) {
                    return this->UserChangePassword(context, request, response, controller);
                  }));
+    }
+    void SetMessageAllocatorFor_UserChangePassword(
+        ::grpc::experimental::MessageAllocator< ::etcdserverpb::AuthUserChangePasswordRequest, ::etcdserverpb::AuthUserChangePasswordResponse>* allocator) {
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthUserChangePasswordRequest, ::etcdserverpb::AuthUserChangePasswordResponse>*>(
+          ::grpc::Service::experimental().GetHandler(7))
+              ->SetMessageAllocator(allocator);
     }
     ~ExperimentalWithCallbackMethod_UserChangePassword() override {
       BaseClassMustBeDerivedFromService(this);
@@ -4598,6 +4980,12 @@ class Auth final {
                    return this->UserGrantRole(context, request, response, controller);
                  }));
     }
+    void SetMessageAllocatorFor_UserGrantRole(
+        ::grpc::experimental::MessageAllocator< ::etcdserverpb::AuthUserGrantRoleRequest, ::etcdserverpb::AuthUserGrantRoleResponse>* allocator) {
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthUserGrantRoleRequest, ::etcdserverpb::AuthUserGrantRoleResponse>*>(
+          ::grpc::Service::experimental().GetHandler(8))
+              ->SetMessageAllocator(allocator);
+    }
     ~ExperimentalWithCallbackMethod_UserGrantRole() override {
       BaseClassMustBeDerivedFromService(this);
     }
@@ -4622,6 +5010,12 @@ class Auth final {
                  ::grpc::experimental::ServerCallbackRpcController* controller) {
                    return this->UserRevokeRole(context, request, response, controller);
                  }));
+    }
+    void SetMessageAllocatorFor_UserRevokeRole(
+        ::grpc::experimental::MessageAllocator< ::etcdserverpb::AuthUserRevokeRoleRequest, ::etcdserverpb::AuthUserRevokeRoleResponse>* allocator) {
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthUserRevokeRoleRequest, ::etcdserverpb::AuthUserRevokeRoleResponse>*>(
+          ::grpc::Service::experimental().GetHandler(9))
+              ->SetMessageAllocator(allocator);
     }
     ~ExperimentalWithCallbackMethod_UserRevokeRole() override {
       BaseClassMustBeDerivedFromService(this);
@@ -4648,6 +5042,12 @@ class Auth final {
                    return this->RoleAdd(context, request, response, controller);
                  }));
     }
+    void SetMessageAllocatorFor_RoleAdd(
+        ::grpc::experimental::MessageAllocator< ::etcdserverpb::AuthRoleAddRequest, ::etcdserverpb::AuthRoleAddResponse>* allocator) {
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthRoleAddRequest, ::etcdserverpb::AuthRoleAddResponse>*>(
+          ::grpc::Service::experimental().GetHandler(10))
+              ->SetMessageAllocator(allocator);
+    }
     ~ExperimentalWithCallbackMethod_RoleAdd() override {
       BaseClassMustBeDerivedFromService(this);
     }
@@ -4672,6 +5072,12 @@ class Auth final {
                  ::grpc::experimental::ServerCallbackRpcController* controller) {
                    return this->RoleGet(context, request, response, controller);
                  }));
+    }
+    void SetMessageAllocatorFor_RoleGet(
+        ::grpc::experimental::MessageAllocator< ::etcdserverpb::AuthRoleGetRequest, ::etcdserverpb::AuthRoleGetResponse>* allocator) {
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthRoleGetRequest, ::etcdserverpb::AuthRoleGetResponse>*>(
+          ::grpc::Service::experimental().GetHandler(11))
+              ->SetMessageAllocator(allocator);
     }
     ~ExperimentalWithCallbackMethod_RoleGet() override {
       BaseClassMustBeDerivedFromService(this);
@@ -4698,6 +5104,12 @@ class Auth final {
                    return this->RoleList(context, request, response, controller);
                  }));
     }
+    void SetMessageAllocatorFor_RoleList(
+        ::grpc::experimental::MessageAllocator< ::etcdserverpb::AuthRoleListRequest, ::etcdserverpb::AuthRoleListResponse>* allocator) {
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthRoleListRequest, ::etcdserverpb::AuthRoleListResponse>*>(
+          ::grpc::Service::experimental().GetHandler(12))
+              ->SetMessageAllocator(allocator);
+    }
     ~ExperimentalWithCallbackMethod_RoleList() override {
       BaseClassMustBeDerivedFromService(this);
     }
@@ -4722,6 +5134,12 @@ class Auth final {
                  ::grpc::experimental::ServerCallbackRpcController* controller) {
                    return this->RoleDelete(context, request, response, controller);
                  }));
+    }
+    void SetMessageAllocatorFor_RoleDelete(
+        ::grpc::experimental::MessageAllocator< ::etcdserverpb::AuthRoleDeleteRequest, ::etcdserverpb::AuthRoleDeleteResponse>* allocator) {
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthRoleDeleteRequest, ::etcdserverpb::AuthRoleDeleteResponse>*>(
+          ::grpc::Service::experimental().GetHandler(13))
+              ->SetMessageAllocator(allocator);
     }
     ~ExperimentalWithCallbackMethod_RoleDelete() override {
       BaseClassMustBeDerivedFromService(this);
@@ -4748,6 +5166,12 @@ class Auth final {
                    return this->RoleGrantPermission(context, request, response, controller);
                  }));
     }
+    void SetMessageAllocatorFor_RoleGrantPermission(
+        ::grpc::experimental::MessageAllocator< ::etcdserverpb::AuthRoleGrantPermissionRequest, ::etcdserverpb::AuthRoleGrantPermissionResponse>* allocator) {
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthRoleGrantPermissionRequest, ::etcdserverpb::AuthRoleGrantPermissionResponse>*>(
+          ::grpc::Service::experimental().GetHandler(14))
+              ->SetMessageAllocator(allocator);
+    }
     ~ExperimentalWithCallbackMethod_RoleGrantPermission() override {
       BaseClassMustBeDerivedFromService(this);
     }
@@ -4772,6 +5196,12 @@ class Auth final {
                  ::grpc::experimental::ServerCallbackRpcController* controller) {
                    return this->RoleRevokePermission(context, request, response, controller);
                  }));
+    }
+    void SetMessageAllocatorFor_RoleRevokePermission(
+        ::grpc::experimental::MessageAllocator< ::etcdserverpb::AuthRoleRevokePermissionRequest, ::etcdserverpb::AuthRoleRevokePermissionResponse>* allocator) {
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthRoleRevokePermissionRequest, ::etcdserverpb::AuthRoleRevokePermissionResponse>*>(
+          ::grpc::Service::experimental().GetHandler(15))
+              ->SetMessageAllocator(allocator);
     }
     ~ExperimentalWithCallbackMethod_RoleRevokePermission() override {
       BaseClassMustBeDerivedFromService(this);

@@ -12,7 +12,7 @@ enum class OpType {
 class Operation
 {
 public:
-    Operation(/* args */);
+    Operation();
     ~Operation();
 
 private:
