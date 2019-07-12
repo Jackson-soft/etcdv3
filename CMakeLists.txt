@@ -11,7 +11,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG")
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 
 find_package(Protobuf REQUIRED)
-find_package(GRPC REQUIRED)
+find_package(gRPC REQUIRED)
 
 #[[
 set(PROTOS ${CMAKE_CURRENT_SOURCE_DIR}/protos/helloworld.proto)
@@ -32,11 +32,15 @@ grpc_generate_cpp(GRPC_SRCS
 
 aux_source_directory(${CMAKE_CURRENT_LIST_DIR}/src DIR_SRCS)
 
-include_directories(${CMAKE_CURRENT_LIST_DIR}/include ${Protobuf_INCLUDE_DIRS})
+include_directories(${CMAKE_CURRENT_LIST_DIR}/include
+                    ${CMAKE_CURRENT_LIST_DIR}/etcdapi ${Protobuf_INCLUDE_DIRS})
+
+add_subdirectory(etcdapi)
 
 add_executable(${PROJECT_NAME} ${DIR_SRCS})
 
 target_link_libraries(${PROJECT_NAME}
                       pthread
+                      gRPC::grpc++_reflection
                       ${Protobuf_LIBRARIES}
-                      gRPC::grpc++_reflection)
+                      etcdapi)

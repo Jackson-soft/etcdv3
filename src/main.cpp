@@ -1,14 +1,24 @@
-#include <grpc++/grpc++.h>
+#include "Client.hpp"
+#include <grpcpp/grpcpp.h>
 #include <iostream>
+#include <string>
 
-<<<<<<< HEAD
+void test()
+{
+    std::string range_end{"abcd"};
+    int ascii = static_cast<int>(range_end.at(range_end.length() - 1));
+    char end  = static_cast<char>(ascii + 1);
+    std::cout << ascii << ":" << end << std::endl;
+    range_end.back() = end;
+    // range_end.replace(range_end.length() - 1, 1, 1, end);
+    std::cout << range_end << std::endl;
+}
+
 int main()
 {
-    grpc::CreateChannel("localhost:50051", grpc::InsecureChannelCredentials());
-=======
-#include "Client.hpp"
-
-int main() {
->>>>>>> 5dafaf54e891df491f699031e8dccfd9678f7e1c
+    test();
+    Client cl("10.1.22.0:2379");
+    cl.Put("fusu", "hello");
+    cl.Get("fusu");
     return 0;
 }
