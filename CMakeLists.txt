@@ -44,3 +44,11 @@ target_link_libraries(${PROJECT_NAME}
                       gRPC::grpc++_reflection
                       ${Protobuf_LIBRARIES}
                       etcdapi)
+
+set(Test_Case CatchMain)
+add_executable(${Test_Case} test/CatchMain.cpp)
+target_link_libraries(${Test_Case}
+                      pthread
+                      gRPC::grpc++_reflection
+                      ${Protobuf_LIBRARIES}
+                      etcdapi)

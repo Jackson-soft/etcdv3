@@ -1,11 +1,11 @@
 #pragma once
 
+#include "rpc.grpc.pb.h"
 #include <cstdint>
 #include <grpcpp/grpcpp.h>
+#include <map>
 #include <memory>
 #include <string>
-
-#include "rpc.grpc.pb.h"
 
 // grpc 同步客户端
 class Client
@@ -14,10 +14,7 @@ public:
     Client() = delete;
     ~Client() {}
 
-    explicit Client(std::shared_ptr<grpc::Channel> channel)
-        : mKV(etcdserverpb::KV::NewStub(channel))
-    {
-    }
+    explicit Client(std::shared_ptr<grpc::Channel> channel) : mKV(etcdserverpb::KV::NewStub(channel)) {}
 
     explicit Client(const std::string &endPoint)
         : Client(grpc::CreateChannel(endPoint, grpc::InsecureChannelCredentials()))
@@ -38,7 +35,7 @@ public:
         return mKV.get()->Put(&ctx, req, &resp);
     }
 
-    std::int64_t Get(const std::string_view key, bool withPrefix = false)
+    std::int64_t Get(std::map<std::string, std::string> &result, const std::string_view key, bool withPrefix = false)
     {
         etcdserverpb::RangeRequest req;
         req.set_key(key.data());
@@ -55,6 +52,10 @@ public:
 
         auto status = mKV.get()->Range(&ctx, req, &resp);
         if (status.ok()) {
+            result.clear();
+            for (int i = 0; i < resp.kvs_size(); ++i) {
+                result.emplace(std::make_pair(resp.kvs(i).key(), resp.kvs(i).value()));
+            }
             return resp.count();
         }
         return 0;

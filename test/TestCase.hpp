@@ -1,9 +1,11 @@
+#define CATCH_CONFIG_MAIN
+
 #include "Client.hpp"
 #include <iostream>
-#include <map>
-#include <string>
 
-int main()
+TEST_CASE("1: All test cases reside in other .cpp files (empty)", "[multi-file:1]") {}
+
+TEST_CASE("get", "get")
 {
     Client cl("127.0.0.1:2379");
     cl.Put("fusu", "hello");
@@ -12,5 +14,4 @@ int main()
     for (const auto &it : ret) {
         std::cout << it.first << ":" << it.second << std::endl;
     }
-    return 0;
 }
