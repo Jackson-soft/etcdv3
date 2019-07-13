@@ -20,7 +20,7 @@ public:
         : Client(grpc::CreateChannel(endPoint, grpc::InsecureChannelCredentials()))
     {
     }
-
+    // kv interface
 public:
     grpc::Status Put(const std::string_view key, const std::string_view val, int ttl = 0)
     {
@@ -89,6 +89,39 @@ public:
         mKV.get()->Compact(&ctx, req, &resp);
     }
 
+    // lease interface
+public:
+    // return lease id
+    std::int64_t Grant(std::int64_t ttl)
+    {
+        if (ttl <= 0) {
+            return 0;
+        }
+        etcdserverpb::LeaseGrantRequest req;
+        req.set_ttl(ttl);
+
+        grpc::ClientContext ctx;
+        etcdserverpb::LeaseGrantResponse resp;
+        auto status = mLease.get()->LeaseGrant(&ctx, req, &resp);
+        if (status.ok()) {
+            return resp.id();
+        }
+        return 0;
+    }
+    void Revoke() {}
+    void TimeToLive() {}
+    void Leases() {}
+    void KeepAlive() {}
+    void KeepAliveOnce() {}
+
+    void CloseLease() {}
+
+    // watch interface
+public:
+    void Watch() {}
+
+    void CloseWatch() {}
+
 private:
     // 获取range_end
     std::string getPrefix(const std::string_view key)
@@ -102,8 +135,8 @@ private:
 
 private:
     std::unique_ptr<etcdserverpb::KV::Stub> mKV;
-
-    std::shared_ptr<grpc::Channel> mChannel;
+    std::unique_ptr<etcdserverpb::Lease::Stub> mLease;
+    std::unique_ptr<etcdserverpb::Watch::Stub> mWatch;
 
     std::string mUserName;
     std::string mPassword;

@@ -3,8 +3,6 @@
 #include "Client.hpp"
 #include <iostream>
 
-TEST_CASE("1: All test cases reside in other .cpp files (empty)", "[multi-file:1]") {}
-
 TEST_CASE("get", "get")
 {
     Client cl("127.0.0.1:2379");
