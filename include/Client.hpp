@@ -7,6 +7,8 @@
 #include <memory>
 #include <string>
 
+namespace Uranus
+{
 // grpc 同步客户端
 class Client
 {
@@ -20,6 +22,7 @@ public:
         : Client(grpc::CreateChannel(endPoint, grpc::InsecureChannelCredentials()))
     {
     }
+
     // kv interface
 public:
     grpc::Status Put(const std::string_view key, const std::string_view val, int ttl = 0)
@@ -108,11 +111,60 @@ public:
         }
         return 0;
     }
-    void Revoke() {}
-    void TimeToLive() {}
-    void Leases() {}
+
+    bool Revoke(std::int64_t id)
+    {
+        etcdserverpb::LeaseRevokeRequest req;
+        req.set_id(id);
+
+        grpc::ClientContext ctx;
+        etcdserverpb::LeaseRevokeResponse resp;
+        auto status = mLease.get()->LeaseRevoke(&ctx, req, &resp);
+
+        if (status.ok()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    bool TimeToLive(std::int64_t id, bool keys = false)
+    {
+        etcdserverpb::LeaseTimeToLiveRequest req;
+        req.set_id(id);
+        req.set_keys(keys);
+
+        grpc::ClientContext ctx;
+        etcdserverpb::LeaseTimeToLiveResponse resp;
+
+        auto status = mLease.get()->LeaseTimeToLive(&ctx, req, &resp);
+        if (status.ok()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    bool Leases(std::vector<std::int64_t> &result)
+    {
+        etcdserverpb::LeaseLeasesRequest req;
+
+        grpc::ClientContext ctx;
+        etcdserverpb::LeaseLeasesResponse resp;
+        auto status = mLease.get()->LeaseLeases(&ctx, req, &resp);
+        if (status.ok()) {
+            result.clear();
+            for (auto i = 0; i < resp.leases_size(); ++i) {
+                result.emplace(resp.leases(i).id());
+            }
+            return true;
+        }
+        return false;
+    }
+
     void KeepAlive() {}
-    void KeepAliveOnce() {}
+
+    void KeepAliveOnce(std::int64_t id) {}
 
     void CloseLease() {}
 
@@ -141,3 +193,4 @@ private:
     std::string mUserName;
     std::string mPassword;
 };
+}  // namespace Uranus

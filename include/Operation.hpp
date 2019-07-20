@@ -2,6 +2,8 @@
 
 #include <string>
 
+namespace Uranus
+{
 enum class OpType {
     Range,
     Put,
@@ -20,3 +22,4 @@ private:
     std::string mKey;
     std::string mEnd;
 };
+}  // namespace Uranus

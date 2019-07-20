@@ -1,5 +1,7 @@
 #pragma once
 
+namespace Uranus
+{
 class Noncopyable
 {
 protected:
@@ -9,3 +11,4 @@ protected:
     Noncopyable(const Noncopyable &) = delete;
     Noncopyable &operator=(const Noncopyable &) = delete;
 };
+}  // namespace Uranus
