@@ -2,16 +2,22 @@
 
 #include "rpc.grpc.pb.h"
 #include <cstdint>
+#include <functional>
 #include <grpcpp/grpcpp.h>
 #include <map>
 #include <memory>
 #include <string>
+#include <string_view>
 
 namespace Uranus
 {
 // grpc 同步客户端
 class Client
 {
+public:
+    // etcd call back
+    using EtcdCallBack = std::function<void(std::shared_ptr<google::protobuf::Message> msg)>;
+
 public:
     Client() = delete;
     ~Client() {}
@@ -31,6 +37,8 @@ public:
         req.set_key(key.data());
         req.set_value(val.data());
         if (ttl > 0) {
+            auto id = Grant(ttl);
+            req.set_lease(id);
         }
 
         etcdserverpb::PutResponse resp;
@@ -162,7 +170,7 @@ public:
         return false;
     }
 
-    void KeepAlive() {}
+    void KeepAlive(std::int64_t id) {}
 
     void KeepAliveOnce(std::int64_t id) {}
 
@@ -170,7 +178,19 @@ public:
 
     // watch interface
 public:
-    void Watch() {}
+    void Watch(EtcdCallBack callBack, const std::string_view key, bool prefix = false)
+    {
+        grpc::CompletionQueue cq;
+        etcdserverpb::WatchRequest req;
+        req.mutable_create_request()->set_key(key.data());
+        if (prefix) {
+            req.mutable_create_request()->set_range_end(getPrefix(key));
+        }
+
+        grpc::ClientContext ctx;
+        etcdserverpb::WatchResponse resp;
+        mWatch.get()->AsyncWatch(&ctx, &cq, (void *)1);
+    }
 
     void CloseWatch() {}
 
