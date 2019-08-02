@@ -37,18 +37,19 @@ include_directories(${CMAKE_CURRENT_LIST_DIR}/include
 
 add_subdirectory(etcdapi)
 
-add_executable(${PROJECT_NAME} ${DIR_SRCS})
+add_library(${PROJECT_NAME} STATIC ${DIR_SRCS})
 
 target_link_libraries(${PROJECT_NAME}
                       pthread
                       gRPC::grpc++_reflection
                       ${Protobuf_LIBRARIES}
                       etcdapi)
+# example
+set(Example_CXX Example)
+add_executable(${Example_CXX} example/main.cpp)
+target_link_libraries(${Example_CXX} etcdv3)
 
+# test
 set(Test_Case TestMain)
 add_executable(${Test_Case} test/TestMain.cpp)
-target_link_libraries(${Test_Case}
-                      pthread
-                      gRPC::grpc++_reflection
-                      ${Protobuf_LIBRARIES}
-                      etcdapi)
+target_link_libraries(${Test_Case} etcdv3)

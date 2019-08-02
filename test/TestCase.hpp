@@ -1,6 +1,6 @@
 #define CATCH_CONFIG_MAIN
 
-#include "Client.hpp"
+#include "Client.h"
 #include <iostream>
 
 TEST_CASE("get", "get")
