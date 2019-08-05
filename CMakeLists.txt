@@ -30,6 +30,9 @@ grpc_generate_cpp(GRPC_SRCS
                   ${PROTOS})
 ]]
 
+# 设置库的输出目录
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/lib)
+
 aux_source_directory(${CMAKE_CURRENT_LIST_DIR}/src DIR_SRCS)
 
 include_directories(${CMAKE_CURRENT_LIST_DIR}/include
