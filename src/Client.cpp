@@ -2,6 +2,7 @@
 
 namespace Uranus
 {
+Client::Client() {}
 
 Client::~Client() {}
 

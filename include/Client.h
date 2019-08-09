@@ -21,7 +21,7 @@ public:
     using EtcdCallBack = std::function<void(std::shared_ptr<google::protobuf::Message> msg)>;
 
 public:
-    Client() = delete;
+    Client();
     ~Client();
 
     explicit Client(std::shared_ptr<grpc::Channel> channel);
