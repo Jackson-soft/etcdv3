@@ -1,15 +1,20 @@
-#define CATCH_CONFIG_MAIN
+#pragma once
 
-#include "Client.h"
-#include <iostream>
+#include "Client.hpp"
+#include "doctest.h"
 
-TEST_CASE("get", "get")
+TEST_CASE("get")
 {
-    Uranus::Client cl("127.0.0.1:2379");
-    cl.Put("fusu", "hello");
+    std::string domain{"10.1.22.0:2379"};
+    Uranus::Client cl(domain);
+    auto result = cl.Put("fusu", "hello");
+    CHECK(result.ok());
     std::map<std::string, std::string> ret;
-    std::cout << cl.Get(ret, "fusu") << std::endl;
+    auto num = cl.Get(ret, "fusu");
+    CHECK(num == ret.size());
     for (const auto &it : ret) {
-        std::cout << it.first << ":" << it.second << std::endl;
+        MESSAGE(it.first << ":" << it.second);
     }
 }
+
+TEST_CASE("put value to etcd") {}

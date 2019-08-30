@@ -11,10 +11,13 @@
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
 #include <grpcpp/impl/codegen/client_callback.h>
+#include <grpcpp/impl/codegen/client_context.h>
+#include <grpcpp/impl/codegen/completion_queue.h>
 #include <grpcpp/impl/codegen/method_handler_impl.h>
 #include <grpcpp/impl/codegen/proto_utils.h>
 #include <grpcpp/impl/codegen/rpc_method.h>
 #include <grpcpp/impl/codegen/server_callback.h>
+#include <grpcpp/impl/codegen/server_context.h>
 #include <grpcpp/impl/codegen/service_type.h>
 #include <grpcpp/impl/codegen/status.h>
 #include <grpcpp/impl/codegen/stub_options.h>
@@ -365,7 +368,7 @@ class KV final {
    public:
     ExperimentalWithCallbackMethod_Range() {
       ::grpc::Service::experimental().MarkMethodCallback(0,
-        new ::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::RangeRequest, ::etcdserverpb::RangeResponse>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::RangeRequest, ::etcdserverpb::RangeResponse>(
           [this](::grpc::ServerContext* context,
                  const ::etcdserverpb::RangeRequest* request,
                  ::etcdserverpb::RangeResponse* response,
@@ -375,7 +378,7 @@ class KV final {
     }
     void SetMessageAllocatorFor_Range(
         ::grpc::experimental::MessageAllocator< ::etcdserverpb::RangeRequest, ::etcdserverpb::RangeResponse>* allocator) {
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::RangeRequest, ::etcdserverpb::RangeResponse>*>(
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::RangeRequest, ::etcdserverpb::RangeResponse>*>(
           ::grpc::Service::experimental().GetHandler(0))
               ->SetMessageAllocator(allocator);
     }
@@ -396,7 +399,7 @@ class KV final {
    public:
     ExperimentalWithCallbackMethod_Put() {
       ::grpc::Service::experimental().MarkMethodCallback(1,
-        new ::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::PutRequest, ::etcdserverpb::PutResponse>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::PutRequest, ::etcdserverpb::PutResponse>(
           [this](::grpc::ServerContext* context,
                  const ::etcdserverpb::PutRequest* request,
                  ::etcdserverpb::PutResponse* response,
@@ -406,7 +409,7 @@ class KV final {
     }
     void SetMessageAllocatorFor_Put(
         ::grpc::experimental::MessageAllocator< ::etcdserverpb::PutRequest, ::etcdserverpb::PutResponse>* allocator) {
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::PutRequest, ::etcdserverpb::PutResponse>*>(
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::PutRequest, ::etcdserverpb::PutResponse>*>(
           ::grpc::Service::experimental().GetHandler(1))
               ->SetMessageAllocator(allocator);
     }
@@ -427,7 +430,7 @@ class KV final {
    public:
     ExperimentalWithCallbackMethod_DeleteRange() {
       ::grpc::Service::experimental().MarkMethodCallback(2,
-        new ::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::DeleteRangeRequest, ::etcdserverpb::DeleteRangeResponse>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::DeleteRangeRequest, ::etcdserverpb::DeleteRangeResponse>(
           [this](::grpc::ServerContext* context,
                  const ::etcdserverpb::DeleteRangeRequest* request,
                  ::etcdserverpb::DeleteRangeResponse* response,
@@ -437,7 +440,7 @@ class KV final {
     }
     void SetMessageAllocatorFor_DeleteRange(
         ::grpc::experimental::MessageAllocator< ::etcdserverpb::DeleteRangeRequest, ::etcdserverpb::DeleteRangeResponse>* allocator) {
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::DeleteRangeRequest, ::etcdserverpb::DeleteRangeResponse>*>(
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::DeleteRangeRequest, ::etcdserverpb::DeleteRangeResponse>*>(
           ::grpc::Service::experimental().GetHandler(2))
               ->SetMessageAllocator(allocator);
     }
@@ -458,7 +461,7 @@ class KV final {
    public:
     ExperimentalWithCallbackMethod_Txn() {
       ::grpc::Service::experimental().MarkMethodCallback(3,
-        new ::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::TxnRequest, ::etcdserverpb::TxnResponse>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::TxnRequest, ::etcdserverpb::TxnResponse>(
           [this](::grpc::ServerContext* context,
                  const ::etcdserverpb::TxnRequest* request,
                  ::etcdserverpb::TxnResponse* response,
@@ -468,7 +471,7 @@ class KV final {
     }
     void SetMessageAllocatorFor_Txn(
         ::grpc::experimental::MessageAllocator< ::etcdserverpb::TxnRequest, ::etcdserverpb::TxnResponse>* allocator) {
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::TxnRequest, ::etcdserverpb::TxnResponse>*>(
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::TxnRequest, ::etcdserverpb::TxnResponse>*>(
           ::grpc::Service::experimental().GetHandler(3))
               ->SetMessageAllocator(allocator);
     }
@@ -489,7 +492,7 @@ class KV final {
    public:
     ExperimentalWithCallbackMethod_Compact() {
       ::grpc::Service::experimental().MarkMethodCallback(4,
-        new ::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::CompactionRequest, ::etcdserverpb::CompactionResponse>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::CompactionRequest, ::etcdserverpb::CompactionResponse>(
           [this](::grpc::ServerContext* context,
                  const ::etcdserverpb::CompactionRequest* request,
                  ::etcdserverpb::CompactionResponse* response,
@@ -499,7 +502,7 @@ class KV final {
     }
     void SetMessageAllocatorFor_Compact(
         ::grpc::experimental::MessageAllocator< ::etcdserverpb::CompactionRequest, ::etcdserverpb::CompactionResponse>* allocator) {
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::CompactionRequest, ::etcdserverpb::CompactionResponse>*>(
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::CompactionRequest, ::etcdserverpb::CompactionResponse>*>(
           ::grpc::Service::experimental().GetHandler(4))
               ->SetMessageAllocator(allocator);
     }
@@ -706,7 +709,7 @@ class KV final {
    public:
     ExperimentalWithRawCallbackMethod_Range() {
       ::grpc::Service::experimental().MarkMethodRawCallback(0,
-        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
           [this](::grpc::ServerContext* context,
                  const ::grpc::ByteBuffer* request,
                  ::grpc::ByteBuffer* response,
@@ -731,7 +734,7 @@ class KV final {
    public:
     ExperimentalWithRawCallbackMethod_Put() {
       ::grpc::Service::experimental().MarkMethodRawCallback(1,
-        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
           [this](::grpc::ServerContext* context,
                  const ::grpc::ByteBuffer* request,
                  ::grpc::ByteBuffer* response,
@@ -756,7 +759,7 @@ class KV final {
    public:
     ExperimentalWithRawCallbackMethod_DeleteRange() {
       ::grpc::Service::experimental().MarkMethodRawCallback(2,
-        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
           [this](::grpc::ServerContext* context,
                  const ::grpc::ByteBuffer* request,
                  ::grpc::ByteBuffer* response,
@@ -781,7 +784,7 @@ class KV final {
    public:
     ExperimentalWithRawCallbackMethod_Txn() {
       ::grpc::Service::experimental().MarkMethodRawCallback(3,
-        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
           [this](::grpc::ServerContext* context,
                  const ::grpc::ByteBuffer* request,
                  ::grpc::ByteBuffer* response,
@@ -806,7 +809,7 @@ class KV final {
    public:
     ExperimentalWithRawCallbackMethod_Compact() {
       ::grpc::Service::experimental().MarkMethodRawCallback(4,
-        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
           [this](::grpc::ServerContext* context,
                  const ::grpc::ByteBuffer* request,
                  ::grpc::ByteBuffer* response,
@@ -1040,7 +1043,7 @@ class Watch final {
    public:
     ExperimentalWithCallbackMethod_Watch() {
       ::grpc::Service::experimental().MarkMethodCallback(0,
-        new ::grpc::internal::CallbackBidiHandler< ::etcdserverpb::WatchRequest, ::etcdserverpb::WatchResponse>(
+        new ::grpc_impl::internal::CallbackBidiHandler< ::etcdserverpb::WatchRequest, ::etcdserverpb::WatchResponse>(
           [this] { return this->Watch(); }));
     }
     ~ExperimentalWithCallbackMethod_Watch() override {
@@ -1052,7 +1055,7 @@ class Watch final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     virtual ::grpc::experimental::ServerBidiReactor< ::etcdserverpb::WatchRequest, ::etcdserverpb::WatchResponse>* Watch() {
-      return new ::grpc::internal::UnimplementedBidiReactor<
+      return new ::grpc_impl::internal::UnimplementedBidiReactor<
         ::etcdserverpb::WatchRequest, ::etcdserverpb::WatchResponse>;}
   };
   typedef ExperimentalWithCallbackMethod_Watch<Service > ExperimentalCallbackService;
@@ -1100,7 +1103,7 @@ class Watch final {
    public:
     ExperimentalWithRawCallbackMethod_Watch() {
       ::grpc::Service::experimental().MarkMethodRawCallback(0,
-        new ::grpc::internal::CallbackBidiHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+        new ::grpc_impl::internal::CallbackBidiHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
           [this] { return this->Watch(); }));
     }
     ~ExperimentalWithRawCallbackMethod_Watch() override {
@@ -1112,7 +1115,7 @@ class Watch final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     virtual ::grpc::experimental::ServerBidiReactor< ::grpc::ByteBuffer, ::grpc::ByteBuffer>* Watch() {
-      return new ::grpc::internal::UnimplementedBidiReactor<
+      return new ::grpc_impl::internal::UnimplementedBidiReactor<
         ::grpc::ByteBuffer, ::grpc::ByteBuffer>;}
   };
   typedef Service StreamedUnaryService;
@@ -1432,7 +1435,7 @@ class Lease final {
    public:
     ExperimentalWithCallbackMethod_LeaseGrant() {
       ::grpc::Service::experimental().MarkMethodCallback(0,
-        new ::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::LeaseGrantRequest, ::etcdserverpb::LeaseGrantResponse>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::LeaseGrantRequest, ::etcdserverpb::LeaseGrantResponse>(
           [this](::grpc::ServerContext* context,
                  const ::etcdserverpb::LeaseGrantRequest* request,
                  ::etcdserverpb::LeaseGrantResponse* response,
@@ -1442,7 +1445,7 @@ class Lease final {
     }
     void SetMessageAllocatorFor_LeaseGrant(
         ::grpc::experimental::MessageAllocator< ::etcdserverpb::LeaseGrantRequest, ::etcdserverpb::LeaseGrantResponse>* allocator) {
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::LeaseGrantRequest, ::etcdserverpb::LeaseGrantResponse>*>(
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::LeaseGrantRequest, ::etcdserverpb::LeaseGrantResponse>*>(
           ::grpc::Service::experimental().GetHandler(0))
               ->SetMessageAllocator(allocator);
     }
@@ -1463,7 +1466,7 @@ class Lease final {
    public:
     ExperimentalWithCallbackMethod_LeaseRevoke() {
       ::grpc::Service::experimental().MarkMethodCallback(1,
-        new ::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::LeaseRevokeRequest, ::etcdserverpb::LeaseRevokeResponse>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::LeaseRevokeRequest, ::etcdserverpb::LeaseRevokeResponse>(
           [this](::grpc::ServerContext* context,
                  const ::etcdserverpb::LeaseRevokeRequest* request,
                  ::etcdserverpb::LeaseRevokeResponse* response,
@@ -1473,7 +1476,7 @@ class Lease final {
     }
     void SetMessageAllocatorFor_LeaseRevoke(
         ::grpc::experimental::MessageAllocator< ::etcdserverpb::LeaseRevokeRequest, ::etcdserverpb::LeaseRevokeResponse>* allocator) {
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::LeaseRevokeRequest, ::etcdserverpb::LeaseRevokeResponse>*>(
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::LeaseRevokeRequest, ::etcdserverpb::LeaseRevokeResponse>*>(
           ::grpc::Service::experimental().GetHandler(1))
               ->SetMessageAllocator(allocator);
     }
@@ -1494,7 +1497,7 @@ class Lease final {
    public:
     ExperimentalWithCallbackMethod_LeaseKeepAlive() {
       ::grpc::Service::experimental().MarkMethodCallback(2,
-        new ::grpc::internal::CallbackBidiHandler< ::etcdserverpb::LeaseKeepAliveRequest, ::etcdserverpb::LeaseKeepAliveResponse>(
+        new ::grpc_impl::internal::CallbackBidiHandler< ::etcdserverpb::LeaseKeepAliveRequest, ::etcdserverpb::LeaseKeepAliveResponse>(
           [this] { return this->LeaseKeepAlive(); }));
     }
     ~ExperimentalWithCallbackMethod_LeaseKeepAlive() override {
@@ -1506,7 +1509,7 @@ class Lease final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     virtual ::grpc::experimental::ServerBidiReactor< ::etcdserverpb::LeaseKeepAliveRequest, ::etcdserverpb::LeaseKeepAliveResponse>* LeaseKeepAlive() {
-      return new ::grpc::internal::UnimplementedBidiReactor<
+      return new ::grpc_impl::internal::UnimplementedBidiReactor<
         ::etcdserverpb::LeaseKeepAliveRequest, ::etcdserverpb::LeaseKeepAliveResponse>;}
   };
   template <class BaseClass>
@@ -1516,7 +1519,7 @@ class Lease final {
    public:
     ExperimentalWithCallbackMethod_LeaseTimeToLive() {
       ::grpc::Service::experimental().MarkMethodCallback(3,
-        new ::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::LeaseTimeToLiveRequest, ::etcdserverpb::LeaseTimeToLiveResponse>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::LeaseTimeToLiveRequest, ::etcdserverpb::LeaseTimeToLiveResponse>(
           [this](::grpc::ServerContext* context,
                  const ::etcdserverpb::LeaseTimeToLiveRequest* request,
                  ::etcdserverpb::LeaseTimeToLiveResponse* response,
@@ -1526,7 +1529,7 @@ class Lease final {
     }
     void SetMessageAllocatorFor_LeaseTimeToLive(
         ::grpc::experimental::MessageAllocator< ::etcdserverpb::LeaseTimeToLiveRequest, ::etcdserverpb::LeaseTimeToLiveResponse>* allocator) {
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::LeaseTimeToLiveRequest, ::etcdserverpb::LeaseTimeToLiveResponse>*>(
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::LeaseTimeToLiveRequest, ::etcdserverpb::LeaseTimeToLiveResponse>*>(
           ::grpc::Service::experimental().GetHandler(3))
               ->SetMessageAllocator(allocator);
     }
@@ -1547,7 +1550,7 @@ class Lease final {
    public:
     ExperimentalWithCallbackMethod_LeaseLeases() {
       ::grpc::Service::experimental().MarkMethodCallback(4,
-        new ::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::LeaseLeasesRequest, ::etcdserverpb::LeaseLeasesResponse>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::LeaseLeasesRequest, ::etcdserverpb::LeaseLeasesResponse>(
           [this](::grpc::ServerContext* context,
                  const ::etcdserverpb::LeaseLeasesRequest* request,
                  ::etcdserverpb::LeaseLeasesResponse* response,
@@ -1557,7 +1560,7 @@ class Lease final {
     }
     void SetMessageAllocatorFor_LeaseLeases(
         ::grpc::experimental::MessageAllocator< ::etcdserverpb::LeaseLeasesRequest, ::etcdserverpb::LeaseLeasesResponse>* allocator) {
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::LeaseLeasesRequest, ::etcdserverpb::LeaseLeasesResponse>*>(
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::LeaseLeasesRequest, ::etcdserverpb::LeaseLeasesResponse>*>(
           ::grpc::Service::experimental().GetHandler(4))
               ->SetMessageAllocator(allocator);
     }
@@ -1764,7 +1767,7 @@ class Lease final {
    public:
     ExperimentalWithRawCallbackMethod_LeaseGrant() {
       ::grpc::Service::experimental().MarkMethodRawCallback(0,
-        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
           [this](::grpc::ServerContext* context,
                  const ::grpc::ByteBuffer* request,
                  ::grpc::ByteBuffer* response,
@@ -1789,7 +1792,7 @@ class Lease final {
    public:
     ExperimentalWithRawCallbackMethod_LeaseRevoke() {
       ::grpc::Service::experimental().MarkMethodRawCallback(1,
-        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
           [this](::grpc::ServerContext* context,
                  const ::grpc::ByteBuffer* request,
                  ::grpc::ByteBuffer* response,
@@ -1814,7 +1817,7 @@ class Lease final {
    public:
     ExperimentalWithRawCallbackMethod_LeaseKeepAlive() {
       ::grpc::Service::experimental().MarkMethodRawCallback(2,
-        new ::grpc::internal::CallbackBidiHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+        new ::grpc_impl::internal::CallbackBidiHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
           [this] { return this->LeaseKeepAlive(); }));
     }
     ~ExperimentalWithRawCallbackMethod_LeaseKeepAlive() override {
@@ -1826,7 +1829,7 @@ class Lease final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     virtual ::grpc::experimental::ServerBidiReactor< ::grpc::ByteBuffer, ::grpc::ByteBuffer>* LeaseKeepAlive() {
-      return new ::grpc::internal::UnimplementedBidiReactor<
+      return new ::grpc_impl::internal::UnimplementedBidiReactor<
         ::grpc::ByteBuffer, ::grpc::ByteBuffer>;}
   };
   template <class BaseClass>
@@ -1836,7 +1839,7 @@ class Lease final {
    public:
     ExperimentalWithRawCallbackMethod_LeaseTimeToLive() {
       ::grpc::Service::experimental().MarkMethodRawCallback(3,
-        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
           [this](::grpc::ServerContext* context,
                  const ::grpc::ByteBuffer* request,
                  ::grpc::ByteBuffer* response,
@@ -1861,7 +1864,7 @@ class Lease final {
    public:
     ExperimentalWithRawCallbackMethod_LeaseLeases() {
       ::grpc::Service::experimental().MarkMethodRawCallback(4,
-        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
           [this](::grpc::ServerContext* context,
                  const ::grpc::ByteBuffer* request,
                  ::grpc::ByteBuffer* response,
@@ -2216,7 +2219,7 @@ class Cluster final {
    public:
     ExperimentalWithCallbackMethod_MemberAdd() {
       ::grpc::Service::experimental().MarkMethodCallback(0,
-        new ::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::MemberAddRequest, ::etcdserverpb::MemberAddResponse>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::MemberAddRequest, ::etcdserverpb::MemberAddResponse>(
           [this](::grpc::ServerContext* context,
                  const ::etcdserverpb::MemberAddRequest* request,
                  ::etcdserverpb::MemberAddResponse* response,
@@ -2226,7 +2229,7 @@ class Cluster final {
     }
     void SetMessageAllocatorFor_MemberAdd(
         ::grpc::experimental::MessageAllocator< ::etcdserverpb::MemberAddRequest, ::etcdserverpb::MemberAddResponse>* allocator) {
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::MemberAddRequest, ::etcdserverpb::MemberAddResponse>*>(
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::MemberAddRequest, ::etcdserverpb::MemberAddResponse>*>(
           ::grpc::Service::experimental().GetHandler(0))
               ->SetMessageAllocator(allocator);
     }
@@ -2247,7 +2250,7 @@ class Cluster final {
    public:
     ExperimentalWithCallbackMethod_MemberRemove() {
       ::grpc::Service::experimental().MarkMethodCallback(1,
-        new ::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::MemberRemoveRequest, ::etcdserverpb::MemberRemoveResponse>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::MemberRemoveRequest, ::etcdserverpb::MemberRemoveResponse>(
           [this](::grpc::ServerContext* context,
                  const ::etcdserverpb::MemberRemoveRequest* request,
                  ::etcdserverpb::MemberRemoveResponse* response,
@@ -2257,7 +2260,7 @@ class Cluster final {
     }
     void SetMessageAllocatorFor_MemberRemove(
         ::grpc::experimental::MessageAllocator< ::etcdserverpb::MemberRemoveRequest, ::etcdserverpb::MemberRemoveResponse>* allocator) {
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::MemberRemoveRequest, ::etcdserverpb::MemberRemoveResponse>*>(
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::MemberRemoveRequest, ::etcdserverpb::MemberRemoveResponse>*>(
           ::grpc::Service::experimental().GetHandler(1))
               ->SetMessageAllocator(allocator);
     }
@@ -2278,7 +2281,7 @@ class Cluster final {
    public:
     ExperimentalWithCallbackMethod_MemberUpdate() {
       ::grpc::Service::experimental().MarkMethodCallback(2,
-        new ::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::MemberUpdateRequest, ::etcdserverpb::MemberUpdateResponse>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::MemberUpdateRequest, ::etcdserverpb::MemberUpdateResponse>(
           [this](::grpc::ServerContext* context,
                  const ::etcdserverpb::MemberUpdateRequest* request,
                  ::etcdserverpb::MemberUpdateResponse* response,
@@ -2288,7 +2291,7 @@ class Cluster final {
     }
     void SetMessageAllocatorFor_MemberUpdate(
         ::grpc::experimental::MessageAllocator< ::etcdserverpb::MemberUpdateRequest, ::etcdserverpb::MemberUpdateResponse>* allocator) {
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::MemberUpdateRequest, ::etcdserverpb::MemberUpdateResponse>*>(
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::MemberUpdateRequest, ::etcdserverpb::MemberUpdateResponse>*>(
           ::grpc::Service::experimental().GetHandler(2))
               ->SetMessageAllocator(allocator);
     }
@@ -2309,7 +2312,7 @@ class Cluster final {
    public:
     ExperimentalWithCallbackMethod_MemberList() {
       ::grpc::Service::experimental().MarkMethodCallback(3,
-        new ::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::MemberListRequest, ::etcdserverpb::MemberListResponse>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::MemberListRequest, ::etcdserverpb::MemberListResponse>(
           [this](::grpc::ServerContext* context,
                  const ::etcdserverpb::MemberListRequest* request,
                  ::etcdserverpb::MemberListResponse* response,
@@ -2319,7 +2322,7 @@ class Cluster final {
     }
     void SetMessageAllocatorFor_MemberList(
         ::grpc::experimental::MessageAllocator< ::etcdserverpb::MemberListRequest, ::etcdserverpb::MemberListResponse>* allocator) {
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::MemberListRequest, ::etcdserverpb::MemberListResponse>*>(
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::MemberListRequest, ::etcdserverpb::MemberListResponse>*>(
           ::grpc::Service::experimental().GetHandler(3))
               ->SetMessageAllocator(allocator);
     }
@@ -2489,7 +2492,7 @@ class Cluster final {
    public:
     ExperimentalWithRawCallbackMethod_MemberAdd() {
       ::grpc::Service::experimental().MarkMethodRawCallback(0,
-        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
           [this](::grpc::ServerContext* context,
                  const ::grpc::ByteBuffer* request,
                  ::grpc::ByteBuffer* response,
@@ -2514,7 +2517,7 @@ class Cluster final {
    public:
     ExperimentalWithRawCallbackMethod_MemberRemove() {
       ::grpc::Service::experimental().MarkMethodRawCallback(1,
-        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
           [this](::grpc::ServerContext* context,
                  const ::grpc::ByteBuffer* request,
                  ::grpc::ByteBuffer* response,
@@ -2539,7 +2542,7 @@ class Cluster final {
    public:
     ExperimentalWithRawCallbackMethod_MemberUpdate() {
       ::grpc::Service::experimental().MarkMethodRawCallback(2,
-        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
           [this](::grpc::ServerContext* context,
                  const ::grpc::ByteBuffer* request,
                  ::grpc::ByteBuffer* response,
@@ -2564,7 +2567,7 @@ class Cluster final {
    public:
     ExperimentalWithRawCallbackMethod_MemberList() {
       ::grpc::Service::experimental().MarkMethodRawCallback(3,
-        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
           [this](::grpc::ServerContext* context,
                  const ::grpc::ByteBuffer* request,
                  ::grpc::ByteBuffer* response,
@@ -3078,7 +3081,7 @@ class Maintenance final {
    public:
     ExperimentalWithCallbackMethod_Alarm() {
       ::grpc::Service::experimental().MarkMethodCallback(0,
-        new ::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AlarmRequest, ::etcdserverpb::AlarmResponse>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::AlarmRequest, ::etcdserverpb::AlarmResponse>(
           [this](::grpc::ServerContext* context,
                  const ::etcdserverpb::AlarmRequest* request,
                  ::etcdserverpb::AlarmResponse* response,
@@ -3088,7 +3091,7 @@ class Maintenance final {
     }
     void SetMessageAllocatorFor_Alarm(
         ::grpc::experimental::MessageAllocator< ::etcdserverpb::AlarmRequest, ::etcdserverpb::AlarmResponse>* allocator) {
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AlarmRequest, ::etcdserverpb::AlarmResponse>*>(
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::AlarmRequest, ::etcdserverpb::AlarmResponse>*>(
           ::grpc::Service::experimental().GetHandler(0))
               ->SetMessageAllocator(allocator);
     }
@@ -3109,7 +3112,7 @@ class Maintenance final {
    public:
     ExperimentalWithCallbackMethod_Status() {
       ::grpc::Service::experimental().MarkMethodCallback(1,
-        new ::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::StatusRequest, ::etcdserverpb::StatusResponse>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::StatusRequest, ::etcdserverpb::StatusResponse>(
           [this](::grpc::ServerContext* context,
                  const ::etcdserverpb::StatusRequest* request,
                  ::etcdserverpb::StatusResponse* response,
@@ -3119,7 +3122,7 @@ class Maintenance final {
     }
     void SetMessageAllocatorFor_Status(
         ::grpc::experimental::MessageAllocator< ::etcdserverpb::StatusRequest, ::etcdserverpb::StatusResponse>* allocator) {
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::StatusRequest, ::etcdserverpb::StatusResponse>*>(
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::StatusRequest, ::etcdserverpb::StatusResponse>*>(
           ::grpc::Service::experimental().GetHandler(1))
               ->SetMessageAllocator(allocator);
     }
@@ -3140,7 +3143,7 @@ class Maintenance final {
    public:
     ExperimentalWithCallbackMethod_Defragment() {
       ::grpc::Service::experimental().MarkMethodCallback(2,
-        new ::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::DefragmentRequest, ::etcdserverpb::DefragmentResponse>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::DefragmentRequest, ::etcdserverpb::DefragmentResponse>(
           [this](::grpc::ServerContext* context,
                  const ::etcdserverpb::DefragmentRequest* request,
                  ::etcdserverpb::DefragmentResponse* response,
@@ -3150,7 +3153,7 @@ class Maintenance final {
     }
     void SetMessageAllocatorFor_Defragment(
         ::grpc::experimental::MessageAllocator< ::etcdserverpb::DefragmentRequest, ::etcdserverpb::DefragmentResponse>* allocator) {
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::DefragmentRequest, ::etcdserverpb::DefragmentResponse>*>(
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::DefragmentRequest, ::etcdserverpb::DefragmentResponse>*>(
           ::grpc::Service::experimental().GetHandler(2))
               ->SetMessageAllocator(allocator);
     }
@@ -3171,7 +3174,7 @@ class Maintenance final {
    public:
     ExperimentalWithCallbackMethod_Hash() {
       ::grpc::Service::experimental().MarkMethodCallback(3,
-        new ::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::HashRequest, ::etcdserverpb::HashResponse>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::HashRequest, ::etcdserverpb::HashResponse>(
           [this](::grpc::ServerContext* context,
                  const ::etcdserverpb::HashRequest* request,
                  ::etcdserverpb::HashResponse* response,
@@ -3181,7 +3184,7 @@ class Maintenance final {
     }
     void SetMessageAllocatorFor_Hash(
         ::grpc::experimental::MessageAllocator< ::etcdserverpb::HashRequest, ::etcdserverpb::HashResponse>* allocator) {
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::HashRequest, ::etcdserverpb::HashResponse>*>(
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::HashRequest, ::etcdserverpb::HashResponse>*>(
           ::grpc::Service::experimental().GetHandler(3))
               ->SetMessageAllocator(allocator);
     }
@@ -3202,7 +3205,7 @@ class Maintenance final {
    public:
     ExperimentalWithCallbackMethod_HashKV() {
       ::grpc::Service::experimental().MarkMethodCallback(4,
-        new ::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::HashKVRequest, ::etcdserverpb::HashKVResponse>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::HashKVRequest, ::etcdserverpb::HashKVResponse>(
           [this](::grpc::ServerContext* context,
                  const ::etcdserverpb::HashKVRequest* request,
                  ::etcdserverpb::HashKVResponse* response,
@@ -3212,7 +3215,7 @@ class Maintenance final {
     }
     void SetMessageAllocatorFor_HashKV(
         ::grpc::experimental::MessageAllocator< ::etcdserverpb::HashKVRequest, ::etcdserverpb::HashKVResponse>* allocator) {
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::HashKVRequest, ::etcdserverpb::HashKVResponse>*>(
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::HashKVRequest, ::etcdserverpb::HashKVResponse>*>(
           ::grpc::Service::experimental().GetHandler(4))
               ->SetMessageAllocator(allocator);
     }
@@ -3233,7 +3236,7 @@ class Maintenance final {
    public:
     ExperimentalWithCallbackMethod_Snapshot() {
       ::grpc::Service::experimental().MarkMethodCallback(5,
-        new ::grpc::internal::CallbackServerStreamingHandler< ::etcdserverpb::SnapshotRequest, ::etcdserverpb::SnapshotResponse>(
+        new ::grpc_impl::internal::CallbackServerStreamingHandler< ::etcdserverpb::SnapshotRequest, ::etcdserverpb::SnapshotResponse>(
           [this] { return this->Snapshot(); }));
     }
     ~ExperimentalWithCallbackMethod_Snapshot() override {
@@ -3245,7 +3248,7 @@ class Maintenance final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     virtual ::grpc::experimental::ServerWriteReactor< ::etcdserverpb::SnapshotRequest, ::etcdserverpb::SnapshotResponse>* Snapshot() {
-      return new ::grpc::internal::UnimplementedWriteReactor<
+      return new ::grpc_impl::internal::UnimplementedWriteReactor<
         ::etcdserverpb::SnapshotRequest, ::etcdserverpb::SnapshotResponse>;}
   };
   template <class BaseClass>
@@ -3255,7 +3258,7 @@ class Maintenance final {
    public:
     ExperimentalWithCallbackMethod_MoveLeader() {
       ::grpc::Service::experimental().MarkMethodCallback(6,
-        new ::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::MoveLeaderRequest, ::etcdserverpb::MoveLeaderResponse>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::MoveLeaderRequest, ::etcdserverpb::MoveLeaderResponse>(
           [this](::grpc::ServerContext* context,
                  const ::etcdserverpb::MoveLeaderRequest* request,
                  ::etcdserverpb::MoveLeaderResponse* response,
@@ -3265,7 +3268,7 @@ class Maintenance final {
     }
     void SetMessageAllocatorFor_MoveLeader(
         ::grpc::experimental::MessageAllocator< ::etcdserverpb::MoveLeaderRequest, ::etcdserverpb::MoveLeaderResponse>* allocator) {
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::MoveLeaderRequest, ::etcdserverpb::MoveLeaderResponse>*>(
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::MoveLeaderRequest, ::etcdserverpb::MoveLeaderResponse>*>(
           ::grpc::Service::experimental().GetHandler(6))
               ->SetMessageAllocator(allocator);
     }
@@ -3546,7 +3549,7 @@ class Maintenance final {
    public:
     ExperimentalWithRawCallbackMethod_Alarm() {
       ::grpc::Service::experimental().MarkMethodRawCallback(0,
-        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
           [this](::grpc::ServerContext* context,
                  const ::grpc::ByteBuffer* request,
                  ::grpc::ByteBuffer* response,
@@ -3571,7 +3574,7 @@ class Maintenance final {
    public:
     ExperimentalWithRawCallbackMethod_Status() {
       ::grpc::Service::experimental().MarkMethodRawCallback(1,
-        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
           [this](::grpc::ServerContext* context,
                  const ::grpc::ByteBuffer* request,
                  ::grpc::ByteBuffer* response,
@@ -3596,7 +3599,7 @@ class Maintenance final {
    public:
     ExperimentalWithRawCallbackMethod_Defragment() {
       ::grpc::Service::experimental().MarkMethodRawCallback(2,
-        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
           [this](::grpc::ServerContext* context,
                  const ::grpc::ByteBuffer* request,
                  ::grpc::ByteBuffer* response,
@@ -3621,7 +3624,7 @@ class Maintenance final {
    public:
     ExperimentalWithRawCallbackMethod_Hash() {
       ::grpc::Service::experimental().MarkMethodRawCallback(3,
-        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
           [this](::grpc::ServerContext* context,
                  const ::grpc::ByteBuffer* request,
                  ::grpc::ByteBuffer* response,
@@ -3646,7 +3649,7 @@ class Maintenance final {
    public:
     ExperimentalWithRawCallbackMethod_HashKV() {
       ::grpc::Service::experimental().MarkMethodRawCallback(4,
-        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
           [this](::grpc::ServerContext* context,
                  const ::grpc::ByteBuffer* request,
                  ::grpc::ByteBuffer* response,
@@ -3671,7 +3674,7 @@ class Maintenance final {
    public:
     ExperimentalWithRawCallbackMethod_Snapshot() {
       ::grpc::Service::experimental().MarkMethodRawCallback(5,
-        new ::grpc::internal::CallbackServerStreamingHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+        new ::grpc_impl::internal::CallbackServerStreamingHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
           [this] { return this->Snapshot(); }));
     }
     ~ExperimentalWithRawCallbackMethod_Snapshot() override {
@@ -3683,7 +3686,7 @@ class Maintenance final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     virtual ::grpc::experimental::ServerWriteReactor< ::grpc::ByteBuffer, ::grpc::ByteBuffer>* Snapshot() {
-      return new ::grpc::internal::UnimplementedWriteReactor<
+      return new ::grpc_impl::internal::UnimplementedWriteReactor<
         ::grpc::ByteBuffer, ::grpc::ByteBuffer>;}
   };
   template <class BaseClass>
@@ -3693,7 +3696,7 @@ class Maintenance final {
    public:
     ExperimentalWithRawCallbackMethod_MoveLeader() {
       ::grpc::Service::experimental().MarkMethodRawCallback(6,
-        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
           [this](::grpc::ServerContext* context,
                  const ::grpc::ByteBuffer* request,
                  ::grpc::ByteBuffer* response,
@@ -4720,7 +4723,7 @@ class Auth final {
    public:
     ExperimentalWithCallbackMethod_AuthEnable() {
       ::grpc::Service::experimental().MarkMethodCallback(0,
-        new ::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthEnableRequest, ::etcdserverpb::AuthEnableResponse>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::AuthEnableRequest, ::etcdserverpb::AuthEnableResponse>(
           [this](::grpc::ServerContext* context,
                  const ::etcdserverpb::AuthEnableRequest* request,
                  ::etcdserverpb::AuthEnableResponse* response,
@@ -4730,7 +4733,7 @@ class Auth final {
     }
     void SetMessageAllocatorFor_AuthEnable(
         ::grpc::experimental::MessageAllocator< ::etcdserverpb::AuthEnableRequest, ::etcdserverpb::AuthEnableResponse>* allocator) {
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthEnableRequest, ::etcdserverpb::AuthEnableResponse>*>(
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::AuthEnableRequest, ::etcdserverpb::AuthEnableResponse>*>(
           ::grpc::Service::experimental().GetHandler(0))
               ->SetMessageAllocator(allocator);
     }
@@ -4751,7 +4754,7 @@ class Auth final {
    public:
     ExperimentalWithCallbackMethod_AuthDisable() {
       ::grpc::Service::experimental().MarkMethodCallback(1,
-        new ::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthDisableRequest, ::etcdserverpb::AuthDisableResponse>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::AuthDisableRequest, ::etcdserverpb::AuthDisableResponse>(
           [this](::grpc::ServerContext* context,
                  const ::etcdserverpb::AuthDisableRequest* request,
                  ::etcdserverpb::AuthDisableResponse* response,
@@ -4761,7 +4764,7 @@ class Auth final {
     }
     void SetMessageAllocatorFor_AuthDisable(
         ::grpc::experimental::MessageAllocator< ::etcdserverpb::AuthDisableRequest, ::etcdserverpb::AuthDisableResponse>* allocator) {
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthDisableRequest, ::etcdserverpb::AuthDisableResponse>*>(
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::AuthDisableRequest, ::etcdserverpb::AuthDisableResponse>*>(
           ::grpc::Service::experimental().GetHandler(1))
               ->SetMessageAllocator(allocator);
     }
@@ -4782,7 +4785,7 @@ class Auth final {
    public:
     ExperimentalWithCallbackMethod_Authenticate() {
       ::grpc::Service::experimental().MarkMethodCallback(2,
-        new ::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthenticateRequest, ::etcdserverpb::AuthenticateResponse>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::AuthenticateRequest, ::etcdserverpb::AuthenticateResponse>(
           [this](::grpc::ServerContext* context,
                  const ::etcdserverpb::AuthenticateRequest* request,
                  ::etcdserverpb::AuthenticateResponse* response,
@@ -4792,7 +4795,7 @@ class Auth final {
     }
     void SetMessageAllocatorFor_Authenticate(
         ::grpc::experimental::MessageAllocator< ::etcdserverpb::AuthenticateRequest, ::etcdserverpb::AuthenticateResponse>* allocator) {
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthenticateRequest, ::etcdserverpb::AuthenticateResponse>*>(
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::AuthenticateRequest, ::etcdserverpb::AuthenticateResponse>*>(
           ::grpc::Service::experimental().GetHandler(2))
               ->SetMessageAllocator(allocator);
     }
@@ -4813,7 +4816,7 @@ class Auth final {
    public:
     ExperimentalWithCallbackMethod_UserAdd() {
       ::grpc::Service::experimental().MarkMethodCallback(3,
-        new ::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthUserAddRequest, ::etcdserverpb::AuthUserAddResponse>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::AuthUserAddRequest, ::etcdserverpb::AuthUserAddResponse>(
           [this](::grpc::ServerContext* context,
                  const ::etcdserverpb::AuthUserAddRequest* request,
                  ::etcdserverpb::AuthUserAddResponse* response,
@@ -4823,7 +4826,7 @@ class Auth final {
     }
     void SetMessageAllocatorFor_UserAdd(
         ::grpc::experimental::MessageAllocator< ::etcdserverpb::AuthUserAddRequest, ::etcdserverpb::AuthUserAddResponse>* allocator) {
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthUserAddRequest, ::etcdserverpb::AuthUserAddResponse>*>(
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::AuthUserAddRequest, ::etcdserverpb::AuthUserAddResponse>*>(
           ::grpc::Service::experimental().GetHandler(3))
               ->SetMessageAllocator(allocator);
     }
@@ -4844,7 +4847,7 @@ class Auth final {
    public:
     ExperimentalWithCallbackMethod_UserGet() {
       ::grpc::Service::experimental().MarkMethodCallback(4,
-        new ::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthUserGetRequest, ::etcdserverpb::AuthUserGetResponse>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::AuthUserGetRequest, ::etcdserverpb::AuthUserGetResponse>(
           [this](::grpc::ServerContext* context,
                  const ::etcdserverpb::AuthUserGetRequest* request,
                  ::etcdserverpb::AuthUserGetResponse* response,
@@ -4854,7 +4857,7 @@ class Auth final {
     }
     void SetMessageAllocatorFor_UserGet(
         ::grpc::experimental::MessageAllocator< ::etcdserverpb::AuthUserGetRequest, ::etcdserverpb::AuthUserGetResponse>* allocator) {
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthUserGetRequest, ::etcdserverpb::AuthUserGetResponse>*>(
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::AuthUserGetRequest, ::etcdserverpb::AuthUserGetResponse>*>(
           ::grpc::Service::experimental().GetHandler(4))
               ->SetMessageAllocator(allocator);
     }
@@ -4875,7 +4878,7 @@ class Auth final {
    public:
     ExperimentalWithCallbackMethod_UserList() {
       ::grpc::Service::experimental().MarkMethodCallback(5,
-        new ::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthUserListRequest, ::etcdserverpb::AuthUserListResponse>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::AuthUserListRequest, ::etcdserverpb::AuthUserListResponse>(
           [this](::grpc::ServerContext* context,
                  const ::etcdserverpb::AuthUserListRequest* request,
                  ::etcdserverpb::AuthUserListResponse* response,
@@ -4885,7 +4888,7 @@ class Auth final {
     }
     void SetMessageAllocatorFor_UserList(
         ::grpc::experimental::MessageAllocator< ::etcdserverpb::AuthUserListRequest, ::etcdserverpb::AuthUserListResponse>* allocator) {
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthUserListRequest, ::etcdserverpb::AuthUserListResponse>*>(
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::AuthUserListRequest, ::etcdserverpb::AuthUserListResponse>*>(
           ::grpc::Service::experimental().GetHandler(5))
               ->SetMessageAllocator(allocator);
     }
@@ -4906,7 +4909,7 @@ class Auth final {
    public:
     ExperimentalWithCallbackMethod_UserDelete() {
       ::grpc::Service::experimental().MarkMethodCallback(6,
-        new ::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthUserDeleteRequest, ::etcdserverpb::AuthUserDeleteResponse>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::AuthUserDeleteRequest, ::etcdserverpb::AuthUserDeleteResponse>(
           [this](::grpc::ServerContext* context,
                  const ::etcdserverpb::AuthUserDeleteRequest* request,
                  ::etcdserverpb::AuthUserDeleteResponse* response,
@@ -4916,7 +4919,7 @@ class Auth final {
     }
     void SetMessageAllocatorFor_UserDelete(
         ::grpc::experimental::MessageAllocator< ::etcdserverpb::AuthUserDeleteRequest, ::etcdserverpb::AuthUserDeleteResponse>* allocator) {
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthUserDeleteRequest, ::etcdserverpb::AuthUserDeleteResponse>*>(
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::AuthUserDeleteRequest, ::etcdserverpb::AuthUserDeleteResponse>*>(
           ::grpc::Service::experimental().GetHandler(6))
               ->SetMessageAllocator(allocator);
     }
@@ -4937,7 +4940,7 @@ class Auth final {
    public:
     ExperimentalWithCallbackMethod_UserChangePassword() {
       ::grpc::Service::experimental().MarkMethodCallback(7,
-        new ::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthUserChangePasswordRequest, ::etcdserverpb::AuthUserChangePasswordResponse>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::AuthUserChangePasswordRequest, ::etcdserverpb::AuthUserChangePasswordResponse>(
           [this](::grpc::ServerContext* context,
                  const ::etcdserverpb::AuthUserChangePasswordRequest* request,
                  ::etcdserverpb::AuthUserChangePasswordResponse* response,
@@ -4947,7 +4950,7 @@ class Auth final {
     }
     void SetMessageAllocatorFor_UserChangePassword(
         ::grpc::experimental::MessageAllocator< ::etcdserverpb::AuthUserChangePasswordRequest, ::etcdserverpb::AuthUserChangePasswordResponse>* allocator) {
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthUserChangePasswordRequest, ::etcdserverpb::AuthUserChangePasswordResponse>*>(
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::AuthUserChangePasswordRequest, ::etcdserverpb::AuthUserChangePasswordResponse>*>(
           ::grpc::Service::experimental().GetHandler(7))
               ->SetMessageAllocator(allocator);
     }
@@ -4968,7 +4971,7 @@ class Auth final {
    public:
     ExperimentalWithCallbackMethod_UserGrantRole() {
       ::grpc::Service::experimental().MarkMethodCallback(8,
-        new ::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthUserGrantRoleRequest, ::etcdserverpb::AuthUserGrantRoleResponse>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::AuthUserGrantRoleRequest, ::etcdserverpb::AuthUserGrantRoleResponse>(
           [this](::grpc::ServerContext* context,
                  const ::etcdserverpb::AuthUserGrantRoleRequest* request,
                  ::etcdserverpb::AuthUserGrantRoleResponse* response,
@@ -4978,7 +4981,7 @@ class Auth final {
     }
     void SetMessageAllocatorFor_UserGrantRole(
         ::grpc::experimental::MessageAllocator< ::etcdserverpb::AuthUserGrantRoleRequest, ::etcdserverpb::AuthUserGrantRoleResponse>* allocator) {
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthUserGrantRoleRequest, ::etcdserverpb::AuthUserGrantRoleResponse>*>(
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::AuthUserGrantRoleRequest, ::etcdserverpb::AuthUserGrantRoleResponse>*>(
           ::grpc::Service::experimental().GetHandler(8))
               ->SetMessageAllocator(allocator);
     }
@@ -4999,7 +5002,7 @@ class Auth final {
    public:
     ExperimentalWithCallbackMethod_UserRevokeRole() {
       ::grpc::Service::experimental().MarkMethodCallback(9,
-        new ::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthUserRevokeRoleRequest, ::etcdserverpb::AuthUserRevokeRoleResponse>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::AuthUserRevokeRoleRequest, ::etcdserverpb::AuthUserRevokeRoleResponse>(
           [this](::grpc::ServerContext* context,
                  const ::etcdserverpb::AuthUserRevokeRoleRequest* request,
                  ::etcdserverpb::AuthUserRevokeRoleResponse* response,
@@ -5009,7 +5012,7 @@ class Auth final {
     }
     void SetMessageAllocatorFor_UserRevokeRole(
         ::grpc::experimental::MessageAllocator< ::etcdserverpb::AuthUserRevokeRoleRequest, ::etcdserverpb::AuthUserRevokeRoleResponse>* allocator) {
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthUserRevokeRoleRequest, ::etcdserverpb::AuthUserRevokeRoleResponse>*>(
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::AuthUserRevokeRoleRequest, ::etcdserverpb::AuthUserRevokeRoleResponse>*>(
           ::grpc::Service::experimental().GetHandler(9))
               ->SetMessageAllocator(allocator);
     }
@@ -5030,7 +5033,7 @@ class Auth final {
    public:
     ExperimentalWithCallbackMethod_RoleAdd() {
       ::grpc::Service::experimental().MarkMethodCallback(10,
-        new ::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthRoleAddRequest, ::etcdserverpb::AuthRoleAddResponse>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::AuthRoleAddRequest, ::etcdserverpb::AuthRoleAddResponse>(
           [this](::grpc::ServerContext* context,
                  const ::etcdserverpb::AuthRoleAddRequest* request,
                  ::etcdserverpb::AuthRoleAddResponse* response,
@@ -5040,7 +5043,7 @@ class Auth final {
     }
     void SetMessageAllocatorFor_RoleAdd(
         ::grpc::experimental::MessageAllocator< ::etcdserverpb::AuthRoleAddRequest, ::etcdserverpb::AuthRoleAddResponse>* allocator) {
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthRoleAddRequest, ::etcdserverpb::AuthRoleAddResponse>*>(
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::AuthRoleAddRequest, ::etcdserverpb::AuthRoleAddResponse>*>(
           ::grpc::Service::experimental().GetHandler(10))
               ->SetMessageAllocator(allocator);
     }
@@ -5061,7 +5064,7 @@ class Auth final {
    public:
     ExperimentalWithCallbackMethod_RoleGet() {
       ::grpc::Service::experimental().MarkMethodCallback(11,
-        new ::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthRoleGetRequest, ::etcdserverpb::AuthRoleGetResponse>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::AuthRoleGetRequest, ::etcdserverpb::AuthRoleGetResponse>(
           [this](::grpc::ServerContext* context,
                  const ::etcdserverpb::AuthRoleGetRequest* request,
                  ::etcdserverpb::AuthRoleGetResponse* response,
@@ -5071,7 +5074,7 @@ class Auth final {
     }
     void SetMessageAllocatorFor_RoleGet(
         ::grpc::experimental::MessageAllocator< ::etcdserverpb::AuthRoleGetRequest, ::etcdserverpb::AuthRoleGetResponse>* allocator) {
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthRoleGetRequest, ::etcdserverpb::AuthRoleGetResponse>*>(
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::AuthRoleGetRequest, ::etcdserverpb::AuthRoleGetResponse>*>(
           ::grpc::Service::experimental().GetHandler(11))
               ->SetMessageAllocator(allocator);
     }
@@ -5092,7 +5095,7 @@ class Auth final {
    public:
     ExperimentalWithCallbackMethod_RoleList() {
       ::grpc::Service::experimental().MarkMethodCallback(12,
-        new ::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthRoleListRequest, ::etcdserverpb::AuthRoleListResponse>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::AuthRoleListRequest, ::etcdserverpb::AuthRoleListResponse>(
           [this](::grpc::ServerContext* context,
                  const ::etcdserverpb::AuthRoleListRequest* request,
                  ::etcdserverpb::AuthRoleListResponse* response,
@@ -5102,7 +5105,7 @@ class Auth final {
     }
     void SetMessageAllocatorFor_RoleList(
         ::grpc::experimental::MessageAllocator< ::etcdserverpb::AuthRoleListRequest, ::etcdserverpb::AuthRoleListResponse>* allocator) {
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthRoleListRequest, ::etcdserverpb::AuthRoleListResponse>*>(
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::AuthRoleListRequest, ::etcdserverpb::AuthRoleListResponse>*>(
           ::grpc::Service::experimental().GetHandler(12))
               ->SetMessageAllocator(allocator);
     }
@@ -5123,7 +5126,7 @@ class Auth final {
    public:
     ExperimentalWithCallbackMethod_RoleDelete() {
       ::grpc::Service::experimental().MarkMethodCallback(13,
-        new ::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthRoleDeleteRequest, ::etcdserverpb::AuthRoleDeleteResponse>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::AuthRoleDeleteRequest, ::etcdserverpb::AuthRoleDeleteResponse>(
           [this](::grpc::ServerContext* context,
                  const ::etcdserverpb::AuthRoleDeleteRequest* request,
                  ::etcdserverpb::AuthRoleDeleteResponse* response,
@@ -5133,7 +5136,7 @@ class Auth final {
     }
     void SetMessageAllocatorFor_RoleDelete(
         ::grpc::experimental::MessageAllocator< ::etcdserverpb::AuthRoleDeleteRequest, ::etcdserverpb::AuthRoleDeleteResponse>* allocator) {
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthRoleDeleteRequest, ::etcdserverpb::AuthRoleDeleteResponse>*>(
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::AuthRoleDeleteRequest, ::etcdserverpb::AuthRoleDeleteResponse>*>(
           ::grpc::Service::experimental().GetHandler(13))
               ->SetMessageAllocator(allocator);
     }
@@ -5154,7 +5157,7 @@ class Auth final {
    public:
     ExperimentalWithCallbackMethod_RoleGrantPermission() {
       ::grpc::Service::experimental().MarkMethodCallback(14,
-        new ::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthRoleGrantPermissionRequest, ::etcdserverpb::AuthRoleGrantPermissionResponse>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::AuthRoleGrantPermissionRequest, ::etcdserverpb::AuthRoleGrantPermissionResponse>(
           [this](::grpc::ServerContext* context,
                  const ::etcdserverpb::AuthRoleGrantPermissionRequest* request,
                  ::etcdserverpb::AuthRoleGrantPermissionResponse* response,
@@ -5164,7 +5167,7 @@ class Auth final {
     }
     void SetMessageAllocatorFor_RoleGrantPermission(
         ::grpc::experimental::MessageAllocator< ::etcdserverpb::AuthRoleGrantPermissionRequest, ::etcdserverpb::AuthRoleGrantPermissionResponse>* allocator) {
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthRoleGrantPermissionRequest, ::etcdserverpb::AuthRoleGrantPermissionResponse>*>(
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::AuthRoleGrantPermissionRequest, ::etcdserverpb::AuthRoleGrantPermissionResponse>*>(
           ::grpc::Service::experimental().GetHandler(14))
               ->SetMessageAllocator(allocator);
     }
@@ -5185,7 +5188,7 @@ class Auth final {
    public:
     ExperimentalWithCallbackMethod_RoleRevokePermission() {
       ::grpc::Service::experimental().MarkMethodCallback(15,
-        new ::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthRoleRevokePermissionRequest, ::etcdserverpb::AuthRoleRevokePermissionResponse>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::AuthRoleRevokePermissionRequest, ::etcdserverpb::AuthRoleRevokePermissionResponse>(
           [this](::grpc::ServerContext* context,
                  const ::etcdserverpb::AuthRoleRevokePermissionRequest* request,
                  ::etcdserverpb::AuthRoleRevokePermissionResponse* response,
@@ -5195,7 +5198,7 @@ class Auth final {
     }
     void SetMessageAllocatorFor_RoleRevokePermission(
         ::grpc::experimental::MessageAllocator< ::etcdserverpb::AuthRoleRevokePermissionRequest, ::etcdserverpb::AuthRoleRevokePermissionResponse>* allocator) {
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::etcdserverpb::AuthRoleRevokePermissionRequest, ::etcdserverpb::AuthRoleRevokePermissionResponse>*>(
+      static_cast<::grpc_impl::internal::CallbackUnaryHandler< ::etcdserverpb::AuthRoleRevokePermissionRequest, ::etcdserverpb::AuthRoleRevokePermissionResponse>*>(
           ::grpc::Service::experimental().GetHandler(15))
               ->SetMessageAllocator(allocator);
     }
@@ -5809,7 +5812,7 @@ class Auth final {
    public:
     ExperimentalWithRawCallbackMethod_AuthEnable() {
       ::grpc::Service::experimental().MarkMethodRawCallback(0,
-        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
           [this](::grpc::ServerContext* context,
                  const ::grpc::ByteBuffer* request,
                  ::grpc::ByteBuffer* response,
@@ -5834,7 +5837,7 @@ class Auth final {
    public:
     ExperimentalWithRawCallbackMethod_AuthDisable() {
       ::grpc::Service::experimental().MarkMethodRawCallback(1,
-        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
           [this](::grpc::ServerContext* context,
                  const ::grpc::ByteBuffer* request,
                  ::grpc::ByteBuffer* response,
@@ -5859,7 +5862,7 @@ class Auth final {
    public:
     ExperimentalWithRawCallbackMethod_Authenticate() {
       ::grpc::Service::experimental().MarkMethodRawCallback(2,
-        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
           [this](::grpc::ServerContext* context,
                  const ::grpc::ByteBuffer* request,
                  ::grpc::ByteBuffer* response,
@@ -5884,7 +5887,7 @@ class Auth final {
    public:
     ExperimentalWithRawCallbackMethod_UserAdd() {
       ::grpc::Service::experimental().MarkMethodRawCallback(3,
-        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
           [this](::grpc::ServerContext* context,
                  const ::grpc::ByteBuffer* request,
                  ::grpc::ByteBuffer* response,
@@ -5909,7 +5912,7 @@ class Auth final {
    public:
     ExperimentalWithRawCallbackMethod_UserGet() {
       ::grpc::Service::experimental().MarkMethodRawCallback(4,
-        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
           [this](::grpc::ServerContext* context,
                  const ::grpc::ByteBuffer* request,
                  ::grpc::ByteBuffer* response,
@@ -5934,7 +5937,7 @@ class Auth final {
    public:
     ExperimentalWithRawCallbackMethod_UserList() {
       ::grpc::Service::experimental().MarkMethodRawCallback(5,
-        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
           [this](::grpc::ServerContext* context,
                  const ::grpc::ByteBuffer* request,
                  ::grpc::ByteBuffer* response,
@@ -5959,7 +5962,7 @@ class Auth final {
    public:
     ExperimentalWithRawCallbackMethod_UserDelete() {
       ::grpc::Service::experimental().MarkMethodRawCallback(6,
-        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
           [this](::grpc::ServerContext* context,
                  const ::grpc::ByteBuffer* request,
                  ::grpc::ByteBuffer* response,
@@ -5984,7 +5987,7 @@ class Auth final {
    public:
     ExperimentalWithRawCallbackMethod_UserChangePassword() {
       ::grpc::Service::experimental().MarkMethodRawCallback(7,
-        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
           [this](::grpc::ServerContext* context,
                  const ::grpc::ByteBuffer* request,
                  ::grpc::ByteBuffer* response,
@@ -6009,7 +6012,7 @@ class Auth final {
    public:
     ExperimentalWithRawCallbackMethod_UserGrantRole() {
       ::grpc::Service::experimental().MarkMethodRawCallback(8,
-        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
           [this](::grpc::ServerContext* context,
                  const ::grpc::ByteBuffer* request,
                  ::grpc::ByteBuffer* response,
@@ -6034,7 +6037,7 @@ class Auth final {
    public:
     ExperimentalWithRawCallbackMethod_UserRevokeRole() {
       ::grpc::Service::experimental().MarkMethodRawCallback(9,
-        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
           [this](::grpc::ServerContext* context,
                  const ::grpc::ByteBuffer* request,
                  ::grpc::ByteBuffer* response,
@@ -6059,7 +6062,7 @@ class Auth final {
    public:
     ExperimentalWithRawCallbackMethod_RoleAdd() {
       ::grpc::Service::experimental().MarkMethodRawCallback(10,
-        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
           [this](::grpc::ServerContext* context,
                  const ::grpc::ByteBuffer* request,
                  ::grpc::ByteBuffer* response,
@@ -6084,7 +6087,7 @@ class Auth final {
    public:
     ExperimentalWithRawCallbackMethod_RoleGet() {
       ::grpc::Service::experimental().MarkMethodRawCallback(11,
-        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
           [this](::grpc::ServerContext* context,
                  const ::grpc::ByteBuffer* request,
                  ::grpc::ByteBuffer* response,
@@ -6109,7 +6112,7 @@ class Auth final {
    public:
     ExperimentalWithRawCallbackMethod_RoleList() {
       ::grpc::Service::experimental().MarkMethodRawCallback(12,
-        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
           [this](::grpc::ServerContext* context,
                  const ::grpc::ByteBuffer* request,
                  ::grpc::ByteBuffer* response,
@@ -6134,7 +6137,7 @@ class Auth final {
    public:
     ExperimentalWithRawCallbackMethod_RoleDelete() {
       ::grpc::Service::experimental().MarkMethodRawCallback(13,
-        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
           [this](::grpc::ServerContext* context,
                  const ::grpc::ByteBuffer* request,
                  ::grpc::ByteBuffer* response,
@@ -6159,7 +6162,7 @@ class Auth final {
    public:
     ExperimentalWithRawCallbackMethod_RoleGrantPermission() {
       ::grpc::Service::experimental().MarkMethodRawCallback(14,
-        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
           [this](::grpc::ServerContext* context,
                  const ::grpc::ByteBuffer* request,
                  ::grpc::ByteBuffer* response,
@@ -6184,7 +6187,7 @@ class Auth final {
    public:
     ExperimentalWithRawCallbackMethod_RoleRevokePermission() {
       ::grpc::Service::experimental().MarkMethodRawCallback(15,
-        new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+        new ::grpc_impl::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
           [this](::grpc::ServerContext* context,
                  const ::grpc::ByteBuffer* request,
                  ::grpc::ByteBuffer* response,

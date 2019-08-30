@@ -8,33 +8,23 @@
 #include <google/protobuf/stubs/common.h>
 #include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/extension_set.h>
-#include <google/protobuf/wire_format_lite_inl.h>
+#include <google/protobuf/wire_format_lite.h>
 #include <google/protobuf/descriptor.h>
 #include <google/protobuf/generated_message_reflection.h>
 #include <google/protobuf/reflection_ops.h>
 #include <google/protobuf/wire_format.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
-
 namespace gogoproto {
 }  // namespace gogoproto
-void InitDefaults_gogo_2eproto() {
-}
+static constexpr ::PROTOBUF_NAMESPACE_ID::Metadata* file_level_metadata_gogo_2eproto = nullptr;
+static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_gogo_2eproto = nullptr;
+static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_gogo_2eproto = nullptr;
+const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_gogo_2eproto::offsets[1] = {};
+static constexpr ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema* schemas = nullptr;
+static constexpr ::PROTOBUF_NAMESPACE_ID::Message* const* file_default_instances = nullptr;
 
-constexpr ::google::protobuf::Metadata* file_level_metadata_gogo_2eproto = nullptr;
-constexpr ::google::protobuf::EnumDescriptor const** file_level_enum_descriptors_gogo_2eproto = nullptr;
-constexpr ::google::protobuf::ServiceDescriptor const** file_level_service_descriptors_gogo_2eproto = nullptr;
-const ::google::protobuf::uint32 TableStruct_gogo_2eproto::offsets[1] = {};
-static constexpr ::google::protobuf::internal::MigrationSchema* schemas = nullptr;
-static constexpr ::google::protobuf::Message* const* file_default_instances = nullptr;
-
-::google::protobuf::internal::AssignDescriptorsTable assign_descriptors_table_gogo_2eproto = {
-  {}, AddDescriptors_gogo_2eproto, "gogo.proto", schemas,
-  file_default_instances, TableStruct_gogo_2eproto::offsets,
-  file_level_metadata_gogo_2eproto, 0, file_level_enum_descriptors_gogo_2eproto, file_level_service_descriptors_gogo_2eproto,
-};
-
-const char descriptor_table_protodef_gogo_2eproto[] =
+const char descriptor_table_protodef_gogo_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\ngogo.proto\022\tgogoproto\032 google/protobuf"
   "/descriptor.proto:;\n\023goproto_enum_prefix"
   "\022\034.google.protobuf.EnumOptions\030\261\344\003 \001(\010:="
@@ -147,267 +137,265 @@ const char descriptor_table_protodef_gogo_2eproto[] =
   "e.protobufB\nGoGoProtosZ\"github.com/gogo/"
   "protobuf/gogoproto"
   ;
-::google::protobuf::internal::DescriptorTable descriptor_table_gogo_2eproto = {
-  false, InitDefaults_gogo_2eproto, 
-  descriptor_table_protodef_gogo_2eproto,
-  "gogo.proto", &assign_descriptors_table_gogo_2eproto, 4418,
+static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_gogo_2eproto_deps[1] = {
+  &::descriptor_table_google_2fprotobuf_2fdescriptor_2eproto,
+};
+static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_gogo_2eproto_sccs[1] = {
+};
+static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_gogo_2eproto_once;
+static bool descriptor_table_gogo_2eproto_initialized = false;
+const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_gogo_2eproto = {
+  &descriptor_table_gogo_2eproto_initialized, descriptor_table_protodef_gogo_2eproto, "gogo.proto", 4418,
+  &descriptor_table_gogo_2eproto_once, descriptor_table_gogo_2eproto_sccs, descriptor_table_gogo_2eproto_deps, 0, 1,
+  schemas, file_default_instances, TableStruct_gogo_2eproto::offsets,
+  file_level_metadata_gogo_2eproto, 0, file_level_enum_descriptors_gogo_2eproto, file_level_service_descriptors_gogo_2eproto,
 };
 
-void AddDescriptors_gogo_2eproto() {
-  static constexpr ::google::protobuf::internal::InitFunc deps[1] =
-  {
-    ::AddDescriptors_google_2fprotobuf_2fdescriptor_2eproto,
-  };
- ::google::protobuf::internal::AddDescriptors(&descriptor_table_gogo_2eproto, deps, 1);
-}
-
 // Force running AddDescriptors() at dynamic initialization time.
-static bool dynamic_init_dummy_gogo_2eproto = []() { AddDescriptors_gogo_2eproto(); return true; }();
+static bool dynamic_init_dummy_gogo_2eproto = (  ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptors(&descriptor_table_gogo_2eproto), true);
 namespace gogoproto {
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::EnumOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::EnumOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   goproto_enum_prefix(kGoprotoEnumPrefixFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::EnumOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::EnumOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   goproto_enum_stringer(kGoprotoEnumStringerFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::EnumOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::EnumOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   enum_stringer(kEnumStringerFieldNumber, false);
-const ::std::string enum_customname_default("");
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::EnumOptions,
-    ::google::protobuf::internal::StringTypeTraits, 9, false >
+const std::string enum_customname_default("");
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::EnumOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::StringTypeTraits, 9, false >
   enum_customname(kEnumCustomnameFieldNumber, enum_customname_default);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::EnumOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::EnumOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   enumdecl(kEnumdeclFieldNumber, false);
-const ::std::string enumvalue_customname_default("");
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::EnumValueOptions,
-    ::google::protobuf::internal::StringTypeTraits, 9, false >
+const std::string enumvalue_customname_default("");
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::EnumValueOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::StringTypeTraits, 9, false >
   enumvalue_customname(kEnumvalueCustomnameFieldNumber, enumvalue_customname_default);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   goproto_getters_all(kGoprotoGettersAllFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   goproto_enum_prefix_all(kGoprotoEnumPrefixAllFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   goproto_stringer_all(kGoprotoStringerAllFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   verbose_equal_all(kVerboseEqualAllFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   face_all(kFaceAllFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   gostring_all(kGostringAllFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   populate_all(kPopulateAllFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   stringer_all(kStringerAllFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   onlyone_all(kOnlyoneAllFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   equal_all(kEqualAllFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   description_all(kDescriptionAllFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   testgen_all(kTestgenAllFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   benchgen_all(kBenchgenAllFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   marshaler_all(kMarshalerAllFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   unmarshaler_all(kUnmarshalerAllFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   stable_marshaler_all(kStableMarshalerAllFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   sizer_all(kSizerAllFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   goproto_enum_stringer_all(kGoprotoEnumStringerAllFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   enum_stringer_all(kEnumStringerAllFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   unsafe_marshaler_all(kUnsafeMarshalerAllFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   unsafe_unmarshaler_all(kUnsafeUnmarshalerAllFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   goproto_extensions_map_all(kGoprotoExtensionsMapAllFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   goproto_unrecognized_all(kGoprotoUnrecognizedAllFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   gogoproto_import(kGogoprotoImportFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   protosizer_all(kProtosizerAllFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   compare_all(kCompareAllFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   typedecl_all(kTypedeclAllFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   enumdecl_all(kEnumdeclAllFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   goproto_registration(kGoprotoRegistrationFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   messagename_all(kMessagenameAllFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   goproto_sizecache_all(kGoprotoSizecacheAllFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FileOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   goproto_unkeyed_all(kGoprotoUnkeyedAllFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   goproto_getters(kGoprotoGettersFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   goproto_stringer(kGoprotoStringerFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   verbose_equal(kVerboseEqualFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   face(kFaceFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   gostring(kGostringFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   populate(kPopulateFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   stringer(kStringerFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   onlyone(kOnlyoneFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   equal(kEqualFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   description(kDescriptionFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   testgen(kTestgenFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   benchgen(kBenchgenFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   marshaler(kMarshalerFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   unmarshaler(kUnmarshalerFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   stable_marshaler(kStableMarshalerFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   sizer(kSizerFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   unsafe_marshaler(kUnsafeMarshalerFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   unsafe_unmarshaler(kUnsafeUnmarshalerFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   goproto_extensions_map(kGoprotoExtensionsMapFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   goproto_unrecognized(kGoprotoUnrecognizedFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   protosizer(kProtosizerFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   compare(kCompareFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   typedecl(kTypedeclFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   messagename(kMessagenameFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   goproto_sizecache(kGoprotoSizecacheFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::MessageOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   goproto_unkeyed(kGoprotoUnkeyedFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FieldOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FieldOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   nullable(kNullableFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FieldOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FieldOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   embed(kEmbedFieldNumber, false);
-const ::std::string customtype_default("");
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FieldOptions,
-    ::google::protobuf::internal::StringTypeTraits, 9, false >
+const std::string customtype_default("");
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FieldOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::StringTypeTraits, 9, false >
   customtype(kCustomtypeFieldNumber, customtype_default);
-const ::std::string customname_default("");
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FieldOptions,
-    ::google::protobuf::internal::StringTypeTraits, 9, false >
+const std::string customname_default("");
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FieldOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::StringTypeTraits, 9, false >
   customname(kCustomnameFieldNumber, customname_default);
-const ::std::string jsontag_default("");
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FieldOptions,
-    ::google::protobuf::internal::StringTypeTraits, 9, false >
+const std::string jsontag_default("");
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FieldOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::StringTypeTraits, 9, false >
   jsontag(kJsontagFieldNumber, jsontag_default);
-const ::std::string moretags_default("");
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FieldOptions,
-    ::google::protobuf::internal::StringTypeTraits, 9, false >
+const std::string moretags_default("");
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FieldOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::StringTypeTraits, 9, false >
   moretags(kMoretagsFieldNumber, moretags_default);
-const ::std::string casttype_default("");
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FieldOptions,
-    ::google::protobuf::internal::StringTypeTraits, 9, false >
+const std::string casttype_default("");
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FieldOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::StringTypeTraits, 9, false >
   casttype(kCasttypeFieldNumber, casttype_default);
-const ::std::string castkey_default("");
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FieldOptions,
-    ::google::protobuf::internal::StringTypeTraits, 9, false >
+const std::string castkey_default("");
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FieldOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::StringTypeTraits, 9, false >
   castkey(kCastkeyFieldNumber, castkey_default);
-const ::std::string castvalue_default("");
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FieldOptions,
-    ::google::protobuf::internal::StringTypeTraits, 9, false >
+const std::string castvalue_default("");
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FieldOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::StringTypeTraits, 9, false >
   castvalue(kCastvalueFieldNumber, castvalue_default);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FieldOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FieldOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   stdtime(kStdtimeFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FieldOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FieldOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   stdduration(kStddurationFieldNumber, false);
-::google::protobuf::internal::ExtensionIdentifier< ::google::protobuf::FieldOptions,
-    ::google::protobuf::internal::PrimitiveTypeTraits< bool >, 8, false >
+::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::google::protobuf::FieldOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::PrimitiveTypeTraits< bool >, 8, false >
   wktpointer(kWktpointerFieldNumber, false);
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace gogoproto
-namespace google {
-namespace protobuf {
-}  // namespace protobuf
-}  // namespace google
+PROTOBUF_NAMESPACE_OPEN
+PROTOBUF_NAMESPACE_CLOSE
 
 // @@protoc_insertion_point(global_scope)
 #include <google/protobuf/port_undef.inc>

@@ -33,26 +33,25 @@ grpc_generate_cpp(GRPC_SRCS
 # 设置库的输出目录
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/lib)
 
-aux_source_directory(${CMAKE_CURRENT_LIST_DIR}/src DIR_SRCS)
-
 include_directories(${CMAKE_CURRENT_LIST_DIR}/include
                     ${CMAKE_CURRENT_LIST_DIR}/etcdapi ${Protobuf_INCLUDE_DIRS})
 
 add_subdirectory(etcdapi)
 
-add_library(${PROJECT_NAME} STATIC ${DIR_SRCS})
-
-target_link_libraries(${PROJECT_NAME}
+# example
+set(Example_CXX Example)
+add_executable(${Example_CXX} example/main.cpp)
+target_link_libraries(${Example_CXX}
                       pthread
                       gRPC::grpc++_reflection
                       ${Protobuf_LIBRARIES}
                       etcdapi)
-# example
-set(Example_CXX Example)
-add_executable(${Example_CXX} example/main.cpp)
-target_link_libraries(${Example_CXX} etcdv3)
 
 # test
 set(Test_Case TestMain)
 add_executable(${Test_Case} test/TestMain.cpp)
-target_link_libraries(${Test_Case} etcdv3)
+target_link_libraries(${Test_Case}
+                      pthread
+                      gRPC::grpc++_reflection
+                      ${Protobuf_LIBRARIES}
+                      etcdapi)
