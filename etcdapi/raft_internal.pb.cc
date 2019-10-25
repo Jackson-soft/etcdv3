@@ -5,7 +5,6 @@
 
 #include <algorithm>
 
-#include <google/protobuf/stubs/common.h>
 #include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/extension_set.h>
 #include <google/protobuf/wire_format_lite.h>
@@ -71,7 +70,7 @@ static void InitDefaultsscc_info_EmptyResponse_raft_5finternal_2eproto() {
 }
 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_EmptyResponse_raft_5finternal_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsscc_info_EmptyResponse_raft_5finternal_2eproto}, {}};
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_EmptyResponse_raft_5finternal_2eproto}, {}};
 
 static void InitDefaultsscc_info_InternalAuthenticateRequest_raft_5finternal_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -85,7 +84,7 @@ static void InitDefaultsscc_info_InternalAuthenticateRequest_raft_5finternal_2ep
 }
 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_InternalAuthenticateRequest_raft_5finternal_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsscc_info_InternalAuthenticateRequest_raft_5finternal_2eproto}, {}};
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_InternalAuthenticateRequest_raft_5finternal_2eproto}, {}};
 
 static void InitDefaultsscc_info_InternalRaftRequest_raft_5finternal_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -99,7 +98,7 @@ static void InitDefaultsscc_info_InternalRaftRequest_raft_5finternal_2eproto() {
 }
 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<26> scc_info_InternalRaftRequest_raft_5finternal_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 26, InitDefaultsscc_info_InternalRaftRequest_raft_5finternal_2eproto}, {
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 26, 0, InitDefaultsscc_info_InternalRaftRequest_raft_5finternal_2eproto}, {
       &scc_info_RequestHeader_raft_5finternal_2eproto.base,
       &scc_info_Request_etcdserver_2eproto.base,
       &scc_info_RangeRequest_rpc_2eproto.base,
@@ -139,7 +138,7 @@ static void InitDefaultsscc_info_RequestHeader_raft_5finternal_2eproto() {
 }
 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_RequestHeader_raft_5finternal_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsscc_info_RequestHeader_raft_5finternal_2eproto}, {}};
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_RequestHeader_raft_5finternal_2eproto}, {}};
 
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_raft_5finternal_2eproto[4];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_raft_5finternal_2eproto = nullptr;
@@ -304,7 +303,7 @@ RequestHeader::RequestHeader(const RequestHeader& from)
       _internal_metadata_(nullptr) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   username_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from.username().empty()) {
+  if (!from._internal_username().empty()) {
     username_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.username_);
   }
   ::memcpy(&id_, &from.id_,
@@ -352,7 +351,6 @@ void RequestHeader::Clear() {
   _internal_metadata_.Clear();
 }
 
-#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 const char* RequestHeader::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
@@ -370,7 +368,7 @@ const char* RequestHeader::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
       // string username = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(mutable_username(), ptr, ctx, "etcdserverpb.RequestHeader.username");
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(_internal_mutable_username(), ptr, ctx, "etcdserverpb.RequestHeader.username");
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -400,142 +398,38 @@ failure:
   goto success;
 #undef CHK_
 }
-#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-bool RequestHeader::MergePartialFromCodedStream(
-    ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-  // @@protoc_insertion_point(parse_start:etcdserverpb.RequestHeader)
-  for (;;) {
-    ::std::pair<::PROTOBUF_NAMESPACE_ID::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // uint64 ID = 1;
-      case 1: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (8 & 0xFF)) {
-
-          DO_((::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadPrimitive<
-                   ::PROTOBUF_NAMESPACE_ID::uint64, ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_UINT64>(
-                 input, &id_)));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // string username = 2;
-      case 2: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (18 & 0xFF)) {
-          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadString(
-                input, this->mutable_username()));
-          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-            this->username().data(), static_cast<int>(this->username().length()),
-            ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE,
-            "etcdserverpb.RequestHeader.username"));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // uint64 auth_revision = 3;
-      case 3: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (24 & 0xFF)) {
-
-          DO_((::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadPrimitive<
-                   ::PROTOBUF_NAMESPACE_ID::uint64, ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_UINT64>(
-                 input, &auth_revision_)));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0) {
-          goto success;
-        }
-        DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SkipField(
-              input, tag, _internal_metadata_.mutable_unknown_fields()));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:etcdserverpb.RequestHeader)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:etcdserverpb.RequestHeader)
-  return false;
-#undef DO_
-}
-#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-
-void RequestHeader::SerializeWithCachedSizes(
-    ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:etcdserverpb.RequestHeader)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // uint64 ID = 1;
-  if (this->id() != 0) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64(1, this->id(), output);
-  }
-
-  // string username = 2;
-  if (this->username().size() > 0) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->username().data(), static_cast<int>(this->username().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "etcdserverpb.RequestHeader.username");
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->username(), output);
-  }
-
-  // uint64 auth_revision = 3;
-  if (this->auth_revision() != 0) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64(3, this->auth_revision(), output);
-  }
-
-  if (_internal_metadata_.have_unknown_fields()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFields(
-        _internal_metadata_.unknown_fields(), output);
-  }
-  // @@protoc_insertion_point(serialize_end:etcdserverpb.RequestHeader)
-}
 
 ::PROTOBUF_NAMESPACE_ID::uint8* RequestHeader::InternalSerializeWithCachedSizesToArray(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target) const {
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:etcdserverpb.RequestHeader)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   // uint64 ID = 1;
   if (this->id() != 0) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(1, this->id(), target);
+    stream->EnsureSpace(&target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(1, this->_internal_id(), target);
   }
 
   // string username = 2;
   if (this->username().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->username().data(), static_cast<int>(this->username().length()),
+      this->_internal_username().data(), static_cast<int>(this->_internal_username().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
       "etcdserverpb.RequestHeader.username");
-    target =
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringToArray(
-        2, this->username(), target);
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_username(), target);
   }
 
   // uint64 auth_revision = 3;
   if (this->auth_revision() != 0) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(3, this->auth_revision(), target);
+    stream->EnsureSpace(&target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(3, this->_internal_auth_revision(), target);
   }
 
-  if (_internal_metadata_.have_unknown_fields()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields(), target);
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:etcdserverpb.RequestHeader)
   return target;
@@ -545,11 +439,6 @@ size_t RequestHeader::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:etcdserverpb.RequestHeader)
   size_t total_size = 0;
 
-  if (_internal_metadata_.have_unknown_fields()) {
-    total_size +=
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::ComputeUnknownFieldsSize(
-        _internal_metadata_.unknown_fields());
-  }
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -558,23 +447,27 @@ size_t RequestHeader::ByteSizeLong() const {
   if (this->username().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->username());
+        this->_internal_username());
   }
 
   // uint64 ID = 1;
   if (this->id() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
-        this->id());
+        this->_internal_id());
   }
 
   // uint64 auth_revision = 3;
   if (this->auth_revision() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
-        this->auth_revision());
+        this->_internal_auth_revision());
   }
 
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
   int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
@@ -607,10 +500,10 @@ void RequestHeader::MergeFrom(const RequestHeader& from) {
     username_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.username_);
   }
   if (from.id() != 0) {
-    set_id(from.id());
+    _internal_set_id(from._internal_id());
   }
   if (from.auth_revision() != 0) {
-    set_auth_revision(from.auth_revision());
+    _internal_set_auth_revision(from._internal_auth_revision());
   }
 }
 
@@ -989,132 +882,132 @@ InternalRaftRequest::InternalRaftRequest(const InternalRaftRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
       _internal_metadata_(nullptr) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  if (from.has_v2()) {
+  if (from._internal_has_v2()) {
     v2_ = new ::etcdserverpb::Request(*from.v2_);
   } else {
     v2_ = nullptr;
   }
-  if (from.has_range()) {
+  if (from._internal_has_range()) {
     range_ = new ::etcdserverpb::RangeRequest(*from.range_);
   } else {
     range_ = nullptr;
   }
-  if (from.has_put()) {
+  if (from._internal_has_put()) {
     put_ = new ::etcdserverpb::PutRequest(*from.put_);
   } else {
     put_ = nullptr;
   }
-  if (from.has_delete_range()) {
+  if (from._internal_has_delete_range()) {
     delete_range_ = new ::etcdserverpb::DeleteRangeRequest(*from.delete_range_);
   } else {
     delete_range_ = nullptr;
   }
-  if (from.has_txn()) {
+  if (from._internal_has_txn()) {
     txn_ = new ::etcdserverpb::TxnRequest(*from.txn_);
   } else {
     txn_ = nullptr;
   }
-  if (from.has_compaction()) {
+  if (from._internal_has_compaction()) {
     compaction_ = new ::etcdserverpb::CompactionRequest(*from.compaction_);
   } else {
     compaction_ = nullptr;
   }
-  if (from.has_lease_grant()) {
+  if (from._internal_has_lease_grant()) {
     lease_grant_ = new ::etcdserverpb::LeaseGrantRequest(*from.lease_grant_);
   } else {
     lease_grant_ = nullptr;
   }
-  if (from.has_lease_revoke()) {
+  if (from._internal_has_lease_revoke()) {
     lease_revoke_ = new ::etcdserverpb::LeaseRevokeRequest(*from.lease_revoke_);
   } else {
     lease_revoke_ = nullptr;
   }
-  if (from.has_alarm()) {
+  if (from._internal_has_alarm()) {
     alarm_ = new ::etcdserverpb::AlarmRequest(*from.alarm_);
   } else {
     alarm_ = nullptr;
   }
-  if (from.has_header()) {
+  if (from._internal_has_header()) {
     header_ = new ::etcdserverpb::RequestHeader(*from.header_);
   } else {
     header_ = nullptr;
   }
-  if (from.has_auth_enable()) {
+  if (from._internal_has_auth_enable()) {
     auth_enable_ = new ::etcdserverpb::AuthEnableRequest(*from.auth_enable_);
   } else {
     auth_enable_ = nullptr;
   }
-  if (from.has_auth_disable()) {
+  if (from._internal_has_auth_disable()) {
     auth_disable_ = new ::etcdserverpb::AuthDisableRequest(*from.auth_disable_);
   } else {
     auth_disable_ = nullptr;
   }
-  if (from.has_authenticate()) {
+  if (from._internal_has_authenticate()) {
     authenticate_ = new ::etcdserverpb::InternalAuthenticateRequest(*from.authenticate_);
   } else {
     authenticate_ = nullptr;
   }
-  if (from.has_auth_user_add()) {
+  if (from._internal_has_auth_user_add()) {
     auth_user_add_ = new ::etcdserverpb::AuthUserAddRequest(*from.auth_user_add_);
   } else {
     auth_user_add_ = nullptr;
   }
-  if (from.has_auth_user_delete()) {
+  if (from._internal_has_auth_user_delete()) {
     auth_user_delete_ = new ::etcdserverpb::AuthUserDeleteRequest(*from.auth_user_delete_);
   } else {
     auth_user_delete_ = nullptr;
   }
-  if (from.has_auth_user_get()) {
+  if (from._internal_has_auth_user_get()) {
     auth_user_get_ = new ::etcdserverpb::AuthUserGetRequest(*from.auth_user_get_);
   } else {
     auth_user_get_ = nullptr;
   }
-  if (from.has_auth_user_change_password()) {
+  if (from._internal_has_auth_user_change_password()) {
     auth_user_change_password_ = new ::etcdserverpb::AuthUserChangePasswordRequest(*from.auth_user_change_password_);
   } else {
     auth_user_change_password_ = nullptr;
   }
-  if (from.has_auth_user_grant_role()) {
+  if (from._internal_has_auth_user_grant_role()) {
     auth_user_grant_role_ = new ::etcdserverpb::AuthUserGrantRoleRequest(*from.auth_user_grant_role_);
   } else {
     auth_user_grant_role_ = nullptr;
   }
-  if (from.has_auth_user_revoke_role()) {
+  if (from._internal_has_auth_user_revoke_role()) {
     auth_user_revoke_role_ = new ::etcdserverpb::AuthUserRevokeRoleRequest(*from.auth_user_revoke_role_);
   } else {
     auth_user_revoke_role_ = nullptr;
   }
-  if (from.has_auth_user_list()) {
+  if (from._internal_has_auth_user_list()) {
     auth_user_list_ = new ::etcdserverpb::AuthUserListRequest(*from.auth_user_list_);
   } else {
     auth_user_list_ = nullptr;
   }
-  if (from.has_auth_role_list()) {
+  if (from._internal_has_auth_role_list()) {
     auth_role_list_ = new ::etcdserverpb::AuthRoleListRequest(*from.auth_role_list_);
   } else {
     auth_role_list_ = nullptr;
   }
-  if (from.has_auth_role_add()) {
+  if (from._internal_has_auth_role_add()) {
     auth_role_add_ = new ::etcdserverpb::AuthRoleAddRequest(*from.auth_role_add_);
   } else {
     auth_role_add_ = nullptr;
   }
-  if (from.has_auth_role_delete()) {
+  if (from._internal_has_auth_role_delete()) {
     auth_role_delete_ = new ::etcdserverpb::AuthRoleDeleteRequest(*from.auth_role_delete_);
   } else {
     auth_role_delete_ = nullptr;
   }
-  if (from.has_auth_role_get()) {
+  if (from._internal_has_auth_role_get()) {
     auth_role_get_ = new ::etcdserverpb::AuthRoleGetRequest(*from.auth_role_get_);
   } else {
     auth_role_get_ = nullptr;
   }
-  if (from.has_auth_role_grant_permission()) {
+  if (from._internal_has_auth_role_grant_permission()) {
     auth_role_grant_permission_ = new ::etcdserverpb::AuthRoleGrantPermissionRequest(*from.auth_role_grant_permission_);
   } else {
     auth_role_grant_permission_ = nullptr;
   }
-  if (from.has_auth_role_revoke_permission()) {
+  if (from._internal_has_auth_role_revoke_permission()) {
     auth_role_revoke_permission_ = new ::etcdserverpb::AuthRoleRevokePermissionRequest(*from.auth_role_revoke_permission_);
   } else {
     auth_role_revoke_permission_ = nullptr;
@@ -1287,7 +1180,6 @@ void InternalRaftRequest::Clear() {
   _internal_metadata_.Clear();
 }
 
-#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 const char* InternalRaftRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
@@ -1305,182 +1197,182 @@ const char* InternalRaftRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAME
       // .etcdserverpb.Request v2 = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          ptr = ctx->ParseMessage(mutable_v2(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_v2(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
       // .etcdserverpb.RangeRequest range = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
-          ptr = ctx->ParseMessage(mutable_range(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_range(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
       // .etcdserverpb.PutRequest put = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
-          ptr = ctx->ParseMessage(mutable_put(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_put(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
       // .etcdserverpb.DeleteRangeRequest delete_range = 5;
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
-          ptr = ctx->ParseMessage(mutable_delete_range(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_delete_range(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
       // .etcdserverpb.TxnRequest txn = 6;
       case 6:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 50)) {
-          ptr = ctx->ParseMessage(mutable_txn(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_txn(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
       // .etcdserverpb.CompactionRequest compaction = 7;
       case 7:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 58)) {
-          ptr = ctx->ParseMessage(mutable_compaction(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_compaction(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
       // .etcdserverpb.LeaseGrantRequest lease_grant = 8;
       case 8:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 66)) {
-          ptr = ctx->ParseMessage(mutable_lease_grant(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_lease_grant(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
       // .etcdserverpb.LeaseRevokeRequest lease_revoke = 9;
       case 9:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 74)) {
-          ptr = ctx->ParseMessage(mutable_lease_revoke(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_lease_revoke(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
       // .etcdserverpb.AlarmRequest alarm = 10;
       case 10:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 82)) {
-          ptr = ctx->ParseMessage(mutable_alarm(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_alarm(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
       // .etcdserverpb.RequestHeader header = 100;
       case 100:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
-          ptr = ctx->ParseMessage(mutable_header(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_header(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
       // .etcdserverpb.AuthEnableRequest auth_enable = 1000;
       case 1000:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 66)) {
-          ptr = ctx->ParseMessage(mutable_auth_enable(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_auth_enable(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
       // .etcdserverpb.AuthDisableRequest auth_disable = 1011;
       case 1011:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 154)) {
-          ptr = ctx->ParseMessage(mutable_auth_disable(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_auth_disable(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
       // .etcdserverpb.InternalAuthenticateRequest authenticate = 1012;
       case 1012:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 162)) {
-          ptr = ctx->ParseMessage(mutable_authenticate(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_authenticate(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
       // .etcdserverpb.AuthUserAddRequest auth_user_add = 1100;
       case 1100:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 98)) {
-          ptr = ctx->ParseMessage(mutable_auth_user_add(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_auth_user_add(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
       // .etcdserverpb.AuthUserDeleteRequest auth_user_delete = 1101;
       case 1101:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 106)) {
-          ptr = ctx->ParseMessage(mutable_auth_user_delete(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_auth_user_delete(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
       // .etcdserverpb.AuthUserGetRequest auth_user_get = 1102;
       case 1102:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 114)) {
-          ptr = ctx->ParseMessage(mutable_auth_user_get(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_auth_user_get(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
       // .etcdserverpb.AuthUserChangePasswordRequest auth_user_change_password = 1103;
       case 1103:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 122)) {
-          ptr = ctx->ParseMessage(mutable_auth_user_change_password(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_auth_user_change_password(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
       // .etcdserverpb.AuthUserGrantRoleRequest auth_user_grant_role = 1104;
       case 1104:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 130)) {
-          ptr = ctx->ParseMessage(mutable_auth_user_grant_role(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_auth_user_grant_role(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
       // .etcdserverpb.AuthUserRevokeRoleRequest auth_user_revoke_role = 1105;
       case 1105:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 138)) {
-          ptr = ctx->ParseMessage(mutable_auth_user_revoke_role(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_auth_user_revoke_role(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
       // .etcdserverpb.AuthUserListRequest auth_user_list = 1106;
       case 1106:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 146)) {
-          ptr = ctx->ParseMessage(mutable_auth_user_list(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_auth_user_list(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
       // .etcdserverpb.AuthRoleListRequest auth_role_list = 1107;
       case 1107:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 154)) {
-          ptr = ctx->ParseMessage(mutable_auth_role_list(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_auth_role_list(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
       // .etcdserverpb.AuthRoleAddRequest auth_role_add = 1200;
       case 1200:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 130)) {
-          ptr = ctx->ParseMessage(mutable_auth_role_add(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_auth_role_add(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
       // .etcdserverpb.AuthRoleDeleteRequest auth_role_delete = 1201;
       case 1201:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 138)) {
-          ptr = ctx->ParseMessage(mutable_auth_role_delete(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_auth_role_delete(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
       // .etcdserverpb.AuthRoleGetRequest auth_role_get = 1202;
       case 1202:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 146)) {
-          ptr = ctx->ParseMessage(mutable_auth_role_get(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_auth_role_get(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
       // .etcdserverpb.AuthRoleGrantPermissionRequest auth_role_grant_permission = 1203;
       case 1203:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 154)) {
-          ptr = ctx->ParseMessage(mutable_auth_role_grant_permission(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_auth_role_grant_permission(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
       // .etcdserverpb.AuthRoleRevokePermissionRequest auth_role_revoke_permission = 1204;
       case 1204:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 162)) {
-          ptr = ctx->ParseMessage(mutable_auth_role_revoke_permission(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_auth_role_revoke_permission(), ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -1503,707 +1395,230 @@ failure:
   goto success;
 #undef CHK_
 }
-#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-bool InternalRaftRequest::MergePartialFromCodedStream(
-    ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-  // @@protoc_insertion_point(parse_start:etcdserverpb.InternalRaftRequest)
-  for (;;) {
-    ::std::pair<::PROTOBUF_NAMESPACE_ID::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(16383u);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // uint64 ID = 1;
-      case 1: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (8 & 0xFF)) {
-
-          DO_((::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadPrimitive<
-                   ::PROTOBUF_NAMESPACE_ID::uint64, ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_UINT64>(
-                 input, &id_)));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // .etcdserverpb.Request v2 = 2;
-      case 2: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (18 & 0xFF)) {
-          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadMessage(
-               input, mutable_v2()));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // .etcdserverpb.RangeRequest range = 3;
-      case 3: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (26 & 0xFF)) {
-          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadMessage(
-               input, mutable_range()));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // .etcdserverpb.PutRequest put = 4;
-      case 4: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (34 & 0xFF)) {
-          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadMessage(
-               input, mutable_put()));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // .etcdserverpb.DeleteRangeRequest delete_range = 5;
-      case 5: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (42 & 0xFF)) {
-          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadMessage(
-               input, mutable_delete_range()));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // .etcdserverpb.TxnRequest txn = 6;
-      case 6: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (50 & 0xFF)) {
-          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadMessage(
-               input, mutable_txn()));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // .etcdserverpb.CompactionRequest compaction = 7;
-      case 7: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (58 & 0xFF)) {
-          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadMessage(
-               input, mutable_compaction()));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // .etcdserverpb.LeaseGrantRequest lease_grant = 8;
-      case 8: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (66 & 0xFF)) {
-          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadMessage(
-               input, mutable_lease_grant()));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // .etcdserverpb.LeaseRevokeRequest lease_revoke = 9;
-      case 9: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (74 & 0xFF)) {
-          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadMessage(
-               input, mutable_lease_revoke()));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // .etcdserverpb.AlarmRequest alarm = 10;
-      case 10: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (82 & 0xFF)) {
-          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadMessage(
-               input, mutable_alarm()));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // .etcdserverpb.RequestHeader header = 100;
-      case 100: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (802 & 0xFF)) {
-          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadMessage(
-               input, mutable_header()));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // .etcdserverpb.AuthEnableRequest auth_enable = 1000;
-      case 1000: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (8002 & 0xFF)) {
-          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadMessage(
-               input, mutable_auth_enable()));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // .etcdserverpb.AuthDisableRequest auth_disable = 1011;
-      case 1011: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (8090 & 0xFF)) {
-          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadMessage(
-               input, mutable_auth_disable()));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // .etcdserverpb.InternalAuthenticateRequest authenticate = 1012;
-      case 1012: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (8098 & 0xFF)) {
-          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadMessage(
-               input, mutable_authenticate()));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // .etcdserverpb.AuthUserAddRequest auth_user_add = 1100;
-      case 1100: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (8802 & 0xFF)) {
-          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadMessage(
-               input, mutable_auth_user_add()));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // .etcdserverpb.AuthUserDeleteRequest auth_user_delete = 1101;
-      case 1101: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (8810 & 0xFF)) {
-          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadMessage(
-               input, mutable_auth_user_delete()));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // .etcdserverpb.AuthUserGetRequest auth_user_get = 1102;
-      case 1102: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (8818 & 0xFF)) {
-          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadMessage(
-               input, mutable_auth_user_get()));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // .etcdserverpb.AuthUserChangePasswordRequest auth_user_change_password = 1103;
-      case 1103: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (8826 & 0xFF)) {
-          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadMessage(
-               input, mutable_auth_user_change_password()));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // .etcdserverpb.AuthUserGrantRoleRequest auth_user_grant_role = 1104;
-      case 1104: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (8834 & 0xFF)) {
-          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadMessage(
-               input, mutable_auth_user_grant_role()));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // .etcdserverpb.AuthUserRevokeRoleRequest auth_user_revoke_role = 1105;
-      case 1105: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (8842 & 0xFF)) {
-          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadMessage(
-               input, mutable_auth_user_revoke_role()));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // .etcdserverpb.AuthUserListRequest auth_user_list = 1106;
-      case 1106: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (8850 & 0xFF)) {
-          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadMessage(
-               input, mutable_auth_user_list()));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // .etcdserverpb.AuthRoleListRequest auth_role_list = 1107;
-      case 1107: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (8858 & 0xFF)) {
-          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadMessage(
-               input, mutable_auth_role_list()));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // .etcdserverpb.AuthRoleAddRequest auth_role_add = 1200;
-      case 1200: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (9602 & 0xFF)) {
-          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadMessage(
-               input, mutable_auth_role_add()));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // .etcdserverpb.AuthRoleDeleteRequest auth_role_delete = 1201;
-      case 1201: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (9610 & 0xFF)) {
-          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadMessage(
-               input, mutable_auth_role_delete()));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // .etcdserverpb.AuthRoleGetRequest auth_role_get = 1202;
-      case 1202: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (9618 & 0xFF)) {
-          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadMessage(
-               input, mutable_auth_role_get()));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // .etcdserverpb.AuthRoleGrantPermissionRequest auth_role_grant_permission = 1203;
-      case 1203: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (9626 & 0xFF)) {
-          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadMessage(
-               input, mutable_auth_role_grant_permission()));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // .etcdserverpb.AuthRoleRevokePermissionRequest auth_role_revoke_permission = 1204;
-      case 1204: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (9634 & 0xFF)) {
-          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadMessage(
-               input, mutable_auth_role_revoke_permission()));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0) {
-          goto success;
-        }
-        DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SkipField(
-              input, tag, _internal_metadata_.mutable_unknown_fields()));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:etcdserverpb.InternalRaftRequest)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:etcdserverpb.InternalRaftRequest)
-  return false;
-#undef DO_
-}
-#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-
-void InternalRaftRequest::SerializeWithCachedSizes(
-    ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:etcdserverpb.InternalRaftRequest)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // uint64 ID = 1;
-  if (this->id() != 0) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64(1, this->id(), output);
-  }
-
-  // .etcdserverpb.Request v2 = 2;
-  if (this->has_v2()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, _Internal::v2(this), output);
-  }
-
-  // .etcdserverpb.RangeRequest range = 3;
-  if (this->has_range()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
-      3, _Internal::range(this), output);
-  }
-
-  // .etcdserverpb.PutRequest put = 4;
-  if (this->has_put()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
-      4, _Internal::put(this), output);
-  }
-
-  // .etcdserverpb.DeleteRangeRequest delete_range = 5;
-  if (this->has_delete_range()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
-      5, _Internal::delete_range(this), output);
-  }
-
-  // .etcdserverpb.TxnRequest txn = 6;
-  if (this->has_txn()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
-      6, _Internal::txn(this), output);
-  }
-
-  // .etcdserverpb.CompactionRequest compaction = 7;
-  if (this->has_compaction()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
-      7, _Internal::compaction(this), output);
-  }
-
-  // .etcdserverpb.LeaseGrantRequest lease_grant = 8;
-  if (this->has_lease_grant()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
-      8, _Internal::lease_grant(this), output);
-  }
-
-  // .etcdserverpb.LeaseRevokeRequest lease_revoke = 9;
-  if (this->has_lease_revoke()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
-      9, _Internal::lease_revoke(this), output);
-  }
-
-  // .etcdserverpb.AlarmRequest alarm = 10;
-  if (this->has_alarm()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
-      10, _Internal::alarm(this), output);
-  }
-
-  // .etcdserverpb.RequestHeader header = 100;
-  if (this->has_header()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
-      100, _Internal::header(this), output);
-  }
-
-  // .etcdserverpb.AuthEnableRequest auth_enable = 1000;
-  if (this->has_auth_enable()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1000, _Internal::auth_enable(this), output);
-  }
-
-  // .etcdserverpb.AuthDisableRequest auth_disable = 1011;
-  if (this->has_auth_disable()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1011, _Internal::auth_disable(this), output);
-  }
-
-  // .etcdserverpb.InternalAuthenticateRequest authenticate = 1012;
-  if (this->has_authenticate()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1012, _Internal::authenticate(this), output);
-  }
-
-  // .etcdserverpb.AuthUserAddRequest auth_user_add = 1100;
-  if (this->has_auth_user_add()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1100, _Internal::auth_user_add(this), output);
-  }
-
-  // .etcdserverpb.AuthUserDeleteRequest auth_user_delete = 1101;
-  if (this->has_auth_user_delete()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1101, _Internal::auth_user_delete(this), output);
-  }
-
-  // .etcdserverpb.AuthUserGetRequest auth_user_get = 1102;
-  if (this->has_auth_user_get()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1102, _Internal::auth_user_get(this), output);
-  }
-
-  // .etcdserverpb.AuthUserChangePasswordRequest auth_user_change_password = 1103;
-  if (this->has_auth_user_change_password()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1103, _Internal::auth_user_change_password(this), output);
-  }
-
-  // .etcdserverpb.AuthUserGrantRoleRequest auth_user_grant_role = 1104;
-  if (this->has_auth_user_grant_role()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1104, _Internal::auth_user_grant_role(this), output);
-  }
-
-  // .etcdserverpb.AuthUserRevokeRoleRequest auth_user_revoke_role = 1105;
-  if (this->has_auth_user_revoke_role()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1105, _Internal::auth_user_revoke_role(this), output);
-  }
-
-  // .etcdserverpb.AuthUserListRequest auth_user_list = 1106;
-  if (this->has_auth_user_list()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1106, _Internal::auth_user_list(this), output);
-  }
-
-  // .etcdserverpb.AuthRoleListRequest auth_role_list = 1107;
-  if (this->has_auth_role_list()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1107, _Internal::auth_role_list(this), output);
-  }
-
-  // .etcdserverpb.AuthRoleAddRequest auth_role_add = 1200;
-  if (this->has_auth_role_add()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1200, _Internal::auth_role_add(this), output);
-  }
-
-  // .etcdserverpb.AuthRoleDeleteRequest auth_role_delete = 1201;
-  if (this->has_auth_role_delete()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1201, _Internal::auth_role_delete(this), output);
-  }
-
-  // .etcdserverpb.AuthRoleGetRequest auth_role_get = 1202;
-  if (this->has_auth_role_get()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1202, _Internal::auth_role_get(this), output);
-  }
-
-  // .etcdserverpb.AuthRoleGrantPermissionRequest auth_role_grant_permission = 1203;
-  if (this->has_auth_role_grant_permission()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1203, _Internal::auth_role_grant_permission(this), output);
-  }
-
-  // .etcdserverpb.AuthRoleRevokePermissionRequest auth_role_revoke_permission = 1204;
-  if (this->has_auth_role_revoke_permission()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1204, _Internal::auth_role_revoke_permission(this), output);
-  }
-
-  if (_internal_metadata_.have_unknown_fields()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFields(
-        _internal_metadata_.unknown_fields(), output);
-  }
-  // @@protoc_insertion_point(serialize_end:etcdserverpb.InternalRaftRequest)
-}
 
 ::PROTOBUF_NAMESPACE_ID::uint8* InternalRaftRequest::InternalSerializeWithCachedSizesToArray(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target) const {
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:etcdserverpb.InternalRaftRequest)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   // uint64 ID = 1;
   if (this->id() != 0) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(1, this->id(), target);
+    stream->EnsureSpace(&target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(1, this->_internal_id(), target);
   }
 
   // .etcdserverpb.Request v2 = 2;
   if (this->has_v2()) {
+    stream->EnsureSpace(&target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        2, _Internal::v2(this), target);
+        2, _Internal::v2(this), target, stream);
   }
 
   // .etcdserverpb.RangeRequest range = 3;
   if (this->has_range()) {
+    stream->EnsureSpace(&target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        3, _Internal::range(this), target);
+        3, _Internal::range(this), target, stream);
   }
 
   // .etcdserverpb.PutRequest put = 4;
   if (this->has_put()) {
+    stream->EnsureSpace(&target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        4, _Internal::put(this), target);
+        4, _Internal::put(this), target, stream);
   }
 
   // .etcdserverpb.DeleteRangeRequest delete_range = 5;
   if (this->has_delete_range()) {
+    stream->EnsureSpace(&target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        5, _Internal::delete_range(this), target);
+        5, _Internal::delete_range(this), target, stream);
   }
 
   // .etcdserverpb.TxnRequest txn = 6;
   if (this->has_txn()) {
+    stream->EnsureSpace(&target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        6, _Internal::txn(this), target);
+        6, _Internal::txn(this), target, stream);
   }
 
   // .etcdserverpb.CompactionRequest compaction = 7;
   if (this->has_compaction()) {
+    stream->EnsureSpace(&target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        7, _Internal::compaction(this), target);
+        7, _Internal::compaction(this), target, stream);
   }
 
   // .etcdserverpb.LeaseGrantRequest lease_grant = 8;
   if (this->has_lease_grant()) {
+    stream->EnsureSpace(&target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        8, _Internal::lease_grant(this), target);
+        8, _Internal::lease_grant(this), target, stream);
   }
 
   // .etcdserverpb.LeaseRevokeRequest lease_revoke = 9;
   if (this->has_lease_revoke()) {
+    stream->EnsureSpace(&target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        9, _Internal::lease_revoke(this), target);
+        9, _Internal::lease_revoke(this), target, stream);
   }
 
   // .etcdserverpb.AlarmRequest alarm = 10;
   if (this->has_alarm()) {
+    stream->EnsureSpace(&target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        10, _Internal::alarm(this), target);
+        10, _Internal::alarm(this), target, stream);
   }
 
   // .etcdserverpb.RequestHeader header = 100;
   if (this->has_header()) {
+    stream->EnsureSpace(&target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        100, _Internal::header(this), target);
+        100, _Internal::header(this), target, stream);
   }
 
   // .etcdserverpb.AuthEnableRequest auth_enable = 1000;
   if (this->has_auth_enable()) {
+    stream->EnsureSpace(&target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        1000, _Internal::auth_enable(this), target);
+        1000, _Internal::auth_enable(this), target, stream);
   }
 
   // .etcdserverpb.AuthDisableRequest auth_disable = 1011;
   if (this->has_auth_disable()) {
+    stream->EnsureSpace(&target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        1011, _Internal::auth_disable(this), target);
+        1011, _Internal::auth_disable(this), target, stream);
   }
 
   // .etcdserverpb.InternalAuthenticateRequest authenticate = 1012;
   if (this->has_authenticate()) {
+    stream->EnsureSpace(&target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        1012, _Internal::authenticate(this), target);
+        1012, _Internal::authenticate(this), target, stream);
   }
 
   // .etcdserverpb.AuthUserAddRequest auth_user_add = 1100;
   if (this->has_auth_user_add()) {
+    stream->EnsureSpace(&target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        1100, _Internal::auth_user_add(this), target);
+        1100, _Internal::auth_user_add(this), target, stream);
   }
 
   // .etcdserverpb.AuthUserDeleteRequest auth_user_delete = 1101;
   if (this->has_auth_user_delete()) {
+    stream->EnsureSpace(&target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        1101, _Internal::auth_user_delete(this), target);
+        1101, _Internal::auth_user_delete(this), target, stream);
   }
 
   // .etcdserverpb.AuthUserGetRequest auth_user_get = 1102;
   if (this->has_auth_user_get()) {
+    stream->EnsureSpace(&target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        1102, _Internal::auth_user_get(this), target);
+        1102, _Internal::auth_user_get(this), target, stream);
   }
 
   // .etcdserverpb.AuthUserChangePasswordRequest auth_user_change_password = 1103;
   if (this->has_auth_user_change_password()) {
+    stream->EnsureSpace(&target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        1103, _Internal::auth_user_change_password(this), target);
+        1103, _Internal::auth_user_change_password(this), target, stream);
   }
 
   // .etcdserverpb.AuthUserGrantRoleRequest auth_user_grant_role = 1104;
   if (this->has_auth_user_grant_role()) {
+    stream->EnsureSpace(&target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        1104, _Internal::auth_user_grant_role(this), target);
+        1104, _Internal::auth_user_grant_role(this), target, stream);
   }
 
   // .etcdserverpb.AuthUserRevokeRoleRequest auth_user_revoke_role = 1105;
   if (this->has_auth_user_revoke_role()) {
+    stream->EnsureSpace(&target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        1105, _Internal::auth_user_revoke_role(this), target);
+        1105, _Internal::auth_user_revoke_role(this), target, stream);
   }
 
   // .etcdserverpb.AuthUserListRequest auth_user_list = 1106;
   if (this->has_auth_user_list()) {
+    stream->EnsureSpace(&target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        1106, _Internal::auth_user_list(this), target);
+        1106, _Internal::auth_user_list(this), target, stream);
   }
 
   // .etcdserverpb.AuthRoleListRequest auth_role_list = 1107;
   if (this->has_auth_role_list()) {
+    stream->EnsureSpace(&target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        1107, _Internal::auth_role_list(this), target);
+        1107, _Internal::auth_role_list(this), target, stream);
   }
 
   // .etcdserverpb.AuthRoleAddRequest auth_role_add = 1200;
   if (this->has_auth_role_add()) {
+    stream->EnsureSpace(&target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        1200, _Internal::auth_role_add(this), target);
+        1200, _Internal::auth_role_add(this), target, stream);
   }
 
   // .etcdserverpb.AuthRoleDeleteRequest auth_role_delete = 1201;
   if (this->has_auth_role_delete()) {
+    stream->EnsureSpace(&target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        1201, _Internal::auth_role_delete(this), target);
+        1201, _Internal::auth_role_delete(this), target, stream);
   }
 
   // .etcdserverpb.AuthRoleGetRequest auth_role_get = 1202;
   if (this->has_auth_role_get()) {
+    stream->EnsureSpace(&target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        1202, _Internal::auth_role_get(this), target);
+        1202, _Internal::auth_role_get(this), target, stream);
   }
 
   // .etcdserverpb.AuthRoleGrantPermissionRequest auth_role_grant_permission = 1203;
   if (this->has_auth_role_grant_permission()) {
+    stream->EnsureSpace(&target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        1203, _Internal::auth_role_grant_permission(this), target);
+        1203, _Internal::auth_role_grant_permission(this), target, stream);
   }
 
   // .etcdserverpb.AuthRoleRevokePermissionRequest auth_role_revoke_permission = 1204;
   if (this->has_auth_role_revoke_permission()) {
+    stream->EnsureSpace(&target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        1204, _Internal::auth_role_revoke_permission(this), target);
+        1204, _Internal::auth_role_revoke_permission(this), target, stream);
   }
 
-  if (_internal_metadata_.have_unknown_fields()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields(), target);
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:etcdserverpb.InternalRaftRequest)
   return target;
@@ -2213,11 +1628,6 @@ size_t InternalRaftRequest::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:etcdserverpb.InternalRaftRequest)
   size_t total_size = 0;
 
-  if (_internal_metadata_.have_unknown_fields()) {
-    total_size +=
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::ComputeUnknownFieldsSize(
-        _internal_metadata_.unknown_fields());
-  }
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -2408,9 +1818,13 @@ size_t InternalRaftRequest::ByteSizeLong() const {
   if (this->id() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
-        this->id());
+        this->_internal_id());
   }
 
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
   int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
@@ -2439,85 +1853,85 @@ void InternalRaftRequest::MergeFrom(const InternalRaftRequest& from) {
   (void) cached_has_bits;
 
   if (from.has_v2()) {
-    mutable_v2()->::etcdserverpb::Request::MergeFrom(from.v2());
+    _internal_mutable_v2()->::etcdserverpb::Request::MergeFrom(from._internal_v2());
   }
   if (from.has_range()) {
-    mutable_range()->::etcdserverpb::RangeRequest::MergeFrom(from.range());
+    _internal_mutable_range()->::etcdserverpb::RangeRequest::MergeFrom(from._internal_range());
   }
   if (from.has_put()) {
-    mutable_put()->::etcdserverpb::PutRequest::MergeFrom(from.put());
+    _internal_mutable_put()->::etcdserverpb::PutRequest::MergeFrom(from._internal_put());
   }
   if (from.has_delete_range()) {
-    mutable_delete_range()->::etcdserverpb::DeleteRangeRequest::MergeFrom(from.delete_range());
+    _internal_mutable_delete_range()->::etcdserverpb::DeleteRangeRequest::MergeFrom(from._internal_delete_range());
   }
   if (from.has_txn()) {
-    mutable_txn()->::etcdserverpb::TxnRequest::MergeFrom(from.txn());
+    _internal_mutable_txn()->::etcdserverpb::TxnRequest::MergeFrom(from._internal_txn());
   }
   if (from.has_compaction()) {
-    mutable_compaction()->::etcdserverpb::CompactionRequest::MergeFrom(from.compaction());
+    _internal_mutable_compaction()->::etcdserverpb::CompactionRequest::MergeFrom(from._internal_compaction());
   }
   if (from.has_lease_grant()) {
-    mutable_lease_grant()->::etcdserverpb::LeaseGrantRequest::MergeFrom(from.lease_grant());
+    _internal_mutable_lease_grant()->::etcdserverpb::LeaseGrantRequest::MergeFrom(from._internal_lease_grant());
   }
   if (from.has_lease_revoke()) {
-    mutable_lease_revoke()->::etcdserverpb::LeaseRevokeRequest::MergeFrom(from.lease_revoke());
+    _internal_mutable_lease_revoke()->::etcdserverpb::LeaseRevokeRequest::MergeFrom(from._internal_lease_revoke());
   }
   if (from.has_alarm()) {
-    mutable_alarm()->::etcdserverpb::AlarmRequest::MergeFrom(from.alarm());
+    _internal_mutable_alarm()->::etcdserverpb::AlarmRequest::MergeFrom(from._internal_alarm());
   }
   if (from.has_header()) {
-    mutable_header()->::etcdserverpb::RequestHeader::MergeFrom(from.header());
+    _internal_mutable_header()->::etcdserverpb::RequestHeader::MergeFrom(from._internal_header());
   }
   if (from.has_auth_enable()) {
-    mutable_auth_enable()->::etcdserverpb::AuthEnableRequest::MergeFrom(from.auth_enable());
+    _internal_mutable_auth_enable()->::etcdserverpb::AuthEnableRequest::MergeFrom(from._internal_auth_enable());
   }
   if (from.has_auth_disable()) {
-    mutable_auth_disable()->::etcdserverpb::AuthDisableRequest::MergeFrom(from.auth_disable());
+    _internal_mutable_auth_disable()->::etcdserverpb::AuthDisableRequest::MergeFrom(from._internal_auth_disable());
   }
   if (from.has_authenticate()) {
-    mutable_authenticate()->::etcdserverpb::InternalAuthenticateRequest::MergeFrom(from.authenticate());
+    _internal_mutable_authenticate()->::etcdserverpb::InternalAuthenticateRequest::MergeFrom(from._internal_authenticate());
   }
   if (from.has_auth_user_add()) {
-    mutable_auth_user_add()->::etcdserverpb::AuthUserAddRequest::MergeFrom(from.auth_user_add());
+    _internal_mutable_auth_user_add()->::etcdserverpb::AuthUserAddRequest::MergeFrom(from._internal_auth_user_add());
   }
   if (from.has_auth_user_delete()) {
-    mutable_auth_user_delete()->::etcdserverpb::AuthUserDeleteRequest::MergeFrom(from.auth_user_delete());
+    _internal_mutable_auth_user_delete()->::etcdserverpb::AuthUserDeleteRequest::MergeFrom(from._internal_auth_user_delete());
   }
   if (from.has_auth_user_get()) {
-    mutable_auth_user_get()->::etcdserverpb::AuthUserGetRequest::MergeFrom(from.auth_user_get());
+    _internal_mutable_auth_user_get()->::etcdserverpb::AuthUserGetRequest::MergeFrom(from._internal_auth_user_get());
   }
   if (from.has_auth_user_change_password()) {
-    mutable_auth_user_change_password()->::etcdserverpb::AuthUserChangePasswordRequest::MergeFrom(from.auth_user_change_password());
+    _internal_mutable_auth_user_change_password()->::etcdserverpb::AuthUserChangePasswordRequest::MergeFrom(from._internal_auth_user_change_password());
   }
   if (from.has_auth_user_grant_role()) {
-    mutable_auth_user_grant_role()->::etcdserverpb::AuthUserGrantRoleRequest::MergeFrom(from.auth_user_grant_role());
+    _internal_mutable_auth_user_grant_role()->::etcdserverpb::AuthUserGrantRoleRequest::MergeFrom(from._internal_auth_user_grant_role());
   }
   if (from.has_auth_user_revoke_role()) {
-    mutable_auth_user_revoke_role()->::etcdserverpb::AuthUserRevokeRoleRequest::MergeFrom(from.auth_user_revoke_role());
+    _internal_mutable_auth_user_revoke_role()->::etcdserverpb::AuthUserRevokeRoleRequest::MergeFrom(from._internal_auth_user_revoke_role());
   }
   if (from.has_auth_user_list()) {
-    mutable_auth_user_list()->::etcdserverpb::AuthUserListRequest::MergeFrom(from.auth_user_list());
+    _internal_mutable_auth_user_list()->::etcdserverpb::AuthUserListRequest::MergeFrom(from._internal_auth_user_list());
   }
   if (from.has_auth_role_list()) {
-    mutable_auth_role_list()->::etcdserverpb::AuthRoleListRequest::MergeFrom(from.auth_role_list());
+    _internal_mutable_auth_role_list()->::etcdserverpb::AuthRoleListRequest::MergeFrom(from._internal_auth_role_list());
   }
   if (from.has_auth_role_add()) {
-    mutable_auth_role_add()->::etcdserverpb::AuthRoleAddRequest::MergeFrom(from.auth_role_add());
+    _internal_mutable_auth_role_add()->::etcdserverpb::AuthRoleAddRequest::MergeFrom(from._internal_auth_role_add());
   }
   if (from.has_auth_role_delete()) {
-    mutable_auth_role_delete()->::etcdserverpb::AuthRoleDeleteRequest::MergeFrom(from.auth_role_delete());
+    _internal_mutable_auth_role_delete()->::etcdserverpb::AuthRoleDeleteRequest::MergeFrom(from._internal_auth_role_delete());
   }
   if (from.has_auth_role_get()) {
-    mutable_auth_role_get()->::etcdserverpb::AuthRoleGetRequest::MergeFrom(from.auth_role_get());
+    _internal_mutable_auth_role_get()->::etcdserverpb::AuthRoleGetRequest::MergeFrom(from._internal_auth_role_get());
   }
   if (from.has_auth_role_grant_permission()) {
-    mutable_auth_role_grant_permission()->::etcdserverpb::AuthRoleGrantPermissionRequest::MergeFrom(from.auth_role_grant_permission());
+    _internal_mutable_auth_role_grant_permission()->::etcdserverpb::AuthRoleGrantPermissionRequest::MergeFrom(from._internal_auth_role_grant_permission());
   }
   if (from.has_auth_role_revoke_permission()) {
-    mutable_auth_role_revoke_permission()->::etcdserverpb::AuthRoleRevokePermissionRequest::MergeFrom(from.auth_role_revoke_permission());
+    _internal_mutable_auth_role_revoke_permission()->::etcdserverpb::AuthRoleRevokePermissionRequest::MergeFrom(from._internal_auth_role_revoke_permission());
   }
   if (from.id() != 0) {
-    set_id(from.id());
+    _internal_set_id(from._internal_id());
   }
 }
 
@@ -2625,7 +2039,6 @@ void EmptyResponse::Clear() {
   _internal_metadata_.Clear();
 }
 
-#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 const char* EmptyResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
@@ -2651,55 +2064,16 @@ failure:
   goto success;
 #undef CHK_
 }
-#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-bool EmptyResponse::MergePartialFromCodedStream(
-    ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-  // @@protoc_insertion_point(parse_start:etcdserverpb.EmptyResponse)
-  for (;;) {
-    ::std::pair<::PROTOBUF_NAMESPACE_ID::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-  handle_unusual:
-    if (tag == 0) {
-      goto success;
-    }
-    DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SkipField(
-          input, tag, _internal_metadata_.mutable_unknown_fields()));
-  }
-success:
-  // @@protoc_insertion_point(parse_success:etcdserverpb.EmptyResponse)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:etcdserverpb.EmptyResponse)
-  return false;
-#undef DO_
-}
-#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-
-void EmptyResponse::SerializeWithCachedSizes(
-    ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:etcdserverpb.EmptyResponse)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (_internal_metadata_.have_unknown_fields()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFields(
-        _internal_metadata_.unknown_fields(), output);
-  }
-  // @@protoc_insertion_point(serialize_end:etcdserverpb.EmptyResponse)
-}
 
 ::PROTOBUF_NAMESPACE_ID::uint8* EmptyResponse::InternalSerializeWithCachedSizesToArray(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target) const {
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:etcdserverpb.EmptyResponse)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (_internal_metadata_.have_unknown_fields()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields(), target);
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:etcdserverpb.EmptyResponse)
   return target;
@@ -2709,15 +2083,14 @@ size_t EmptyResponse::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:etcdserverpb.EmptyResponse)
   size_t total_size = 0;
 
-  if (_internal_metadata_.have_unknown_fields()) {
-    total_size +=
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::ComputeUnknownFieldsSize(
-        _internal_metadata_.unknown_fields());
-  }
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
   int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
@@ -2793,15 +2166,15 @@ InternalAuthenticateRequest::InternalAuthenticateRequest(const InternalAuthentic
       _internal_metadata_(nullptr) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from.name().empty()) {
+  if (!from._internal_name().empty()) {
     name_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.name_);
   }
   password_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from.password().empty()) {
+  if (!from._internal_password().empty()) {
     password_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.password_);
   }
   simple_token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from.simple_token().empty()) {
+  if (!from._internal_simple_token().empty()) {
     simple_token_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.simple_token_);
   }
   // @@protoc_insertion_point(copy_constructor:etcdserverpb.InternalAuthenticateRequest)
@@ -2846,7 +2219,6 @@ void InternalAuthenticateRequest::Clear() {
   _internal_metadata_.Clear();
 }
 
-#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
 const char* InternalAuthenticateRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
@@ -2857,21 +2229,21 @@ const char* InternalAuthenticateRequest::_InternalParse(const char* ptr, ::PROTO
       // string name = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(mutable_name(), ptr, ctx, "etcdserverpb.InternalAuthenticateRequest.name");
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(_internal_mutable_name(), ptr, ctx, "etcdserverpb.InternalAuthenticateRequest.name");
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
       // string password = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(mutable_password(), ptr, ctx, "etcdserverpb.InternalAuthenticateRequest.password");
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(_internal_mutable_password(), ptr, ctx, "etcdserverpb.InternalAuthenticateRequest.password");
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
       // string simple_token = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(mutable_simple_token(), ptr, ctx, "etcdserverpb.InternalAuthenticateRequest.simple_token");
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(_internal_mutable_simple_token(), ptr, ctx, "etcdserverpb.InternalAuthenticateRequest.simple_token");
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -2894,128 +2266,9 @@ failure:
   goto success;
 #undef CHK_
 }
-#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-bool InternalAuthenticateRequest::MergePartialFromCodedStream(
-    ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-  // @@protoc_insertion_point(parse_start:etcdserverpb.InternalAuthenticateRequest)
-  for (;;) {
-    ::std::pair<::PROTOBUF_NAMESPACE_ID::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // string name = 1;
-      case 1: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (10 & 0xFF)) {
-          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadString(
-                input, this->mutable_name()));
-          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-            this->name().data(), static_cast<int>(this->name().length()),
-            ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE,
-            "etcdserverpb.InternalAuthenticateRequest.name"));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // string password = 2;
-      case 2: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (18 & 0xFF)) {
-          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadString(
-                input, this->mutable_password()));
-          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-            this->password().data(), static_cast<int>(this->password().length()),
-            ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE,
-            "etcdserverpb.InternalAuthenticateRequest.password"));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // string simple_token = 3;
-      case 3: {
-        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (26 & 0xFF)) {
-          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadString(
-                input, this->mutable_simple_token()));
-          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-            this->simple_token().data(), static_cast<int>(this->simple_token().length()),
-            ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE,
-            "etcdserverpb.InternalAuthenticateRequest.simple_token"));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0) {
-          goto success;
-        }
-        DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SkipField(
-              input, tag, _internal_metadata_.mutable_unknown_fields()));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:etcdserverpb.InternalAuthenticateRequest)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:etcdserverpb.InternalAuthenticateRequest)
-  return false;
-#undef DO_
-}
-#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-
-void InternalAuthenticateRequest::SerializeWithCachedSizes(
-    ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:etcdserverpb.InternalAuthenticateRequest)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // string name = 1;
-  if (this->name().size() > 0) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->name().data(), static_cast<int>(this->name().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "etcdserverpb.InternalAuthenticateRequest.name");
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->name(), output);
-  }
-
-  // string password = 2;
-  if (this->password().size() > 0) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->password().data(), static_cast<int>(this->password().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "etcdserverpb.InternalAuthenticateRequest.password");
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->password(), output);
-  }
-
-  // string simple_token = 3;
-  if (this->simple_token().size() > 0) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->simple_token().data(), static_cast<int>(this->simple_token().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "etcdserverpb.InternalAuthenticateRequest.simple_token");
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringMaybeAliased(
-      3, this->simple_token(), output);
-  }
-
-  if (_internal_metadata_.have_unknown_fields()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFields(
-        _internal_metadata_.unknown_fields(), output);
-  }
-  // @@protoc_insertion_point(serialize_end:etcdserverpb.InternalAuthenticateRequest)
-}
 
 ::PROTOBUF_NAMESPACE_ID::uint8* InternalAuthenticateRequest::InternalSerializeWithCachedSizesToArray(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target) const {
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:etcdserverpb.InternalAuthenticateRequest)
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
@@ -3023,39 +2276,36 @@ void InternalAuthenticateRequest::SerializeWithCachedSizes(
   // string name = 1;
   if (this->name().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->name().data(), static_cast<int>(this->name().length()),
+      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
       "etcdserverpb.InternalAuthenticateRequest.name");
-    target =
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringToArray(
-        1, this->name(), target);
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_name(), target);
   }
 
   // string password = 2;
   if (this->password().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->password().data(), static_cast<int>(this->password().length()),
+      this->_internal_password().data(), static_cast<int>(this->_internal_password().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
       "etcdserverpb.InternalAuthenticateRequest.password");
-    target =
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringToArray(
-        2, this->password(), target);
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_password(), target);
   }
 
   // string simple_token = 3;
   if (this->simple_token().size() > 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->simple_token().data(), static_cast<int>(this->simple_token().length()),
+      this->_internal_simple_token().data(), static_cast<int>(this->_internal_simple_token().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
       "etcdserverpb.InternalAuthenticateRequest.simple_token");
-    target =
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringToArray(
-        3, this->simple_token(), target);
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_simple_token(), target);
   }
 
-  if (_internal_metadata_.have_unknown_fields()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields(), target);
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:etcdserverpb.InternalAuthenticateRequest)
   return target;
@@ -3065,11 +2315,6 @@ size_t InternalAuthenticateRequest::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:etcdserverpb.InternalAuthenticateRequest)
   size_t total_size = 0;
 
-  if (_internal_metadata_.have_unknown_fields()) {
-    total_size +=
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::ComputeUnknownFieldsSize(
-        _internal_metadata_.unknown_fields());
-  }
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -3078,23 +2323,27 @@ size_t InternalAuthenticateRequest::ByteSizeLong() const {
   if (this->name().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->name());
+        this->_internal_name());
   }
 
   // string password = 2;
   if (this->password().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->password());
+        this->_internal_password());
   }
 
   // string simple_token = 3;
   if (this->simple_token().size() > 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->simple_token());
+        this->_internal_simple_token());
   }
 
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
   int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
