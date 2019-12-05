@@ -23,7 +23,10 @@ public:
 public:
     AsyncClient() = delete;
 
-    explicit AsyncClient(const std::shared_ptr<grpc::Channel> &channel) : mKV(etcdserverpb::KV::NewStub(channel)) {}
+    explicit AsyncClient(const std::shared_ptr<grpc::Channel> &channel) : mKV(etcdserverpb::KV::NewStub(channel))
+    {
+        Run();
+    }
 
     explicit AsyncClient(const std::string &endPoint)
         : AsyncClient(grpc::CreateChannel(endPoint, grpc::InsecureChannelCredentials()))
@@ -31,6 +34,17 @@ public:
     }
 
     ~AsyncClient() { mQueue.Shutdown(); }
+
+    void Run()
+    {
+        void *tag;
+        bool ok{false};
+        while (true) {
+            mQueue.Next(&tag, &ok);
+            if (ok) {
+            }
+        }
+    }
 
 public:
     void Put(const std::string_view key, const std::string_view val, int ttl = 0)
@@ -47,7 +61,7 @@ public:
         grpc::ClientContext ctx;
     }
 
-    std::int64_t Get(std::map<std::string, std::string> &result, const std::string_view key, bool withPrefix = false)
+    std::map<std::string, std::string> Get(const std::string_view key, bool withPrefix = false)
     {
         etcdserverpb::RangeRequest req;
         req.set_key(key.data());
@@ -63,14 +77,13 @@ public:
         grpc::ClientContext ctx;
 
         auto status = mKV->Range(&ctx, req, &resp);
+        std::map<std::string, std::string> result;
         if (status.ok()) {
-            result.clear();
             for (int i = 0; i < resp.kvs_size(); ++i) {
                 result.emplace(std::make_pair(resp.kvs(i).key(), resp.kvs(i).value()));
             }
-            return resp.count();
         }
-        return 0;
+        return result;
     }
 
     std::int64_t Delete(const std::string_view key, bool withPrefix = false)

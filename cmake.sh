@@ -1,22 +1,18 @@
 #!/bin/bash
 set -u
 
-folder=build
+folder="build"
 
 if [ ! -d "$folder" ]; then
-    mkdir $folder
+    mkdir -p $folder
 fi
 
-cd $folder
+cmake -B$folder -H. -GNinja -DCMAKE_EXPORT_COMPILE_COMMANDS=YES
 
-cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=YES
+ninja -C $folder
 
-make
+lnFile="compile_commands.json"
 
-cd ..
-
-file="compile_commands.json"
-
-if [ ! -f "$file" ]; then
-    ln -s $folder/$file
+if [ ! -f "$lnFile" ]; then
+    ln -s $folder/$lnFile .
 fi

@@ -3,7 +3,7 @@
 #include <map>
 #include <string>
 
-int main()
+auto main() -> int
 {
     Uranus::Client cl("127.0.0.1:2379");
     cl.Put("fusu", "hello");
@@ -12,5 +12,6 @@ int main()
     for (const auto &it : ret) {
         std::cout << it.first << ":" << it.second << std::endl;
     }
+
     return 0;
 }
