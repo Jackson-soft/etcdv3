@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.13)
 
-project(etcdv3)
+project(etcdv3 CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -41,17 +41,11 @@ add_subdirectory(etcdapi)
 # example
 set(Example_CXX Example)
 add_executable(${Example_CXX} example/main.cpp)
-target_link_libraries(${Example_CXX}
-                      pthread
-                      gRPC::grpc++_reflection
-                      ${Protobuf_LIBRARIES}
-                      etcdapi)
+target_link_libraries(${Example_CXX} pthread gRPC::grpc++_reflection
+                      ${Protobuf_LIBRARIES} etcdapi)
 
 # test
 set(Test_Case TestMain)
 add_executable(${Test_Case} test/TestMain.cpp)
-target_link_libraries(${Test_Case}
-                      pthread
-                      gRPC::grpc++_reflection
-                      ${Protobuf_LIBRARIES}
-                      etcdapi)
+target_link_libraries(${Test_Case} pthread gRPC::grpc++_reflection
+                      ${Protobuf_LIBRARIES} etcdapi)

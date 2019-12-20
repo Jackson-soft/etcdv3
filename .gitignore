@@ -39,3 +39,4 @@ lib/
 .idea/
 etcdapi/*.h
 etcdapi/*.cc
+compile_commands.json
