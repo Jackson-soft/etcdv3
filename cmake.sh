@@ -2,7 +2,6 @@
 set -u
 
 folder="build"
-
 if [ -d "$folder" ]; then
     ninja -C $folder -j 6
     exit 0

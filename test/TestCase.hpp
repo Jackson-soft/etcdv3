@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Client.hpp"
+#include "client.hpp"
 #include "doctest.h"
 
 TEST_CASE("get")
