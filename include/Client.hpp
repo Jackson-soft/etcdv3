@@ -34,7 +34,7 @@ public:
 
     // kv interface
 public:
-    grpc::Status Put(const std::string_view key, const std::string_view val, int ttl = 0)
+    grpc::Status Put(std::string_view key, std::string_view val, const int ttl = 0)
     {
         etcdserverpb::PutRequest req;
         req.set_key(key.data());
@@ -49,7 +49,7 @@ public:
         return mKV->Put(&ctx, req, &resp);
     }
 
-    std::int64_t Get(std::map<std::string, std::string> &result, const std::string_view key, bool withPrefix = false)
+    std::int64_t Get(std::map<std::string, std::string> &result, std::string_view key, const bool withPrefix = false)
     {
         etcdserverpb::RangeRequest req;
         req.set_key(key.data());
@@ -75,7 +75,7 @@ public:
         return 0;
     }
 
-    std::int64_t Delete(const std::string_view key, bool withPrefix = false)
+    std::int64_t Delete(std::string_view key, bool withPrefix = false)
     {
         etcdserverpb::DeleteRangeRequest req;
         req.set_key(key.data());
@@ -173,7 +173,7 @@ public:
 
     // watch interface
 public:
-    void Watch(const EtcdCallBack &callBack, const std::string_view key, std::int64_t start = 0, bool prefix = false)
+    void Watch(const EtcdCallBack &callBack, std::string_view key, std::int64_t start = 0, bool prefix = false)
     {
         etcdserverpb::WatchRequest req;
         req.mutable_create_request()->set_key(key.data());
@@ -198,7 +198,7 @@ public:
 
 private:
     // 获取range_end
-    std::string getPrefix(const std::string_view key)
+    std::string getPrefix(std::string_view key)
     {
         std::string rangeEnd{key};
         int ascii       = static_cast<int>(rangeEnd.at(rangeEnd.length() - 1));
