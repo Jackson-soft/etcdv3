@@ -46,6 +46,6 @@ target_link_libraries(${Example_CXX} pthread gRPC::grpc++_reflection
 
 # test
 set(Test_Case TestMain)
-add_executable(${Test_Case} test/TestMain.cpp)
+add_executable(${Test_Case} test/main.cpp)
 target_link_libraries(${Test_Case} pthread gRPC::grpc++_reflection
                       ${Protobuf_LIBRARIES} etcdapi)
