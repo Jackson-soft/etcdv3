@@ -20,10 +20,9 @@ public:
     // etcd call back
     using EtcdCallBack = std::function<void(const std::shared_ptr<google::protobuf::Message> &msg)>;
 
-public:
     AsyncClient() = delete;
 
-    explicit AsyncClient(const std::shared_ptr<grpc::Channel> &channel) : mKV(etcdserverpb::KV::NewStub(channel))
+    explicit AsyncClient(const std::shared_ptr<grpc::Channel> &channel): mKV(etcdserverpb::KV::NewStub(channel))
     {
         Run();
     }
@@ -46,14 +45,13 @@ public:
         }
     }
 
-public:
-    void Put(const std::string_view key, const std::string_view val, int ttl = 0)
+    void put(std::string_view key, std::string_view val, const int ttl = 0)
     {
         etcdserverpb::PutRequest req;
         req.set_key(key.data());
         req.set_value(val.data());
         if (ttl > 0) {
-            auto id = Grant(ttl);
+            auto id = grant(ttl);
             req.set_lease(id);
         }
 
@@ -61,7 +59,7 @@ public:
         grpc::ClientContext ctx;
     }
 
-    std::map<std::string, std::string> Get(const std::string_view key, bool withPrefix = false)
+    std::map<std::string, std::string> get(std::string_view key, bool withPrefix = false)
     {
         etcdserverpb::RangeRequest req;
         req.set_key(key.data());
@@ -114,10 +112,9 @@ public:
         mKV->Compact(&ctx, req, &resp);
     }
 
-    // lease interface
-public:
+    // -------------------------  lease interface  ------------------------------
     // return lease id
-    std::int64_t Grant(std::int64_t ttl)
+    auto grant(const std::int64_t ttl) -> std::int64_t
     {
         if (ttl <= 0) {
             return 0;
@@ -182,8 +179,8 @@ public:
 
     void CloseLease() {}
 
-    // watch interface
-public:
+    // -------------------- watch interface --------------------------
+
     void Watch(const EtcdCallBack &callBack, const std::string_view key, std::int64_t start = 0, bool prefix = false)
     {
         etcdserverpb::WatchRequest req;
@@ -209,7 +206,7 @@ public:
 
 private:
     // 获取range_end
-    std::string getPrefix(const std::string_view key)
+    auto getPrefix(std::string_view key) -> std::string
     {
         std::string rangeEnd{key};
         int ascii       = static_cast<int>(rangeEnd.at(rangeEnd.length() - 1));
@@ -218,7 +215,6 @@ private:
         return rangeEnd;
     }
 
-private:
     std::unique_ptr<etcdserverpb::KV::Stub> mKV;
     std::unique_ptr<etcdserverpb::Lease::Stub> mLease;
     std::unique_ptr<etcdserverpb::Watch::Stub> mWatch;

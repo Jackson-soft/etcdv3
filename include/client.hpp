@@ -21,26 +21,24 @@ public:
     // etcd call back
     using EtcdCallBack = std::function<void(const std::shared_ptr<google::protobuf::Message> &msg)>;
 
-public:
     Client()  = delete;
     ~Client() = default;
 
-    explicit Client(const std::shared_ptr<grpc::Channel> &channel) : mKV(etcdserverpb::KV::NewStub(channel)) {}
+    explicit Client(const std::shared_ptr<grpc::Channel> &channel): mKV(etcdserverpb::KV::NewStub(channel)) {}
 
     explicit Client(const std::string &endPoint)
         : Client(grpc::CreateChannel(endPoint, grpc::InsecureChannelCredentials()))
     {
     }
 
-    // kv interface
-public:
-    grpc::Status Put(std::string_view key, std::string_view val, const int ttl = 0)
+    // ------------------------ kv interface ---------------------------
+    auto put(std::string_view key, std::string_view val, const int ttl = 0) -> grpc::Status
     {
         etcdserverpb::PutRequest req;
         req.set_key(key.data());
         req.set_value(val.data());
         if (ttl > 0) {
-            auto id = Grant(ttl);
+            auto id = grant(ttl);
             req.set_lease(id);
         }
 
@@ -103,10 +101,10 @@ public:
         mKV->Compact(&ctx, req, &resp);
     }
 
-    // lease interface
-public:
+    // -------------------   lease interface --------------------------
+
     // return lease id
-    std::int64_t Grant(std::int64_t ttl)
+    auto grant(const std::int64_t ttl) -> std::int64_t
     {
         if (ttl <= 0) {
             return 0;
@@ -123,7 +121,7 @@ public:
         return 0;
     }
 
-    bool Revoke(std::int64_t id)
+    auto revoke(std::int64_t id) -> bool
     {
         etcdserverpb::LeaseRevokeRequest req;
         req.set_id(id);
@@ -135,7 +133,7 @@ public:
         return status.ok();
     }
 
-    bool TimeToLive(std::int64_t id, bool keys = false)
+    auto timeToLive(std::int64_t id, bool keys = false) -> bool
     {
         etcdserverpb::LeaseTimeToLiveRequest req;
         req.set_id(id);
@@ -171,8 +169,7 @@ public:
 
     void CloseLease() {}
 
-    // watch interface
-public:
+    // --------------------------------- watch interface -----------------------------
     void Watch(const EtcdCallBack &callBack, std::string_view key, std::int64_t start = 0, bool prefix = false)
     {
         etcdserverpb::WatchRequest req;
@@ -198,7 +195,7 @@ public:
 
 private:
     // 获取range_end
-    std::string getPrefix(std::string_view key)
+    auto getPrefix(std::string_view key) -> std::string
     {
         std::string rangeEnd{key};
         int ascii       = static_cast<int>(rangeEnd.at(rangeEnd.length() - 1));
@@ -207,7 +204,6 @@ private:
         return rangeEnd;
     }
 
-private:
     std::unique_ptr<etcdserverpb::KV::Stub> mKV;
     std::unique_ptr<etcdserverpb::Lease::Stub> mLease;
     std::unique_ptr<etcdserverpb::Watch::Stub> mWatch;

@@ -6,7 +6,7 @@
 auto main() -> int
 {
     Uranus::Client cl("127.0.0.1:2379");
-    cl.Put("fusu", "hello");
+    cl.put("fusu", "hello");
     std::map<std::string, std::string> ret;
     std::cout << cl.Get(ret, "fusu") << std::endl;
     for (const auto &it : ret) {

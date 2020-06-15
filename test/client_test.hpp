@@ -3,15 +3,18 @@
 #include "client.hpp"
 #include "doctest.h"
 
+// 同步客户端测试
+
 TEST_SUITE("test etcd client")
 {
     std::string domain{"127.0.0.1:2379"};
     Uranus::Client cl(domain);
     auto myKey{"ruisi"};
     auto myValue{"hello"};
+
     TEST_CASE("put value to etcd")
     {
-        auto result = cl.Put(myKey, myValue);
+        auto result = cl.put(myKey, myValue);
         CHECK(result.ok());
     }
 
