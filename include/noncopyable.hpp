@@ -1,9 +1,7 @@
 #pragma once
 
-namespace Uranus
-{
-class Noncopyable
-{
+namespace Uranus {
+class Noncopyable {
 protected:
     Noncopyable()  = default;
     ~Noncopyable() = default;

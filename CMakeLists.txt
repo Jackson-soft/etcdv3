@@ -12,7 +12,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG")
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake ${CMAKE_BINARY_DIR})
 
 find_package(Protobuf REQUIRED)
-find_package(gRPC REQUIRED)
+find_package(gRPC CONFIG REQUIRED)
 
 #[[
 set(PROTOS ${CMAKE_CURRENT_SOURCE_DIR}/protos/helloworld.proto)
