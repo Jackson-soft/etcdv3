@@ -2,9 +2,9 @@
 
 * 编译 =etcdv3= 的 =Protobuf= 文件
 ** /etcdv3/ 的 /Protobuf/ 文件在下面几个仓库地址：
-+ [[hhttps://github.com/etcd-io/etcd/tree/main/api/authpb]]
-+ [[https://github.com/etcd-io/etcd/tree/main/api/etcdserverpb]]
-+ [[https://github.com/etcd-io/etcd/tree/main/api/mvccpb]]
++ [[https://github.com/etcd-io/etcd/tree/main/api/authpb][authpb]]
++ [[https://github.com/etcd-io/etcd/tree/main/api/etcdserverpb][etcdserverpb]]
++ [[https://github.com/etcd-io/etcd/tree/main/api/mvccpb][mvccpb]]
 ** 编译 /proto/ 文件
 #+BEGIN_SRC shell
 protoc -I . --grpc_out=. --plugin=protoc-gen-grpc=`which grpc_cpp_plugin` ./rpc.proto
