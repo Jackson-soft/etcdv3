@@ -1,0 +1,8 @@
+[requires]
+grpc/[>=1.38.0]
+doctest/[>=2.4.4]
+ 
+[generators]
+cmake_find_package
+ 
+[options]

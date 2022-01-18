@@ -1,10 +1,10 @@
 #+TITLE: etcd v3 c++ client
 
-* 编译 /etcdv3/ 的 /Protobuf/ 文件
+* 编译 =etcdv3= 的 =Protobuf= 文件
 ** /etcdv3/ 的 /Protobuf/ 文件在下面几个仓库地址：
-+ [[https://github.com/etcd-io/etcd/tree/master/auth/authpb]]
-+ [[https://github.com/etcd-io/etcd/tree/master/etcdserver/etcdserverpb]]
-+ [[https://github.com/etcd-io/etcd/tree/master/mvcc/mvccpb]]
++ [[https://github.com/etcd-io/etcd/tree/main/api/authpb][authpb]]
++ [[https://github.com/etcd-io/etcd/tree/main/api/etcdserverpb][etcdserverpb]]
++ [[https://github.com/etcd-io/etcd/tree/main/api/mvccpb][mvccpb]]
 ** 编译 /proto/ 文件
 #+BEGIN_SRC shell
 protoc -I . --grpc_out=. --plugin=protoc-gen-grpc=`which grpc_cpp_plugin` ./rpc.proto

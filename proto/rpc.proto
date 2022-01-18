@@ -1,21 +1,21 @@
 syntax = "proto3";
 package etcdserverpb;
 
-import "gogo.proto";
+import "gogoproto/gogo.proto";
 import "kv.proto";
 import "auth.proto";
 
 // for grpc-gateway
-import "annotations.proto";
+import "google/api/annotations.proto";
 
-option (gogoproto.marshaler_all)   = true;
+option (gogoproto.marshaler_all) = true;
 option (gogoproto.unmarshaler_all) = true;
 
 service KV {
     // Range gets the keys in the range from the key-value store.
     rpc Range(RangeRequest) returns (RangeResponse) {
         option (google.api.http) = {
-            post : "/v3beta/kv/range"
+            post : "/v3/kv/range"
             body : "*"
         };
     }
@@ -25,7 +25,7 @@ service KV {
     // and generates one event in the event history.
     rpc Put(PutRequest) returns (PutResponse) {
         option (google.api.http) = {
-            post : "/v3beta/kv/put"
+            post : "/v3/kv/put"
             body : "*"
         };
     }
@@ -35,7 +35,7 @@ service KV {
     // and generates a delete event in the event history for every deleted key.
     rpc DeleteRange(DeleteRangeRequest) returns (DeleteRangeResponse) {
         option (google.api.http) = {
-            post : "/v3beta/kv/deleterange"
+            post : "/v3/kv/deleterange"
             body : "*"
         };
     }
@@ -46,7 +46,7 @@ service KV {
     // It is not allowed to modify the same key several times within one txn.
     rpc Txn(TxnRequest) returns (TxnResponse) {
         option (google.api.http) = {
-            post : "/v3beta/kv/txn"
+            post : "/v3/kv/txn"
             body : "*"
         };
     }
@@ -56,7 +56,7 @@ service KV {
     // indefinitely.
     rpc Compact(CompactionRequest) returns (CompactionResponse) {
         option (google.api.http) = {
-            post : "/v3beta/kv/compaction"
+            post : "/v3/kv/compaction"
             body : "*"
         };
     }
@@ -70,7 +70,7 @@ service Watch {
     // last compaction revision.
     rpc Watch(stream WatchRequest) returns (stream WatchResponse) {
         option (google.api.http) = {
-            post : "/v3beta/watch"
+            post : "/v3/watch"
             body : "*"
         };
     }
@@ -82,7 +82,7 @@ service Lease {
     // deleted if the lease expires. Each expired key generates a delete event in the event history.
     rpc LeaseGrant(LeaseGrantRequest) returns (LeaseGrantResponse) {
         option (google.api.http) = {
-            post : "/v3beta/lease/grant"
+            post : "/v3/lease/grant"
             body : "*"
         };
     }
@@ -90,8 +90,9 @@ service Lease {
     // LeaseRevoke revokes a lease. All keys attached to the lease will expire and be deleted.
     rpc LeaseRevoke(LeaseRevokeRequest) returns (LeaseRevokeResponse) {
         option (google.api.http) = {
-            post : "/v3beta/kv/lease/revoke"
+            post : "/v3/lease/revoke"
             body : "*"
+            additional_bindings {post : "/v3/kv/lease/revoke" body : "*"}
         };
     }
 
@@ -99,7 +100,7 @@ service Lease {
     // to the server and streaming keep alive responses from the server to the client.
     rpc LeaseKeepAlive(stream LeaseKeepAliveRequest) returns (stream LeaseKeepAliveResponse) {
         option (google.api.http) = {
-            post : "/v3beta/lease/keepalive"
+            post : "/v3/lease/keepalive"
             body : "*"
         };
     }
@@ -107,16 +108,18 @@ service Lease {
     // LeaseTimeToLive retrieves lease information.
     rpc LeaseTimeToLive(LeaseTimeToLiveRequest) returns (LeaseTimeToLiveResponse) {
         option (google.api.http) = {
-            post : "/v3beta/kv/lease/timetolive"
+            post : "/v3/lease/timetolive"
             body : "*"
+            additional_bindings {post : "/v3/kv/lease/timetolive" body : "*"}
         };
     }
 
     // LeaseLeases lists all existing leases.
     rpc LeaseLeases(LeaseLeasesRequest) returns (LeaseLeasesResponse) {
         option (google.api.http) = {
-            post : "/v3beta/kv/lease/leases"
+            post : "/v3/lease/leases"
             body : "*"
+            additional_bindings {post : "/v3/kv/lease/leases" body : "*"}
         };
     }
 }
@@ -125,7 +128,7 @@ service Cluster {
     // MemberAdd adds a member into the cluster.
     rpc MemberAdd(MemberAddRequest) returns (MemberAddResponse) {
         option (google.api.http) = {
-            post : "/v3beta/cluster/member/add"
+            post : "/v3/cluster/member/add"
             body : "*"
         };
     }
@@ -133,7 +136,7 @@ service Cluster {
     // MemberRemove removes an existing member from the cluster.
     rpc MemberRemove(MemberRemoveRequest) returns (MemberRemoveResponse) {
         option (google.api.http) = {
-            post : "/v3beta/cluster/member/remove"
+            post : "/v3/cluster/member/remove"
             body : "*"
         };
     }
@@ -141,7 +144,7 @@ service Cluster {
     // MemberUpdate updates the member configuration.
     rpc MemberUpdate(MemberUpdateRequest) returns (MemberUpdateResponse) {
         option (google.api.http) = {
-            post : "/v3beta/cluster/member/update"
+            post : "/v3/cluster/member/update"
             body : "*"
         };
     }
@@ -149,7 +152,15 @@ service Cluster {
     // MemberList lists all the members in the cluster.
     rpc MemberList(MemberListRequest) returns (MemberListResponse) {
         option (google.api.http) = {
-            post : "/v3beta/cluster/member/list"
+            post : "/v3/cluster/member/list"
+            body : "*"
+        };
+    }
+
+    // MemberPromote promotes a member from raft learner (non-voting) to raft voting member.
+    rpc MemberPromote(MemberPromoteRequest) returns (MemberPromoteResponse) {
+        option (google.api.http) = {
+            post : "/v3/cluster/member/promote"
             body : "*"
         };
     }
@@ -159,7 +170,7 @@ service Maintenance {
     // Alarm activates, deactivates, and queries alarms regarding cluster health.
     rpc Alarm(AlarmRequest) returns (AlarmResponse) {
         option (google.api.http) = {
-            post : "/v3beta/maintenance/alarm"
+            post : "/v3/maintenance/alarm"
             body : "*"
         };
     }
@@ -167,7 +178,7 @@ service Maintenance {
     // Status gets the status of the member.
     rpc Status(StatusRequest) returns (StatusResponse) {
         option (google.api.http) = {
-            post : "/v3beta/maintenance/status"
+            post : "/v3/maintenance/status"
             body : "*"
         };
     }
@@ -175,25 +186,29 @@ service Maintenance {
     // Defragment defragments a member's backend database to recover storage space.
     rpc Defragment(DefragmentRequest) returns (DefragmentResponse) {
         option (google.api.http) = {
-            post : "/v3beta/maintenance/defragment"
+            post : "/v3/maintenance/defragment"
             body : "*"
         };
     }
 
-    // Hash computes the hash of the KV's backend.
-    // This is designed for testing; do not use this in production when there
-    // are ongoing transactions.
+    // Hash computes the hash of whole backend keyspace,
+    // including key, lease, and other buckets in storage.
+    // This is designed for testing ONLY!
+    // Do not rely on this in production with ongoing transactions,
+    // since Hash operation does not hold MVCC locks.
+    // Use "HashKV" API instead for "key" bucket consistency checks.
     rpc Hash(HashRequest) returns (HashResponse) {
         option (google.api.http) = {
-            post : "/v3beta/maintenance/hash"
+            post : "/v3/maintenance/hash"
             body : "*"
         };
     }
 
     // HashKV computes the hash of all MVCC keys up to a given revision.
+    // It only iterates "key" bucket in backend storage.
     rpc HashKV(HashKVRequest) returns (HashKVResponse) {
         option (google.api.http) = {
-            post : "/v3beta/maintenance/hash"
+            post : "/v3/maintenance/hash"
             body : "*"
         };
     }
@@ -201,7 +216,7 @@ service Maintenance {
     // Snapshot sends a snapshot of the entire backend from a member over a stream to a client.
     rpc Snapshot(SnapshotRequest) returns (stream SnapshotResponse) {
         option (google.api.http) = {
-            post : "/v3beta/maintenance/snapshot"
+            post : "/v3/maintenance/snapshot"
             body : "*"
         };
     }
@@ -209,7 +224,17 @@ service Maintenance {
     // MoveLeader requests current leader node to transfer its leadership to transferee.
     rpc MoveLeader(MoveLeaderRequest) returns (MoveLeaderResponse) {
         option (google.api.http) = {
-            post : "/v3beta/maintenance/transfer-leadership"
+            post : "/v3/maintenance/transfer-leadership"
+            body : "*"
+        };
+    }
+
+    // Downgrade requests downgrades, verifies feasibility or cancels downgrade
+    // on the cluster version.
+    // Supported since etcd 3.5.
+    rpc Downgrade(DowngradeRequest) returns (DowngradeResponse) {
+        option (google.api.http) = {
+            post : "/v3/maintenance/downgrade"
             body : "*"
         };
     }
@@ -219,7 +244,7 @@ service Auth {
     // AuthEnable enables authentication.
     rpc AuthEnable(AuthEnableRequest) returns (AuthEnableResponse) {
         option (google.api.http) = {
-            post : "/v3beta/auth/enable"
+            post : "/v3/auth/enable"
             body : "*"
         };
     }
@@ -227,7 +252,15 @@ service Auth {
     // AuthDisable disables authentication.
     rpc AuthDisable(AuthDisableRequest) returns (AuthDisableResponse) {
         option (google.api.http) = {
-            post : "/v3beta/auth/disable"
+            post : "/v3/auth/disable"
+            body : "*"
+        };
+    }
+
+    // AuthStatus displays authentication status.
+    rpc AuthStatus(AuthStatusRequest) returns (AuthStatusResponse) {
+        option (google.api.http) = {
+            post : "/v3/auth/status"
             body : "*"
         };
     }
@@ -235,15 +268,15 @@ service Auth {
     // Authenticate processes an authenticate request.
     rpc Authenticate(AuthenticateRequest) returns (AuthenticateResponse) {
         option (google.api.http) = {
-            post : "/v3beta/auth/authenticate"
+            post : "/v3/auth/authenticate"
             body : "*"
         };
     }
 
-    // UserAdd adds a new user.
+    // UserAdd adds a new user. User name cannot be empty.
     rpc UserAdd(AuthUserAddRequest) returns (AuthUserAddResponse) {
         option (google.api.http) = {
-            post : "/v3beta/auth/user/add"
+            post : "/v3/auth/user/add"
             body : "*"
         };
     }
@@ -251,7 +284,7 @@ service Auth {
     // UserGet gets detailed user information.
     rpc UserGet(AuthUserGetRequest) returns (AuthUserGetResponse) {
         option (google.api.http) = {
-            post : "/v3beta/auth/user/get"
+            post : "/v3/auth/user/get"
             body : "*"
         };
     }
@@ -259,7 +292,7 @@ service Auth {
     // UserList gets a list of all users.
     rpc UserList(AuthUserListRequest) returns (AuthUserListResponse) {
         option (google.api.http) = {
-            post : "/v3beta/auth/user/list"
+            post : "/v3/auth/user/list"
             body : "*"
         };
     }
@@ -267,7 +300,7 @@ service Auth {
     // UserDelete deletes a specified user.
     rpc UserDelete(AuthUserDeleteRequest) returns (AuthUserDeleteResponse) {
         option (google.api.http) = {
-            post : "/v3beta/auth/user/delete"
+            post : "/v3/auth/user/delete"
             body : "*"
         };
     }
@@ -275,7 +308,7 @@ service Auth {
     // UserChangePassword changes the password of a specified user.
     rpc UserChangePassword(AuthUserChangePasswordRequest) returns (AuthUserChangePasswordResponse) {
         option (google.api.http) = {
-            post : "/v3beta/auth/user/changepw"
+            post : "/v3/auth/user/changepw"
             body : "*"
         };
     }
@@ -283,7 +316,7 @@ service Auth {
     // UserGrant grants a role to a specified user.
     rpc UserGrantRole(AuthUserGrantRoleRequest) returns (AuthUserGrantRoleResponse) {
         option (google.api.http) = {
-            post : "/v3beta/auth/user/grant"
+            post : "/v3/auth/user/grant"
             body : "*"
         };
     }
@@ -291,15 +324,15 @@ service Auth {
     // UserRevokeRole revokes a role of specified user.
     rpc UserRevokeRole(AuthUserRevokeRoleRequest) returns (AuthUserRevokeRoleResponse) {
         option (google.api.http) = {
-            post : "/v3beta/auth/user/revoke"
+            post : "/v3/auth/user/revoke"
             body : "*"
         };
     }
 
-    // RoleAdd adds a new role.
+    // RoleAdd adds a new role. Role name cannot be empty.
     rpc RoleAdd(AuthRoleAddRequest) returns (AuthRoleAddResponse) {
         option (google.api.http) = {
-            post : "/v3beta/auth/role/add"
+            post : "/v3/auth/role/add"
             body : "*"
         };
     }
@@ -307,7 +340,7 @@ service Auth {
     // RoleGet gets detailed role information.
     rpc RoleGet(AuthRoleGetRequest) returns (AuthRoleGetResponse) {
         option (google.api.http) = {
-            post : "/v3beta/auth/role/get"
+            post : "/v3/auth/role/get"
             body : "*"
         };
     }
@@ -315,7 +348,7 @@ service Auth {
     // RoleList gets lists of all roles.
     rpc RoleList(AuthRoleListRequest) returns (AuthRoleListResponse) {
         option (google.api.http) = {
-            post : "/v3beta/auth/role/list"
+            post : "/v3/auth/role/list"
             body : "*"
         };
     }
@@ -323,25 +356,23 @@ service Auth {
     // RoleDelete deletes a specified role.
     rpc RoleDelete(AuthRoleDeleteRequest) returns (AuthRoleDeleteResponse) {
         option (google.api.http) = {
-            post : "/v3beta/auth/role/delete"
+            post : "/v3/auth/role/delete"
             body : "*"
         };
     }
 
     // RoleGrantPermission grants a permission of a specified key or range to a specified role.
-    rpc RoleGrantPermission(AuthRoleGrantPermissionRequest)
-        returns (AuthRoleGrantPermissionResponse) {
+    rpc RoleGrantPermission(AuthRoleGrantPermissionRequest) returns (AuthRoleGrantPermissionResponse) {
         option (google.api.http) = {
-            post : "/v3beta/auth/role/grant"
+            post : "/v3/auth/role/grant"
             body : "*"
         };
     }
 
     // RoleRevokePermission revokes a key or range permission of a specified role.
-    rpc RoleRevokePermission(AuthRoleRevokePermissionRequest)
-        returns (AuthRoleRevokePermissionResponse) {
+    rpc RoleRevokePermission(AuthRoleRevokePermissionRequest) returns (AuthRoleRevokePermissionResponse) {
         option (google.api.http) = {
-            post : "/v3beta/auth/role/revoke"
+            post : "/v3/auth/role/revoke"
             body : "*"
         };
     }
@@ -353,6 +384,9 @@ message ResponseHeader {
     // member_id is the ID of the member which sent the response.
     uint64 member_id = 2;
     // revision is the key-value store revision when the request was applied.
+    // For watch progress responses, the header.revision indicates progress. All future events
+    // received in this stream are guaranteed to have a higher revision number than the
+    // header.revision number.
     int64 revision = 3;
     // raft_term is the raft term when the request was applied.
     uint64 raft_term = 4;
@@ -360,16 +394,16 @@ message ResponseHeader {
 
 message RangeRequest {
     enum SortOrder {
-        NONE    = 0; // default, no sorting
-        ASCEND  = 1; // lowest target value first
+        NONE = 0;    // default, no sorting
+        ASCEND = 1;  // lowest target value first
         DESCEND = 2; // highest target value first
     }
     enum SortTarget {
-        KEY     = 0;
+        KEY = 0;
         VERSION = 1;
-        CREATE  = 2;
-        MOD     = 3;
-        VALUE   = 4;
+        CREATE = 2;
+        MOD = 3;
+        VALUE = 4;
     }
 
     // key is the first key for the range. If range_end is not given, the request only looks up key.
@@ -417,7 +451,7 @@ message RangeRequest {
     int64 max_mod_revision = 11;
 
     // min_create_revision is the lower bound for returned key create revisions; all keys with
-    // lesser create trevisions will be filtered away.
+    // lesser create revisions will be filtered away.
     int64 min_create_revision = 12;
 
     // max_create_revision is the upper bound for returned key create revisions; all keys with
@@ -490,36 +524,36 @@ message DeleteRangeResponse {
 message RequestOp {
     // request is a union of request types accepted by a transaction.
     oneof request {
-        RangeRequest request_range              = 1;
-        PutRequest request_put                  = 2;
+        RangeRequest request_range = 1;
+        PutRequest request_put = 2;
         DeleteRangeRequest request_delete_range = 3;
-        TxnRequest request_txn                  = 4;
+        TxnRequest request_txn = 4;
     }
 }
 
 message ResponseOp {
     // response is a union of response types returned by a transaction.
     oneof response {
-        RangeResponse response_range              = 1;
-        PutResponse response_put                  = 2;
+        RangeResponse response_range = 1;
+        PutResponse response_put = 2;
         DeleteRangeResponse response_delete_range = 3;
-        TxnResponse response_txn                  = 4;
+        TxnResponse response_txn = 4;
     }
 }
 
 message Compare {
     enum CompareResult {
-        EQUAL     = 0;
-        GREATER   = 1;
-        LESS      = 2;
+        EQUAL = 0;
+        GREATER = 1;
+        LESS = 2;
         NOT_EQUAL = 3;
     }
     enum CompareTarget {
         VERSION = 0;
-        CREATE  = 1;
-        MOD     = 2;
-        VALUE   = 3;
-        LEASE   = 4;
+        CREATE = 1;
+        MOD = 2;
+        VALUE = 3;
+        LEASE = 4;
     }
     // result is logical comparison operation for this comparison.
     CompareResult result = 1;
@@ -549,19 +583,19 @@ message Compare {
 
 // From google paxosdb paper:
 // Our implementation hinges around a powerful primitive which we call MultiOp. All other database
-// operations except for iteration are implemented as a single call to MultiOp. A MultiOp is applied
-// atomically and consists of three components:
-// 1. A list of tests called guard. Each test in guard checks a single entry in the database. It may
-// check for the absence or presence of a value, or compare with a given value. Two different tests
-// in the guard may apply to the same or different entries in the database. All tests in the guard
-// are applied and MultiOp returns the results. If all tests are true, MultiOp executes t op (see
-// item 2 below), otherwise it executes f op (see item 3 below).
-// 2. A list of database operations called t op. Each operation in the list is either an insert,
-// delete, or lookup operation, and applies to a single database entry. Two different operations in
-// the list may apply to the same or different entries in the database. These operations are
-// executed if guard evaluates to true.
-// 3. A list of database operations called f op. Like t op, but executed if guard evaluates to
-// false.
+// operations except for iteration are implemented as a single call to MultiOp. A MultiOp is applied atomically
+// and consists of three components:
+// 1. A list of tests called guard. Each test in guard checks a single entry in the database. It may check
+// for the absence or presence of a value, or compare with a given value. Two different tests in the guard
+// may apply to the same or different entries in the database. All tests in the guard are applied and
+// MultiOp returns the results. If all tests are true, MultiOp executes t op (see item 2 below), otherwise
+// it executes f op (see item 3 below).
+// 2. A list of database operations called t op. Each operation in the list is either an insert, delete, or
+// lookup operation, and applies to a single database entry. Two different operations in the list may apply
+// to the same or different entries in the database. These operations are executed
+// if guard evaluates to
+// true.
+// 3. A list of database operations called f op. Like t op, but executed if guard evaluates to false.
 message TxnRequest {
     // compare is a list of predicates representing a conjunction of terms.
     // If the comparisons succeed, then the success requests will be processed in order,
@@ -606,8 +640,7 @@ message HashKVRequest {
 
 message HashKVResponse {
     ResponseHeader header = 1;
-    // hash is the hash value computed from the responding member's MVCC keys up to a given
-    // revision.
+    // hash is the hash value computed from the responding member's MVCC keys up to a given revision.
     uint32 hash = 2;
     // compact_revision is the compacted revision of key-value store when hash begins.
     int64 compact_revision = 3;
@@ -631,6 +664,11 @@ message SnapshotResponse {
 
     // blob contains the next chunk of the snapshot in the snapshot stream.
     bytes blob = 3;
+
+    // local version of server that created the snapshot.
+    // In cluster with binaries with different version, each cluster can return different result.
+    // Informs which etcd server version should be used when restoring the snapshot.
+    string version = 4;
 }
 
 message WatchRequest {
@@ -638,20 +676,24 @@ message WatchRequest {
     oneof request_union {
         WatchCreateRequest create_request = 1;
         WatchCancelRequest cancel_request = 2;
+        WatchProgressRequest progress_request = 3;
     }
 }
 
 message WatchCreateRequest {
     // key is the key to register for watching.
     bytes key = 1;
+
     // range_end is the end of the range [key, range_end) to watch. If range_end is not given,
     // only the key argument is watched. If range_end is equal to '\0', all keys greater than
     // or equal to the key argument are watched.
     // If the range_end is one bit larger than the given key,
     // then all keys with the prefix (the given key) will be watched.
     bytes range_end = 2;
+
     // start_revision is an optional revision to watch from (inclusive). No start_revision is "now".
     int64 start_revision = 3;
+
     // progress_notify is set so that the etcd server will periodically send a WatchResponse with
     // no events to the new watcher if there are no recent events. It is useful when clients
     // wish to recover a disconnected watcher starting from a recent known revision.
@@ -664,12 +706,23 @@ message WatchCreateRequest {
         // filter out delete event.
         NODELETE = 1;
     }
+
     // filters filter the events at server side before it sends back to the watcher.
     repeated FilterType filters = 5;
 
     // If prev_kv is set, created watcher gets the previous KV before the event happens.
     // If the previous KV is already compacted, nothing will be returned.
     bool prev_kv = 6;
+
+    // If watch_id is provided and non-zero, it will be assigned to this watcher.
+    // Since creating a watcher in etcd is not a synchronous operation,
+    // this can be used ensure that ordering is correct when creating multiple
+    // watchers on the same stream. Creating a watcher with an ID already in
+    // use on the stream will cause an error to be returned.
+    int64 watch_id = 7;
+
+    // fragment enables splitting large revisions into multiple watch responses.
+    bool fragment = 8;
 }
 
 message WatchCancelRequest {
@@ -677,18 +730,25 @@ message WatchCancelRequest {
     int64 watch_id = 1;
 }
 
+// Requests the a watch stream progress status be sent in the watch response stream as soon as
+// possible.
+message WatchProgressRequest {}
+
 message WatchResponse {
     ResponseHeader header = 1;
     // watch_id is the ID of the watcher that corresponds to the response.
     int64 watch_id = 2;
+
     // created is set to true if the response is for a create watch request.
     // The client should record the watch_id and expect to receive events for
     // the created watcher from the same stream.
     // All events sent to the created watcher will attach with the same watch_id.
     bool created = 3;
+
     // canceled is set to true if the response is for a cancel watch request.
     // No further events will be sent to the canceled watcher.
     bool canceled = 4;
+
     // compact_revision is set to the minimum index if a watcher tries to watch
     // at a compacted index.
     //
@@ -701,6 +761,9 @@ message WatchResponse {
 
     // cancel_reason indicates the reason for canceling the watcher.
     string cancel_reason = 6;
+
+    // framgment is true if large watch response was split over multiple responses.
+    bool fragment = 7;
 
     repeated mvccpb.Event events = 11;
 }
@@ -717,7 +780,7 @@ message LeaseGrantResponse {
     // ID is the lease ID for the granted lease.
     int64 ID = 2;
     // TTL is the server chosen lease time-to-live in seconds.
-    int64 TTL    = 3;
+    int64 TTL = 3;
     string error = 4;
 }
 
@@ -727,6 +790,18 @@ message LeaseRevokeRequest {
 }
 
 message LeaseRevokeResponse { ResponseHeader header = 1; }
+
+message LeaseCheckpoint {
+    // ID is the lease ID to checkpoint.
+    int64 ID = 1;
+
+    // Remaining_TTL is the remaining time until expiry of the lease.
+    int64 remaining_TTL = 2;
+}
+
+message LeaseCheckpointRequest { repeated LeaseCheckpoint checkpoints = 1; }
+
+message LeaseCheckpointResponse { ResponseHeader header = 1; }
 
 message LeaseKeepAliveRequest {
     // ID is the lease ID for the lease to keep alive.
@@ -752,8 +827,7 @@ message LeaseTimeToLiveResponse {
     ResponseHeader header = 1;
     // ID is the lease ID from the keep alive request.
     int64 ID = 2;
-    // TTL is the remaining TTL in seconds for the lease; the lease will expire in under TTL+1
-    // seconds.
+    // TTL is the remaining TTL in seconds for the lease; the lease will expire in under TTL+1 seconds.
     int64 TTL = 3;
     // GrantedTTL is the initial granted time in seconds upon lease creation/renewal.
     int64 grantedTTL = 4;
@@ -769,26 +843,29 @@ message LeaseStatus {
 }
 
 message LeaseLeasesResponse {
-    ResponseHeader header       = 1;
+    ResponseHeader header = 1;
     repeated LeaseStatus leases = 2;
 }
 
 message Member {
     // ID is the member ID for this member.
     uint64 ID = 1;
-    // name is the human-readable name of the member. If the member is not started, the name will be
-    // an empty string.
+    // name is the human-readable name of the member. If the member is not started, the name will be an empty string.
     string name = 2;
     // peerURLs is the list of URLs the member exposes to the cluster for communication.
     repeated string peerURLs = 3;
-    // clientURLs is the list of URLs the member exposes to clients for communication. If the member
-    // is not started, clientURLs will be empty.
+    // clientURLs is the list of URLs the member exposes to clients for communication. If the member is not started,
+    // clientURLs will be empty.
     repeated string clientURLs = 4;
+    // isLearner indicates if the member is raft learner.
+    bool isLearner = 5;
 }
 
 message MemberAddRequest {
     // peerURLs is the list of URLs the added member will use to communicate with the cluster.
     repeated string peerURLs = 1;
+    // isLearner indicates if the added member is raft learner.
+    bool isLearner = 2;
 }
 
 message MemberAddResponse {
@@ -823,11 +900,22 @@ message MemberUpdateResponse {
     repeated Member members = 2;
 }
 
-message MemberListRequest {}
+message MemberListRequest { bool linearizable = 1; }
 
 message MemberListResponse {
     ResponseHeader header = 1;
     // members is a list of all members associated with the cluster.
+    repeated Member members = 2;
+}
+
+message MemberPromoteRequest {
+    // ID is the member ID of the member to promote.
+    uint64 ID = 1;
+}
+
+message MemberPromoteResponse {
+    ResponseHeader header = 1;
+    // members is a list of all members after promoting the member.
     repeated Member members = 2;
 }
 
@@ -843,15 +931,15 @@ message MoveLeaderRequest {
 message MoveLeaderResponse { ResponseHeader header = 1; }
 
 enum AlarmType {
-    NONE    = 0; // default, used to query if any alarm is active
+    NONE = 0;    // default, used to query if any alarm is active
     NOSPACE = 1; // space quota is exhausted
     CORRUPT = 2; // kv store corruption detected
 }
 
 message AlarmRequest {
     enum AlarmAction {
-        GET        = 0;
-        ACTIVATE   = 1;
+        GET = 0;
+        ACTIVATE = 1;
         DEACTIVATE = 2;
     }
     // action is the kind of alarm request to issue. The action
@@ -878,34 +966,67 @@ message AlarmResponse {
     repeated AlarmMember alarms = 2;
 }
 
+message DowngradeRequest {
+    enum DowngradeAction {
+        VALIDATE = 0;
+        ENABLE = 1;
+        CANCEL = 2;
+    }
+
+    // action is the kind of downgrade request to issue. The action may
+    // VALIDATE the target version, DOWNGRADE the cluster version,
+    // or CANCEL the current downgrading job.
+    DowngradeAction action = 1;
+    // version is the target version to downgrade.
+    string version = 2;
+}
+
+message DowngradeResponse {
+    ResponseHeader header = 1;
+    // version is the current cluster version.
+    string version = 2;
+}
+
 message StatusRequest {}
 
 message StatusResponse {
     ResponseHeader header = 1;
     // version is the cluster protocol version used by the responding member.
     string version = 2;
-    // dbSize is the size of the backend database, in bytes, of the responding member.
+    // dbSize is the size of the backend database physically allocated, in bytes, of the responding member.
     int64 dbSize = 3;
     // leader is the member ID which the responding member believes is the current leader.
     uint64 leader = 4;
-    // raftIndex is the current raft index of the responding member.
+    // raftIndex is the current raft committed index of the responding member.
     uint64 raftIndex = 5;
     // raftTerm is the current raft term of the responding member.
     uint64 raftTerm = 6;
+    // raftAppliedIndex is the current raft applied index of the responding member.
+    uint64 raftAppliedIndex = 7;
+    // errors contains alarm/health information and status.
+    repeated string errors = 8;
+    // dbSizeInUse is the size of the backend database logically in use, in bytes, of the responding member.
+    int64 dbSizeInUse = 9;
+    // isLearner indicates if the member is raft learner.
+    bool isLearner = 10;
 }
 
 message AuthEnableRequest {}
 
 message AuthDisableRequest {}
 
+message AuthStatusRequest {}
+
 message AuthenticateRequest {
-    string name     = 1;
+    string name = 1;
     string password = 2;
 }
 
 message AuthUserAddRequest {
-    string name     = 1;
+    string name = 1;
     string password = 2;
+    authpb.UserAddOptions options = 3;
+    string hashedPassword = 4;
 }
 
 message AuthUserGetRequest { string name = 1; }
@@ -918,8 +1039,10 @@ message AuthUserDeleteRequest {
 message AuthUserChangePasswordRequest {
     // name is the name of the user whose password is being changed.
     string name = 1;
-    // password is the new password for the user.
+    // password is the new password for the user. Note that this field will be removed in the API layer.
     string password = 2;
+    // hashedPassword is the new password for the user. Note that this field will be initialized in the API layer.
+    string hashedPassword = 3;
 }
 
 message AuthUserGrantRoleRequest {
@@ -955,14 +1078,21 @@ message AuthRoleGrantPermissionRequest {
 }
 
 message AuthRoleRevokePermissionRequest {
-    string role      = 1;
-    string key       = 2;
-    string range_end = 3;
+    string role = 1;
+    bytes key = 2;
+    bytes range_end = 3;
 }
 
 message AuthEnableResponse { ResponseHeader header = 1; }
 
 message AuthDisableResponse { ResponseHeader header = 1; }
+
+message AuthStatusResponse {
+    ResponseHeader header = 1;
+    bool enabled = 2;
+    // authRevision is the current revision of auth store
+    uint64 authRevision = 3;
+}
 
 message AuthenticateResponse {
     ResponseHeader header = 1;

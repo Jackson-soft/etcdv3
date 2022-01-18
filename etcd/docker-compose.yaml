@@ -1,0 +1,39 @@
+version: "3.7"
+
+services:
+    etcd:
+        image: gcr.azk8s.cn/etcd-development/etcd
+        container_name: "etcd"
+        ports:
+            - 2379:2379
+            - 2380:2380
+        volumes:
+            - ./certs/:/srv/
+            - ./docker/etcd:/etcd-data
+        environment:
+            ETCD_NAME: node1
+            ETCD_DATA_DIR: /etcd-data/etcd.etcd
+            ETCDCTL_API: 3
+            ETCD_DEBUG: 1
+            ETCD_INITIAL_ADVERTISE_PEER_URLS: http://etcd:2380
+            ETCD_LISTEN_CLIENT_URLS: http://0.0.0.0:2379
+            ETCD_LISTEN_PEER_URLS: http://0.0.0.0:2380
+            ETCD_ADVERTISE_CLIENT_URLS: http://etcd:2379
+        networks:
+            - default
+            - etcd_net
+
+    etcdkeeper:
+        image: evildecay/etcdkeeper
+        container_name: "etcdkeeper"
+        ports:
+            - 8080:8080
+        depends_on:
+            - etcd
+        networks:
+            - default
+            - etcd_net
+
+networks:
+    etcd_net:
+        external: true

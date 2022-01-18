@@ -1,6 +1,7 @@
 #pragma once
 
 #include "rpc.grpc.pb.h"
+
 #include <cstdint>
 #include <functional>
 #include <google/protobuf/message.h>
@@ -12,18 +13,15 @@
 #include <utility>
 #include <vector>
 
-namespace Uranus
-{
+namespace Uranus {
 // grpc 同步客户端
-class Client
-{
+class Client {
 public:
     // etcd call back
     using EtcdCallBack = std::function<void(const std::shared_ptr<google::protobuf::Message> &msg)>;
 
-public:
-    Client()  = delete;
-    ~Client() = default;
+    Client()           = delete;
+    ~Client()          = default;
 
     explicit Client(const std::shared_ptr<grpc::Channel> &channel) : mKV(etcdserverpb::KV::NewStub(channel)) {}
 
@@ -32,24 +30,23 @@ public:
     {
     }
 
-    // kv interface
-public:
-    grpc::Status Put(const std::string_view key, const std::string_view val, int ttl = 0)
+    // ------------------------ kv interface ---------------------------
+    auto put(std::string_view key, std::string_view val, const int ttl = 0) -> grpc::Status
     {
         etcdserverpb::PutRequest req;
         req.set_key(key.data());
         req.set_value(val.data());
         if (ttl > 0) {
-            auto id = Grant(ttl);
+            auto id = grant(ttl);
             req.set_lease(id);
         }
 
         etcdserverpb::PutResponse resp;
-        grpc::ClientContext ctx;
+        grpc::ClientContext       ctx;
         return mKV->Put(&ctx, req, &resp);
     }
 
-    std::int64_t Get(std::map<std::string, std::string> &result, const std::string_view key, bool withPrefix = false)
+    std::int64_t Get(std::map<std::string, std::string> &result, std::string_view key, const bool withPrefix = false)
     {
         etcdserverpb::RangeRequest req;
         req.set_key(key.data());
@@ -62,9 +59,9 @@ public:
         req.set_sort_order(etcdserverpb::RangeRequest_SortOrder::RangeRequest_SortOrder_ASCEND);
 
         etcdserverpb::RangeResponse resp;
-        grpc::ClientContext ctx;
+        grpc::ClientContext         ctx;
 
-        auto status = mKV->Range(&ctx, req, &resp);
+        auto                        status = mKV->Range(&ctx, req, &resp);
         if (status.ok()) {
             result.clear();
             for (int i = 0; i < resp.kvs_size(); ++i) {
@@ -75,7 +72,7 @@ public:
         return 0;
     }
 
-    std::int64_t Delete(const std::string_view key, bool withPrefix = false)
+    std::int64_t Delete(std::string_view key, bool withPrefix = false)
     {
         etcdserverpb::DeleteRangeRequest req;
         req.set_key(key.data());
@@ -84,9 +81,9 @@ public:
         }
 
         etcdserverpb::DeleteRangeResponse resp;
-        grpc::ClientContext ctx;
+        grpc::ClientContext               ctx;
 
-        auto status = mKV->DeleteRange(&ctx, req, &resp);
+        auto                              status = mKV->DeleteRange(&ctx, req, &resp);
         if (status.ok()) {
             return resp.deleted();
         }
@@ -98,15 +95,15 @@ public:
         etcdserverpb::CompactionRequest req;
         req.set_revision(rev);
 
-        grpc::ClientContext ctx;
+        grpc::ClientContext              ctx;
         etcdserverpb::CompactionResponse resp;
         mKV->Compact(&ctx, req, &resp);
     }
 
-    // lease interface
-public:
+    // -------------------   lease interface --------------------------
+
     // return lease id
-    std::int64_t Grant(std::int64_t ttl)
+    auto grant(const std::int64_t ttl) -> std::int64_t
     {
         if (ttl <= 0) {
             return 0;
@@ -114,47 +111,47 @@ public:
         etcdserverpb::LeaseGrantRequest req;
         req.set_ttl(ttl);
 
-        grpc::ClientContext ctx;
+        grpc::ClientContext              ctx;
         etcdserverpb::LeaseGrantResponse resp;
-        auto status = mLease->LeaseGrant(&ctx, req, &resp);
+        auto                             status = mLease->LeaseGrant(&ctx, req, &resp);
         if (status.ok()) {
             return resp.id();
         }
         return 0;
     }
 
-    bool Revoke(std::int64_t id)
+    auto revoke(std::int64_t id) -> bool
     {
         etcdserverpb::LeaseRevokeRequest req;
         req.set_id(id);
 
-        grpc::ClientContext ctx;
+        grpc::ClientContext               ctx;
         etcdserverpb::LeaseRevokeResponse resp;
-        auto status = mLease->LeaseRevoke(&ctx, req, &resp);
+        auto                              status = mLease->LeaseRevoke(&ctx, req, &resp);
 
         return status.ok();
     }
 
-    bool TimeToLive(std::int64_t id, bool keys = false)
+    auto timeToLive(std::int64_t id, bool keys = false) -> bool
     {
         etcdserverpb::LeaseTimeToLiveRequest req;
         req.set_id(id);
         req.set_keys(keys);
 
-        grpc::ClientContext ctx;
+        grpc::ClientContext                   ctx;
         etcdserverpb::LeaseTimeToLiveResponse resp;
 
-        auto status = mLease->LeaseTimeToLive(&ctx, req, &resp);
+        auto                                  status = mLease->LeaseTimeToLive(&ctx, req, &resp);
         return status.ok();
     }
 
     bool Leases(std::vector<std::int64_t> &result)
     {
-        etcdserverpb::LeaseLeasesRequest req;
+        etcdserverpb::LeaseLeasesRequest  req;
 
-        grpc::ClientContext ctx;
+        grpc::ClientContext               ctx;
         etcdserverpb::LeaseLeasesResponse resp;
-        auto status = mLease->LeaseLeases(&ctx, req, &resp);
+        auto                              status = mLease->LeaseLeases(&ctx, req, &resp);
         if (status.ok()) {
             result.clear();
             for (auto i = 0; i < resp.leases_size(); ++i) {
@@ -171,9 +168,8 @@ public:
 
     void CloseLease() {}
 
-    // watch interface
-public:
-    void Watch(const EtcdCallBack &callBack, const std::string_view key, std::int64_t start = 0, bool prefix = false)
+    // --------------------------------- watch interface -----------------------------
+    void Watch(const EtcdCallBack &callBack, std::string_view key, std::int64_t start = 0, bool prefix = false)
     {
         etcdserverpb::WatchRequest req;
         req.mutable_create_request()->set_key(key.data());
@@ -183,36 +179,34 @@ public:
             req.mutable_create_request()->set_range_end(getPrefix(key));
         }
 
-        grpc::ClientContext ctx;
+        grpc::ClientContext         ctx;
         etcdserverpb::WatchResponse resp;
         // grpc::CompletionQueue cq;
         // mWatch->AsyncWatch(&ctx, &cq, (void *)1);
-        auto stream = mWatch->Watch(&ctx);
+        auto                        stream = mWatch->Watch(&ctx);
         stream->Write(req);
         stream->WritesDone();
-        while (stream->Read(&resp)) {
-        }
+        while (stream->Read(&resp)) {}
     }
 
     void CloseWatch() {}
 
 private:
     // 获取range_end
-    std::string getPrefix(const std::string_view key)
+    auto getPrefix(std::string_view key) -> std::string
     {
         std::string rangeEnd{key};
-        int ascii       = static_cast<int>(rangeEnd.at(rangeEnd.length() - 1));
-        char end        = static_cast<char>(ascii + 1);
-        rangeEnd.back() = end;
+        int         ascii = static_cast<int>(rangeEnd.at(rangeEnd.length() - 1));
+        char        end   = static_cast<char>(ascii + 1);
+        rangeEnd.back()   = end;
         return rangeEnd;
     }
 
-private:
-    std::unique_ptr<etcdserverpb::KV::Stub> mKV;
+    std::unique_ptr<etcdserverpb::KV::Stub>    mKV;
     std::unique_ptr<etcdserverpb::Lease::Stub> mLease;
     std::unique_ptr<etcdserverpb::Watch::Stub> mWatch;
 
-    std::string mUserName;
-    std::string mPassword;
+    std::string                                mUserName;
+    std::string                                mPassword;
 };
 }  // namespace Uranus
