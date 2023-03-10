@@ -1,0 +1,9 @@
+{
+    "version": 4,
+    "vendor": {
+        "conan": {}
+    },
+    "include": [
+        "/Users/jacksoncy/code/c/etcdv3/build/CMakePresets.json"
+    ]
+}

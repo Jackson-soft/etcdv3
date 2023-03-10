@@ -18,14 +18,13 @@ protobuf_generate_latest(
     PROTOS
     ${PROTO_SRCS})
 compute_generated_srcs(PROTO_GENERATES_SRCS "${PROTO_GEN_OUT_DIR}" false
-                       ${PROTO_SRCS})
+    ${PROTO_SRCS})
 
-set(PROTO_GRPC_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/rpc.proto"
-                    "${CMAKE_CURRENT_SOURCE_DIR}/v3lock.proto")
+set(PROTO_GRPC_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/rpc.proto" "${CMAKE_CURRENT_SOURCE_DIR}/v3lock.proto")
 grpc_generate_cpp(PROTO_GRPC_GENERATES PROTO_GRPC_GENERATES_HDRS
-                  "${PROTO_GEN_OUT_DIR}" ${PROTO_GRPC_SRCS})
+    "${PROTO_GEN_OUT_DIR}" ${PROTO_GRPC_SRCS})
 compute_generated_srcs(PROTO_GRPC_GENERATES_SRCS "${PROTO_GEN_OUT_DIR}" true
-                       ${PROTO_GRPC_SRCS})
+    ${PROTO_GRPC_SRCS})
 
 # populate `PROTOBUF_GENERATES` in the parent scope.
 set(PROTOBUF_GENERATE_DEPS)
@@ -39,8 +38,6 @@ foreach(cxx_file ${PROTO_GRPC_GENERATES})
 endforeach()
 
 set(PROTOBUF_GENERATES ${PROTO_GENERATES_SRCS} ${PROTO_GRPC_GENERATES_SRCS})
-set(PROTOBUF_GENERATES
-    ${PROTOBUF_GENERATES}
-    PARENT_SCOPE)
+set(PROTOBUF_GENERATES ${PROTOBUF_GENERATES} PARENT_SCOPE)
 set_source_files_properties(${PROTOBUF_GENERATES} PROPERTIES GENERATED TRUE)
 add_custom_target(protobuf_generates DEPENDS ${PROTOBUF_GENERATE_DEPS})
